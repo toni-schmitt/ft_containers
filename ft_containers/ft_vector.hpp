@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "ft_random_access_iterator.hpp"
 
 namespace ft
 {
@@ -14,7 +15,7 @@ namespace ft
 		typedef const_reference allocator_type::const_reference;
 		typedef pointer allocator_type::pointer;
 		typedef const_pointer allocator_type::const_pointer;
-		// typedef iterator ...;
+		typedef iterator ft::random_access_iterator<value_type>;
 		// typedef const_iterator ...;
 		// typedef reverse_iterator ...;
 		// typedef const_reverse_iterator ...;
