@@ -16,7 +16,7 @@ namespace ft
 		typedef allocator_type::pointer pointer;
 		typedef allocator_type::const_pointer const_pointer;
 		typedef ft::random_access_iterator<value_type> iterator;
-		// typedef const_iterator ...;
+		typedef ft::random_access_iterator<const value_type> const_iterator;
 		// typedef reverse_iterator ...;
 		// typedef const_reverse_iterator ...;
 		typedef ptrdiff_t difference_type;
