@@ -9,13 +9,13 @@ namespace ft
 	class forward_iterator
 	{
 		/* Iterator Tags ( == Member Types? ) */
-		typedef iterator_category = std::forward_iterator_tag;
-		typedef difference_type = std::ptrdiff_t;
-		typedef value_type = T;
-		typedef reference = &value_type;
-		typedef const_reference = const & value_type;
-		typedef pointer = *value_type;
-		typedef const_pointer = const * value_type;
+		using iterator_category = std::forward_iterator_tag;
+		using difference_type = std::ptrdiff_t;
+		using value_type = T;
+		using reference = &value_type;
+		using const_reference = const & value_type;
+		using pointer = *value_type;
+		using const_pointer = const * value_type;
 
 		/* Constructors: */
 		forward_iterator() : _ptr(NULL);
