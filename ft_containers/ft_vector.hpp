@@ -28,45 +28,42 @@ namespace ft
 	private:
 		size_type _capacity;
 		allocator_type _alloc;
-        struct Content
-        {
-            pointer _start;
-            pointer _end;
-        }  _content;
-
+		struct Content
+		{
+			pointer _start;
+			pointer _end;
+		} _content;
 
 		/* Constructors */
 	public:
 		explicit vector(const allocator_type &alloc = allocator_type()) : _capacity(), _alloc(alloc), _content() {}
 		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) : _capacity(n), _alloc(alloc)
-        {
-            this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
-            for (size_type i = 0; i < this->_capacity; ++i, ++this->_content._end)
-            {
-                this->_alloc.construct(this->_content._end, val);
-                ++this->_content._end;
-            }
-        }
+		{
+			this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
+			for (size_type i = 0; i < this->_capacity; ++i, ++this->_content._end)
+			{
+				this->_alloc.construct(this->_content._end, val);
+				++this->_content._end;
+			}
+		}
 		template <class InputIterator>
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type());
 		vector(const vector &x) : _capacity(x.capacity()), _alloc(x.get_allocator()), _content()
-        {
-            this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
-            for (size_type i = 0; i < this->_capacity; ++i)
-            {
-                this->_alloc.construct(this->_content._end, x[i]);
-                ++this->_content._end;
-            }
-        }
-
+		{
+			this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
+			for (size_type i = 0; i < this->_capacity; ++i)
+			{
+				this->_alloc.construct(this->_content._end, x[i]);
+				++this->_content._end;
+			}
+		}
 
 		/* Destructors */
 	public:
 		~vector()
-        {
-            this->_alloc.deallocate(this->_content._start, this->_capacity);
-        }
-
+		{
+			this->_alloc.deallocate(this->_content._start, this->_capacity);
+		}
 
 		/* Public Member Functions */
 
@@ -84,7 +81,6 @@ namespace ft
 		reverse_iterator rend();
 		const_reverse_iterator rend() const;
 
-
 		/* Capacity functions */
 	public:
 		size_type size() const;
@@ -96,7 +92,6 @@ namespace ft
 		void resize(size_type n, value_type val = value_type());
 
 		void reserve(size_type n);
-
 
 		/* Element access functions */
 	public:
@@ -111,7 +106,6 @@ namespace ft
 
 		reference back();
 		const_reference back() const;
-
 
 		/* Modifiers functions */
 	public:
@@ -134,14 +128,10 @@ namespace ft
 
 		void clear();
 
-
 		/* Allocator functions */
 	public:
 		allocator_type get_allocator() const;
-
-
 	};
-
 
 	/* Relational Operators Overload */
 	template <class T, class Alloc>
