@@ -54,11 +54,16 @@ namespace ft
 			return tmp;
 		}
 
-		/* Comparison Operators */
-		friend bool operator==(const forward_iterator &a, const forward_iterator &b) { return a._ptr == b._ptr; }
-		friend bool operator!=(const forward_iterator &a, const forward_iterator &b) { return a._ptr != b._ptr; }
+		/* Member Functions */
+		pointer base() const { return this->_ptr; }
 
 	protected:
 		pointer _ptr;
 	};
+
+	/* Comparison Operators */
+	template <class T>
+	bool operator==(const forward_iterator<T> &lhs, const forward_iterator<T> &rhs) { return lhs.base() == rhs.base(); }
+	template <class T>
+	bool operator!=(const forward_iterator<T> &lhs, const forward_iterator<T> &rhs) { return lhs.base() != rhs.base(); }
 } // namespace ft

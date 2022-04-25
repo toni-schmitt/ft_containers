@@ -30,13 +30,7 @@ namespace ft
 		/* Arithretmic Operators */
 		random_access_iterator operator+(difference_type n) const { return this->_ptr + n; }
 		random_access_iterator operator-(difference_type n) const { return this->_ptr - n; }
-		difference_type operator-(const random_access_iterator &b) const { return this->_ptr - b_ptr; }
-
-		/* Comparison Operators */
-		friend bool operator<(const random_access_iterator &a, const random_access_iterator &b) { return a._ptr < b._ptr; }
-		friend bool operator>(const random_access_iterator &a, const random_access_iterator &b) { return a._ptr > b._ptr; }
-		friend bool operator>=(const random_access_iterator &a, const random_access_iterator &b) { return a._ptr >= b._ptr; }
-		friend bool operator<=(const random_access_iterator &a, const random_access_iterator &b) { return a._ptr <= b._ptr; }
+		difference_type operator-(const random_access_iterator &b) const { return this->_ptr - b.base(); }
 
 		/* Compound Assignment Operators */
 		random_access_iterator operator+=(difference_type n)
@@ -53,4 +47,14 @@ namespace ft
 		/* Offset Compound Operator */
 		reference operator[](difference_type n) const { return this->_ptr[n]; }
 	};
+
+	/* Comparison Operators */
+	template <class T>
+	bool operator<(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs) { return lhs.base() < rhs.base(); }
+	template <class T>
+	bool operator>(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs) { return lhs.base() > rhs.base(); }
+	template <class T>
+	bool operator<=(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs) { return lhs.base() <= rhs.base(); }
+	template <class T>
+	bool operator>=(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs) { return lhs.base() >= rhs.base(); }
 } // namespace ft
