@@ -35,20 +35,16 @@ namespace ft
 
 #pragma region Constructors
 		/* Constructors */
-
 		explicit vector(const allocator_type &alloc = allocator_type());
 		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type());
 		template <class InputIterator>
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type());
 		vector(const vector &x);
-
 #pragma endregion
 
 #pragma region Destructors
 		/* Destructors */
-
 		~vector();
-
 #pragma endregion
 
 #pragma region Public Member Functions
@@ -121,16 +117,16 @@ namespace ft
 		iterator erase(iterator position);
 		iterator erase(iterator first, iterator last);
 
-		void clear();
-
 		void swap(vector &x);
+
+		void clear();
 
 #pragma endregion
 
 #pragma region Allocator
 		/* Allocator functions */
 
-		allocator_type get_allocator() const { return allocator_type; }
+		allocator_type get_allocator() const;
 
 #pragma endregion
 
