@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iterator>
-#include <stddef.h>
+#include <cstddef>
 #include "ft_forward_iterator.hpp"
 #include "ft_iterator_traits.hpp"
 
@@ -21,7 +21,7 @@ namespace ft
 
 		/* Constructors: */
 		bidirectional_iterator() : forward_iterator<T>() {}
-		bidirectional_iterator(pointer ptr) : forward_iterator<T>(ptr) {}
+		explicit bidirectional_iterator(pointer ptr) : forward_iterator<T>(ptr) {}
 		bidirectional_iterator(const bidirectional_iterator &cpy) : forward_iterator<T>(cpy) {}
 
 		/* Destructors: */

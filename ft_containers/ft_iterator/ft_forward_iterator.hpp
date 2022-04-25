@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iterator>
-#include <stddef.h>
+#include <cstddef>
 #include "ft_iterator_traits.hpp"
 
 namespace ft
@@ -20,7 +20,7 @@ namespace ft
 
 		/* Constructors: */
 		forward_iterator() : _ptr(NULL) {};
-		forward_iterator(pointer ptr) : _ptr(ptr) {};
+		explicit forward_iterator(pointer ptr) : _ptr(ptr) {};
 		forward_iterator(const forward_iterator &cpy) : _ptr(cpy._ptr) {};
 
 		/* Destructors: */

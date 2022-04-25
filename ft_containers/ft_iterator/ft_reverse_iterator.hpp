@@ -19,7 +19,7 @@ namespace ft
 		reverse_iterator() : _baseIter() {}
 		explicit reverse_iterator(iterator_type it) : _baseIter(it) {}
 		template <class Iter>
-		reverse_iterator(const reverse_iterator<Iter> &copy) : _baseIter(copy.base()) {}
+		explicit reverse_iterator(const reverse_iterator<Iter> &copy) : _baseIter(copy.base()) {}
 
 		/* Deconstrutors */
 		~reverse_iterator();

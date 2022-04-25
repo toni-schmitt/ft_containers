@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iterator>
-#include <stddef.h>
+#include <cstddef>
 #include "ft_bidirectional_iterator.hpp"
 #include "ft_iterator_traits.hpp"
 
@@ -21,7 +21,7 @@ namespace ft
 
 		/* Constructors: */
 		random_access_iterator() : bidirectional_iterator<T>(NULL) {}
-		random_access_iterator(pointer ptr) : bidirectional_iterator<T>(ptr) {}
+		explicit random_access_iterator(pointer ptr) : bidirectional_iterator<T>(ptr) {}
 		random_access_iterator(const random_access_iterator &cpy) : bidirectional_iterator<T>(cpy) {}
 
 		/* Destructors: */
