@@ -9,7 +9,6 @@ namespace ft
 	template <class T, class Alloc = std::allocator<T> >
 	class vector
 	{
-#pragma region Member Types
 		/* Member Types */
 	public:
 		typedef T value_type;
@@ -24,17 +23,13 @@ namespace ft
 		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 		typedef ptrdiff_t difference_type;
 		typedef size_t size_type;
-#pragma endregion
 
-#pragma region Private Members
 		/* Private Members */
 	private:
 		size_type _capacity;
 		allocator_type _alloc;
 
-#pragma endregion
 
-#pragma region Constructors
 		/* Constructors */
 	public:
 		explicit vector(const allocator_type &alloc = allocator_type());
@@ -43,19 +38,14 @@ namespace ft
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type());
 		vector(const vector &x);
 
-#pragma endregion
 
-#pragma region Destructors
 		/* Destructors */
 	public:
 		~vector();
 
-#pragma endregion
 
-#pragma region Public Member Functions
 		/* Public Member Functions */
 
-#pragma region Iterators
 		/* Iterator functions */
 	public:
 		iterator begin();
@@ -70,9 +60,7 @@ namespace ft
 		reverse_iterator rend();
 		const_reverse_iterator rend() const;
 
-#pragma endregion
 
-#pragma region Capacity
 		/* Capacity functions */
 	public:
 		size_type size() const;
@@ -85,9 +73,7 @@ namespace ft
 
 		void reserve(size_type n);
 
-#pragma endregion
 
-#pragma region Element access
 		/* Element access functions */
 	public:
 		reference operator[](size_type n);
@@ -102,9 +88,7 @@ namespace ft
 		reference back();
 		const_reference back() const;
 
-#pragma endregion
 
-#pragma region Modifiers
 		/* Modifiers functions */
 	public:
 		template <class InputIterator>
@@ -126,19 +110,14 @@ namespace ft
 
 		void clear();
 
-#pragma endregion
 
-#pragma region Allocator
 		/* Allocator functions */
 	public:
 		allocator_type get_allocator() const;
 
-#pragma endregion
 
-#pragma endregion
 	};
 
-#pragma region Non member function overloads
 
 	/* Relational Operators Overload */
 	template <class T, class Alloc>
@@ -163,5 +142,4 @@ namespace ft
 	template <class T, class Alloc>
 	void swap(vector<T, Alloc> &x, vector<T, Alloc> &y);
 
-#pragma endregion
 } // namespace ft
