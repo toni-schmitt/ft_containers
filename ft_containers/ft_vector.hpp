@@ -40,9 +40,8 @@ namespace ft
 		explicit vector(const allocator_type &alloc = allocator_type()) : _capacity(), _alloc(alloc), _content() {}
 		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) : _capacity(n), _alloc(alloc)
         {
-            this->_content._start = this->_alloc.allocate(this->_capacity);
-            this->_content._end = this->_content._start;
-            for (size_type i = 0; i < this->_capacity; ++i)
+            this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
+            for (size_type i = 0; i < this->_capacity; ++i, ++this->_content._end)
             {
                 this->_alloc.construct(this->_content._end, val);
                 ++this->_content._end;
@@ -50,7 +49,15 @@ namespace ft
         }
 		template <class InputIterator>
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type());
-		vector(const vector &x);
+		vector(const vector &x) : _capacity(x.capacity()), _alloc(x.get_allocator()), _content()
+        {
+            this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
+            for (size_type i = 0; i < this->_capacity; ++i)
+            {
+                this->_alloc.construct(this->_content._end, x[i]);
+                ++this->_content._end;
+            }
+        }
 
 
 		/* Destructors */
