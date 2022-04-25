@@ -55,7 +55,10 @@ namespace ft
 
 		/* Destructors */
 	public:
-		~vector();
+		~vector()
+        {
+            this->_alloc.deallocate(this->_content._start, this->_capacity);
+        }
 
 
 		/* Public Member Functions */
