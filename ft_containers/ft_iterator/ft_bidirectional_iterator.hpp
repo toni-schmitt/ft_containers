@@ -8,21 +8,21 @@
 namespace ft
 {
 	template <class T>
-	class bidirectional_iterator : public forward_iterator
+	class bidirectional_iterator : public forward_iterator<T>
 	{
 		/* Iterator Tags ( == Member Types? ) */
 		typedef bidirectional_iterator_tag iterator_category;
 		typedef ptrdiff_t difference_type;
 		typedef T value_type;
-		typedef &value_type reference;
-		typedef const &value_type const_reference;
-		typedef *value_type pointer;
-		typedef const *value_type const_pointer;
+		typedef value_type& reference;
+		typedef const value_type& const_reference;
+		typedef value_type* pointer;
+		typedef const value_type* const_pointer;
 
 		/* Constructors: */
-		bidirectional_iterator() : forward_iterator();
-		bidirectional_iterator(pointer ptr) : forward_iterator(ptr);
-		bidirectional_iterator(const bidirectional_iterator &cpy) : forward_iterator(cpy);
+		bidirectional_iterator() : forward_iterator<T>() {}
+		bidirectional_iterator(pointer ptr) : forward_iterator<T>(ptr) {}
+		bidirectional_iterator(const bidirectional_iterator &cpy) : forward_iterator<T>(cpy) {}
 
 		/* Destructors: */
 		~bidirectional_iterator();

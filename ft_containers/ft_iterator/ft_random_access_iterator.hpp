@@ -14,15 +14,15 @@ namespace ft
 		typedef random_access_iterator_tag iterator_category;
 		typedef ptrdiff_t difference_type;
 		typedef T value_type;
-		typedef &value_type reference;
-		typedef const &value_type const_reference;
-		typedef *value_type pointer;
-		typedef const *value_type const_pointer;
+		typedef value_type& reference;
+		typedef const value_type& const_reference;
+		typedef value_type* pointer;
+		typedef const value_type* const_pointer;
 
 		/* Constructors: */
-		random_access_iterator() : bidirectional_iterator(NULL);
-		random_access_iterator(pointer ptr) : bidirectional_iterator(ptr);
-		random_access_iterator(const random_access_iterator &cpy) : bidirectional_iterator(cpy);
+		random_access_iterator() : bidirectional_iterator<T>(NULL) {}
+		random_access_iterator(pointer ptr) : bidirectional_iterator<T>(ptr) {}
+		random_access_iterator(const random_access_iterator &cpy) : bidirectional_iterator<T>(cpy) {}
 
 		/* Destructors: */
 		~random_access_iterator();

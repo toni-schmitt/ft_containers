@@ -9,17 +9,17 @@ namespace ft
 	{
 		/* Member Types */
 		typedef Iterator iterator_type;
-		typedef iterator_traits<iterator_type>::iterator_category iterator_category;
-		typedef iterator_traits<iterator_type>::value_type value_type;
-		typedef iterator_traits<iterator_type>::difference_type difference_type;
-		typedef iterator_traits<iterator_type>::pointer pointer;
-		typedef iterator_traits<iterator_type>::reference reference;
+		typedef typename iterator_traits<iterator_type>::iterator_category iterator_category;
+		typedef typename iterator_traits<iterator_type>::value_type value_type;
+		typedef typename iterator_traits<iterator_type>::difference_type difference_type;
+		typedef typename iterator_traits<iterator_type>::pointer pointer;
+		typedef typename iterator_traits<iterator_type>::reference reference;
 
 		/* Constructors */
-		reverse_iterator() : _baseIter();
-		explicit reverse_iterator(iterator_type it) : _baseIter(it);
+		reverse_iterator() : _baseIter() {}
+		explicit reverse_iterator(iterator_type it) : _baseIter(it) {}
 		template <class Iter>
-		reverse_iterator(const reverse_iterator<Iter> &copy) : _baseIter(copy.base());
+		reverse_iterator(const reverse_iterator<Iter> &copy) : _baseIter(copy.base()) {}
 
 		/* Deconstrutors */
 		~reverse_iterator();

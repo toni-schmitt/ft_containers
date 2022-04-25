@@ -10,18 +10,18 @@ namespace ft
 	class forward_iterator
 	{
 		/* Iterator Tags ( == Member Types? ) */
-		typedef forward_iterator_tag iterator_category;
+		typedef ft::forward_iterator_tag iterator_category;
 		typedef ptrdiff_t difference_type;
 		typedef T value_type;
-		typedef &value_type reference;
-		typedef const &value_type const_reference;
-		typedef *value_type pointer;
-		typedef const *value_type const_pointer;
+		typedef value_type& reference;
+		typedef const value_type& const_reference;
+		typedef value_type* pointer;
+		typedef const value_type* const_pointer;
 
 		/* Constructors: */
-		forward_iterator() : _ptr(NULL);
-		forward_iterator(pointer ptr) : _ptr(ptr);
-		forward_iterator(const forward_iterator &cpy) : _ptr(cpy._ptr);
+		forward_iterator() : _ptr(NULL) {};
+		forward_iterator(pointer ptr) : _ptr(ptr) {};
+		forward_iterator(const forward_iterator &cpy) : _ptr(cpy._ptr) {};
 
 		/* Destructors: */
 		~forward_iterator();
