@@ -128,4 +128,31 @@ namespace ft
 
 #pragma endregion
 	};
+
+#pragma region Non member function overloads
+
+	/* Relational Operators Overload */
+	template <class T, class Alloc>
+	bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs);
+
+	template <class T, class Alloc>
+	bool operator!=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs);
+
+	template <class T, class Alloc>
+	bool operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs);
+
+	template <class T, class Alloc>
+	bool operator<=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs);
+
+	template <class T, class Alloc>
+	bool operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs);
+
+	template <class T, class Alloc>
+	bool operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs);
+
+	/* Swap */
+	template <class T, class Alloc>
+	void swap(vector<T, Alloc> &x, vector<T, Alloc> &y);
+
+#pragma endregion
 } // namespace ft
