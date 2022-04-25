@@ -11,6 +11,7 @@ namespace ft
 	{
 #pragma region Member Types
 		/* Member Types */
+	public:
 		typedef T value_type;
 		typedef Alloc allocator_type;
 		typedef allocator_type::reference reference;
@@ -27,7 +28,7 @@ namespace ft
 
 #pragma region Private Members
 		/* Private Members */
-
+	private:
 		size_type _capacity;
 		allocator_type _alloc;
 
@@ -35,16 +36,20 @@ namespace ft
 
 #pragma region Constructors
 		/* Constructors */
+	public:
 		explicit vector(const allocator_type &alloc = allocator_type());
 		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type());
 		template <class InputIterator>
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type());
 		vector(const vector &x);
+
 #pragma endregion
 
 #pragma region Destructors
 		/* Destructors */
+	public:
 		~vector();
+
 #pragma endregion
 
 #pragma region Public Member Functions
@@ -52,7 +57,7 @@ namespace ft
 
 #pragma region Iterators
 		/* Iterator functions */
-
+	public:
 		iterator begin();
 		const_iterator begin() const;
 
@@ -69,7 +74,7 @@ namespace ft
 
 #pragma region Capacity
 		/* Capacity functions */
-
+	public:
 		size_type size() const;
 		size_type max_size() const { return this->_alloc.max_size(); }
 		size_type capacity() const { return this->_capacity; }
@@ -84,7 +89,7 @@ namespace ft
 
 #pragma region Element access
 		/* Element access functions */
-
+	public:
 		reference operator[](size_type n);
 		const_reference operator[](size_type n) const;
 
@@ -101,7 +106,7 @@ namespace ft
 
 #pragma region Modifiers
 		/* Modifiers functions */
-
+	public:
 		template <class InputIterator>
 		void assign(InputIterator first, InputIterator last);
 		void assign(size_type n, const value_type &val);
@@ -125,7 +130,7 @@ namespace ft
 
 #pragma region Allocator
 		/* Allocator functions */
-
+	public:
 		allocator_type get_allocator() const;
 
 #pragma endregion
