@@ -2,6 +2,7 @@
 
 #include <iterator>
 #include <stddef.h>
+#include "ft_iterator_traits.hpp"
 
 namespace ft
 {
@@ -9,13 +10,13 @@ namespace ft
 	class forward_iterator
 	{
 		/* Iterator Tags ( == Member Types? ) */
-		using iterator_category = std::forward_iterator_tag;
-		using difference_type = std::ptrdiff_t;
-		using value_type = T;
-		using reference = &value_type;
-		using const_reference = const & value_type;
-		using pointer = *value_type;
-		using const_pointer = const * value_type;
+		typedef forward_iterator_tag iterator_category;
+		typedef ptrdiff_t difference_type;
+		typedef T value_type;
+		typedef &value_type reference;
+		typedef const &value_type const_reference;
+		typedef *value_type pointer;
+		typedef const *value_type const_pointer;
 
 		/* Constructors: */
 		forward_iterator() : _ptr(NULL);
