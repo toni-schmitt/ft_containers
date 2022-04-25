@@ -25,6 +25,14 @@ namespace ft
 		typedef size_t size_type;
 #pragma endregion
 
+#pragma region Private Members
+		/* Private Members */
+
+		size_type _capacity;
+		allocator_type _alloc;
+
+#pragma endregion
+
 #pragma region Constructors
 		/* Constructors */
 
@@ -67,8 +75,8 @@ namespace ft
 		/* Capacity functions */
 
 		size_type size() const;
-		size_type max_size() const;
-		size_type capacity() const;
+		size_type max_size() const { return this->_alloc.max_size(); }
+		size_type capacity() const { return this->_capacity; }
 
 		bool empty() const;
 
