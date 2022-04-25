@@ -28,12 +28,26 @@ namespace ft
 	private:
 		size_type _capacity;
 		allocator_type _alloc;
+        struct Content
+        {
+            pointer _start;
+            pointer _end;
+        }  _content;
 
 
 		/* Constructors */
 	public:
-		explicit vector(const allocator_type &alloc = allocator_type()) : _capacity(), _alloc(alloc) {}
-		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type());
+		explicit vector(const allocator_type &alloc = allocator_type()) : _capacity(), _alloc(alloc), _content() {}
+		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) : _capacity(n), _alloc(alloc)
+        {
+            this->_content._start = this->_alloc.allocate(this->_capacity);
+            this->_content._end = this->_content._start;
+            for (size_type i = 0; i < this->_capacity; ++i)
+            {
+                this->_alloc.construct(this->_content._end, val);
+                ++this->_content._end;
+            }
+        }
 		template <class InputIterator>
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type());
 		vector(const vector &x);
