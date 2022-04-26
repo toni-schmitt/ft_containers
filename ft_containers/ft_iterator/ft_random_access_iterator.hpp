@@ -7,8 +7,8 @@
 
 namespace ft
 {
-	template <class T>
-	class random_access_iterator : public bidirectional_iterator<T>
+	template <class T, class Container>
+	class random_access_iterator : public bidirectional_iterator<T, Container>
 	{
 	public:
 		/* Iterator Tags ( == Member Types? ) */
@@ -22,9 +22,9 @@ namespace ft
 
 	public:
 		/* Constructors: */
-		random_access_iterator() : bidirectional_iterator<T>(NULL) {}
-		explicit random_access_iterator(pointer ptr) : bidirectional_iterator<T>(ptr) {}
-		random_access_iterator(const random_access_iterator &cpy) : bidirectional_iterator<T>(cpy) {}
+		random_access_iterator() : bidirectional_iterator<T, Container>(NULL) {}
+		explicit random_access_iterator(pointer ptr) : bidirectional_iterator<T, Container>(ptr) {}
+		random_access_iterator(const random_access_iterator<typename Container::value_type, Container> &cpy) : bidirectional_iterator<T, Container>(cpy) {}
 
 	public:
 		/* Destructors: */
@@ -55,12 +55,31 @@ namespace ft
 	};
 
 	/* Comparison Operators */
-	template <class T>
-	bool operator<(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs) { return lhs.base() < rhs.base(); }
-	template <class T>
-	bool operator>(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs) { return lhs.base() > rhs.base(); }
-	template <class T>
-	bool operator<=(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs) { return lhs.base() <= rhs.base(); }
-	template <class T>
-	bool operator>=(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs) { return lhs.base() >= rhs.base(); }
+	template <class T, class Container>
+	bool operator<(const random_access_iterator<T, Container> &lhs, const random_access_iterator<T, Container> &rhs) { return lhs.base() < rhs.base(); }
+	template <class T, class Container>
+	bool operator<(const random_access_iterator<const typename Container::value_type, Container> &lhs, const random_access_iterator<T, Container> &rhs) { return lhs.base() < rhs.base(); }
+	template <class T, class Container>
+	bool operator<(const random_access_iterator<T, Container> &lhs, const random_access_iterator<const typename Container::value_type, Container> &rhs) { return lhs.base() < rhs.base(); }
+
+	template <class T, class Container>
+	bool operator>(const random_access_iterator<T, Container> &lhs, const random_access_iterator<T, Container> &rhs) { return lhs.base() > rhs.base(); }
+	template <class T, class Container>
+	bool operator>(const random_access_iterator<const typename Container::value_type, Container> &lhs, const random_access_iterator<T, Container> &rhs) { return lhs.base() > rhs.base(); }
+	template <class T, class Container>
+	bool operator>(const random_access_iterator<T, Container> &lhs, const random_access_iterator<const typename Container::value_type, Container> &rhs) { return lhs.base() > rhs.base(); }
+
+	template <class T, class Container>
+	bool operator<=(const random_access_iterator<T, Container> &lhs, const random_access_iterator<T, Container> &rhs) { return lhs.base() <= rhs.base(); }
+	template <class T, class Container>
+	bool operator<=(const random_access_iterator<const typename Container::value_type, Container> &lhs, const random_access_iterator<T, Container> &rhs) { return lhs.base() <= rhs.base(); }
+	template <class T, class Container>
+	bool operator<=(const random_access_iterator<T, Container> &lhs, const random_access_iterator<const typename Container::value_type, Container> &rhs) { return lhs.base() <= rhs.base(); }
+
+	template <class T, class Container>
+	bool operator>=(const random_access_iterator<T, Container> &lhs, const random_access_iterator<T, Container> &rhs) { return lhs.base() >= rhs.base(); }
+	template <class T, class Container>
+	bool operator>=(const random_access_iterator<const typename Container::value_type, Container> &lhs, const random_access_iterator<T, Container> &rhs) { return lhs.base() >= rhs.base(); }
+	template <class T, class Container>
+	bool operator>=(const random_access_iterator<T, Container> &lhs, const random_access_iterator<const typename Container::value_type, Container> &rhs) { return lhs.base() >= rhs.base(); }
 } // namespace ft

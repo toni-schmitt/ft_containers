@@ -7,8 +7,8 @@
 
 namespace ft
 {
-	template <class T>
-	class bidirectional_iterator : public forward_iterator<T>
+	template <class T, class Container>
+	class bidirectional_iterator : public forward_iterator<T, Container>
 	{
 	public:
 		/* Iterator Tags ( == Member Types? ) */
@@ -22,9 +22,9 @@ namespace ft
 
 	public:
 		/* Constructors: */
-		bidirectional_iterator() : forward_iterator<T>() {}
-		explicit bidirectional_iterator(pointer ptr) : forward_iterator<T>(ptr) {}
-		bidirectional_iterator(const bidirectional_iterator &cpy) : forward_iterator<T>(cpy) {}
+		bidirectional_iterator() : forward_iterator<T, Container>() {}
+		explicit bidirectional_iterator(pointer ptr) : forward_iterator<T, Container>(ptr) {}
+		bidirectional_iterator(const bidirectional_iterator<typename Container::value_type, Container> &cpy) : forward_iterator<T, Container>(cpy) {}
 
 	public:
 		/* Destructors: */

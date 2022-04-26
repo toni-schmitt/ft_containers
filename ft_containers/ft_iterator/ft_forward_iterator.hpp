@@ -6,7 +6,7 @@
 
 namespace ft
 {
-	template <class T>
+	template <class T, class Container>
 	class forward_iterator
 	{
 	public:
@@ -23,7 +23,7 @@ namespace ft
 		/* Constructors: */
 		forward_iterator() : _ptr(NULL){};
 		explicit forward_iterator(pointer ptr) : _ptr(ptr){};
-		forward_iterator(const forward_iterator &cpy) : _ptr(cpy._ptr){};
+		forward_iterator(const forward_iterator<typename Container::value_type, Container> &cpy) : _ptr(cpy.base()){};
 
 	public:
 		/* Destructors: */
@@ -69,8 +69,17 @@ namespace ft
 	};
 
 	/* Comparison Operators */
-	template <class T>
-	bool operator==(const forward_iterator<T> &lhs, const forward_iterator<T> &rhs) { return lhs.base() == rhs.base(); }
-	template <class T>
-	bool operator!=(const forward_iterator<T> &lhs, const forward_iterator<T> &rhs) { return lhs.base() != rhs.base(); }
+	template <class T, class Container>
+	bool operator==(const forward_iterator<T, Container> &lhs, const forward_iterator<T, Container> &rhs) { return lhs.base() == rhs.base(); }
+	template <class T, class Container>
+	bool operator==(const forward_iterator<const typename Container::value_type, Container> &lhs, const forward_iterator<T, Container> &rhs) { return lhs.base() == rhs.base(); }
+	template <class T, class Container>
+	bool operator==(const forward_iterator<T, Container> &lhs, const forward_iterator<const typename Container::value_type, Container> &rhs) { return lhs.base() == rhs.base(); }
+
+	template <class T, class Container>
+	bool operator!=(const forward_iterator<T, Container> &lhs, const forward_iterator<T, Container> &rhs) { return lhs.base() != rhs.base(); }
+	template <class T, class Container>
+	bool operator!=(const forward_iterator<const typename Container::value_type, Container> &lhs, const forward_iterator<T, Container> &rhs) { return lhs.base() != rhs.base(); }
+	template <class T, class Container>
+	bool operator!=(const forward_iterator<T, Container> &lhs, const forward_iterator<const typename Container::value_type, Container> &rhs) { return lhs.base() != rhs.base(); }
 } // namespace ft
