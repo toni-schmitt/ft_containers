@@ -106,7 +106,7 @@ namespace ft
 
 		/* Capacity functions */
 	public:
-		size_type size() const;
+		size_type size() const { return ft::distance(this->begin(), this->end()); }
 		size_type max_size() const { return this->_alloc.max_size(); }
 		size_type capacity() const { return this->_capacity; }
 
