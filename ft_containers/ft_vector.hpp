@@ -110,7 +110,7 @@ namespace ft
 		size_type max_size() const { return this->_alloc.max_size(); }
 		size_type capacity() const { return this->_capacity; }
 
-		bool empty() const;
+		bool empty() const { return this->size() == 0; }
 
 		void resize(size_type n, value_type val = value_type());
 
