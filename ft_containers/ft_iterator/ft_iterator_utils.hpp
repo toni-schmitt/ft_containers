@@ -6,13 +6,6 @@ namespace ft
 {
 
 	/* Distance Function */
-	/* Generic Template */
-	template <class InputIterator>
-	typename iterator_traits<InputIterator>::difference_type
-	distance(InputIterator first, InputIterator last)
-	{
-		return _distance(first, last, typename iterator_traits<InputIterator>::iterator_category);
-	}
 	/* Input Iterator Template */
 	template <class InputIterator>
 	typename iterator_traits<InputIterator>::difference_type
@@ -32,5 +25,12 @@ namespace ft
 	_distance(InputIterator first, InputIterator last, random_access_iterator_tag)
 	{
 		return last - first;
+	}
+	/* Generic Template */
+	template <class InputIterator>
+	typename iterator_traits<InputIterator>::difference_type
+	distance(InputIterator first, InputIterator last)
+	{
+		return _distance(first, last, typename iterator_traits<InputIterator>::iterator_category());
 	}
 } // namespace ft
