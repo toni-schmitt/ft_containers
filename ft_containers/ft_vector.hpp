@@ -38,7 +38,7 @@ namespace ft
 
 		/* Private Functions */
 	private:
-		void _allocate_content(size_type n)
+		void _allocate_content(const size_type &n)
 		{
 			this->_content._end = this->_content._start = this->_alloc.allocate(n);
 		}
