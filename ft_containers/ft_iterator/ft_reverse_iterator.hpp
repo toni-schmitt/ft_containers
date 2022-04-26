@@ -24,11 +24,11 @@ namespace ft
 		explicit reverse_iterator(const reverse_iterator<Iter> &copy) : _baseIter(copy.base()) {}
 
 	public:
-		/* Deconstrutors */
+		/* Deconstructors */
 		~reverse_iterator() {}
 
 	public:
-		/* Derefernece Operators */
+		/* Dereference Operators */
 		reference operator*() const { return *this->_baseIter; }
 		pointer operator->() const { return this->_baseIter; }
 

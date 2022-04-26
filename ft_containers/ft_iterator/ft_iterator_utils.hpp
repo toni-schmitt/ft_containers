@@ -19,7 +19,7 @@ namespace ft
 		}
 		return dist;
 	}
-	/* Random Access Itearator Template */
+	/* Random Access Iterator Template */
 	template <class InputIterator>
 	typename iterator_traits<InputIterator>::difference_type
 	_distance(InputIterator first, InputIterator last, random_access_iterator_tag)

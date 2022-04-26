@@ -42,7 +42,7 @@ namespace ft
 		};
 
 	public:
-		/* Derefernece Operators */
+		/* Dereference Operators */
 		reference operator*() const { return *this->_ptr; }
 		pointer operator->() const { return this->_ptr; }
 

@@ -31,7 +31,7 @@ namespace ft
 		~random_access_iterator() {}
 
 	public:
-		/* Arithretmic Operators */
+		/* Arithmetic Operators */
 		random_access_iterator operator+(difference_type n) const { return this->_ptr + n; }
 		random_access_iterator operator-(difference_type n) const { return this->_ptr - n; }
 		difference_type operator-(const random_access_iterator &b) const { return this->_ptr - b.base(); }
