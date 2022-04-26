@@ -44,7 +44,7 @@ namespace ft
 		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) : _capacity(n), _alloc(alloc)
 		{
 			this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
-			for (size_type i = 0; i < this->_capacity; ++i, ++this->_content._end)
+			for (size_type i = 0; i < this->_capacity; ++i)
 			{
 				this->_alloc.construct(this->_content._end, val);
 				++this->_content._end;
