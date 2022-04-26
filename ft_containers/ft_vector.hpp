@@ -37,7 +37,10 @@ namespace ft
 
 		/* Constructors */
 	public:
+		/* Default Constructor */
 		explicit vector(const allocator_type &alloc = allocator_type()) : _capacity(), _alloc(alloc), _content() {}
+
+		/* Fill Constructor */
 		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) : _capacity(n), _alloc(alloc)
 		{
 			this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
@@ -47,11 +50,15 @@ namespace ft
 				++this->_content._end;
 			}
 		}
+
+		/* Range Constructor */
 		template <class InputIterator>
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
 			   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) : _capacity(), _alloc(alloc), _content()
 		{
 		}
+
+		/* Copy Constructor */
 		vector(const vector &x) : _capacity(x.capacity()), _alloc(x.get_allocator()), _content()
 		{
 			this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
