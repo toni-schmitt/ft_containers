@@ -92,17 +92,17 @@ namespace ft
 
 		/* Iterator functions */
 	public:
-		iterator begin();
-		const_iterator begin() const;
+		iterator begin() { return iterator(this->_content._start); }
+		const_iterator begin() const { return const_iterator(this->_content._start); }
 
-		iterator end();
-		const_iterator end() const;
+		iterator end() { return iterator(this->_content._end); }
+		const_iterator end() const { return const_iterator(this->_content._end); }
 
-		reverse_iterator rbegin();
-		const_reverse_iterator rbegin() const;
+		reverse_iterator rbegin() { return reverse_iterator(end()); }
+		const_reverse_iterator rbegin() const { return reverse_iterator(end()); }
 
-		reverse_iterator rend();
-		const_reverse_iterator rend() const;
+		reverse_iterator rend() { return reverse_iterator(begin()); }
+		const_reverse_iterator rend() const { return reverse_iterator(begin()); }
 
 		/* Capacity functions */
 	public:
