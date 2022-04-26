@@ -62,7 +62,11 @@ namespace ft
 	public:
 		~vector()
 		{
-			this->_alloc.deallocate(this->_content._start, this->_capacity);
+			if (this->_content._start)
+			{
+				this->clear();
+				this->_alloc.deallocate(this->_content._start, this->_capacity);
+			}
 		}
 
 		/* Public Member Functions */
