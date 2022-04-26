@@ -43,6 +43,24 @@ namespace ft
 			this->_content._end = this->_content._start = this->_alloc.allocate(n);
 		}
 
+		void _fill_content(const value_type &val)
+		{
+			for (size_type i = 0; i < this->_capacity; ++i)
+			{
+				this->_alloc.construct(this->_content._end, val);
+				++this->_content._end;
+			}
+		}
+
+		void _fill_content(const vector &arr)
+		{
+			for (size_type i = 0; i < this->_capacity; ++i)
+			{
+				this->_alloc.construct(this->_content._end, arr[i]);
+				++this->_content._end;
+			}
+		}
+
 		/* Constructors */
 	public:
 		/* Default Constructor */
@@ -52,11 +70,7 @@ namespace ft
 		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) : _capacity(n), _alloc(alloc)
 		{
 			this->_allocate_content(this->capacity);
-			for (size_type i = 0; i < this->_capacity; ++i)
-			{
-				this->_alloc.construct(this->_content._end, val);
-				++this->_content._end;
-			}
+			this->_fill_content(val);
 		}
 
 		/* Range Constructor */
@@ -77,11 +91,7 @@ namespace ft
 		vector(const vector &x) : _capacity(x.capacity()), _alloc(x.get_allocator()), _content()
 		{
 			this->_allocate_content(this->capacity);
-			for (size_type i = 0; i < this->_capacity; ++i)
-			{
-				this->_alloc.construct(this->_content._end, x[i]);
-				++this->_content._end;
-			}
+			this->_fill_content(x);
 		}
 
 		/* Destructors */
