@@ -36,6 +36,13 @@ namespace ft
 			pointer _end;
 		} _content;
 
+		/* Private Functions */
+	private:
+		void _allocate_content(size_type n)
+		{
+			this->_content._end = this->_content._start = this->_alloc.allocate(n);
+		}
+
 		/* Constructors */
 	public:
 		/* Default Constructor */
@@ -44,7 +51,7 @@ namespace ft
 		/* Fill Constructor */
 		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) : _capacity(n), _alloc(alloc)
 		{
-			this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
+			this->_allocate_content(this->capacity);
 			for (size_type i = 0; i < this->_capacity; ++i)
 			{
 				this->_alloc.construct(this->_content._end, val);
@@ -57,7 +64,7 @@ namespace ft
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
 			   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) : _capacity(ft::distance(first, last)), _alloc(alloc), _content()
 		{
-			this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
+			this->_allocate_content(this->capacity);
 			while (first != last)
 			{
 				this->_alloc.construct(this->_content._end, *first);
@@ -69,7 +76,7 @@ namespace ft
 		/* Copy Constructor */
 		vector(const vector &x) : _capacity(x.capacity()), _alloc(x.get_allocator()), _content()
 		{
-			this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
+			this->_allocate_content(this->capacity);
 			for (size_type i = 0; i < this->_capacity; ++i)
 			{
 				this->_alloc.construct(this->_content._end, x[i]);
