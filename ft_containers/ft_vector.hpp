@@ -3,6 +3,7 @@
 #include <memory>
 #include "ft_iterator/ft_random_access_iterator.hpp"
 #include "ft_iterator/ft_reverse_iterator.hpp"
+#include "ft_type_traits/ft_type_traits.hpp"
 
 namespace ft
 {
@@ -47,7 +48,10 @@ namespace ft
 			}
 		}
 		template <class InputIterator>
-		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type());
+		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
+			   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) : _capacity(), _alloc(alloc), _content()
+		{
+		}
 		vector(const vector &x) : _capacity(x.capacity()), _alloc(x.get_allocator()), _content()
 		{
 			this->_content._end = this->_content._start = this->_alloc.allocate(this->_capacity);
