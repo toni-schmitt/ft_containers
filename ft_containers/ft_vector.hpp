@@ -69,7 +69,7 @@ namespace ft
 		/* Fill Constructor */
 		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) : _capacity(n), _alloc(alloc)
 		{
-			this->_allocate_content(this->capacity);
+			this->_allocate_content(this->_capacity);
 			this->_fill_content(val);
 		}
 
