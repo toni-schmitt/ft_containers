@@ -149,7 +149,14 @@ namespace ft
 
 		void swap(vector &x);
 
-		void clear();
+		void clear()
+		{
+			while (this->_content._end != this->_content._start)
+			{
+				this->_alloc.destroy(this->_content._end);
+				--this->_content._end;
+			}
+		}
 
 		/* Allocator functions */
 	public:
