@@ -24,7 +24,7 @@ namespace ft
 		forward_iterator(const forward_iterator &cpy) : _ptr(cpy._ptr) {};
 
 		/* Destructors: */
-		~forward_iterator();
+		~forward_iterator() {}
 
 		/* Overloaded Operators */
 		forward_iterator &operator=(const forward_iterator &sec)

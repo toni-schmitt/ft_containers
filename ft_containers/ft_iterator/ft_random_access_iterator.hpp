@@ -25,7 +25,7 @@ namespace ft
 		random_access_iterator(const random_access_iterator &cpy) : bidirectional_iterator<T>(cpy) {}
 
 		/* Destructors: */
-		~random_access_iterator();
+		~random_access_iterator() {}
 
 		/* Arithretmic Operators */
 		random_access_iterator operator+(difference_type n) const { return this->_ptr + n; }

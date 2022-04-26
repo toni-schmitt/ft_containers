@@ -25,7 +25,7 @@ namespace ft
 		bidirectional_iterator(const bidirectional_iterator &cpy) : forward_iterator<T>(cpy) {}
 
 		/* Destructors: */
-		~bidirectional_iterator();
+		~bidirectional_iterator() {}
 
 		/* Decrement Operators */
 		bidirectional_iterator &operator--()
