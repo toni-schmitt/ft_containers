@@ -66,3 +66,5 @@ dkms.conf
 # IDE Specific Files
 .vscode
 .idea
+
+tst.cpp
