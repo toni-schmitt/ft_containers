@@ -7,6 +7,7 @@ namespace ft
 	template <class Iterator>
 	class reverse_iterator
 	{
+	public:
 		/* Member Types */
 		typedef Iterator iterator_type;
 		typedef typename iterator_traits<iterator_type>::iterator_category iterator_category;
@@ -15,19 +16,23 @@ namespace ft
 		typedef typename iterator_traits<iterator_type>::pointer pointer;
 		typedef typename iterator_traits<iterator_type>::reference reference;
 
+	public:
 		/* Constructors */
 		reverse_iterator() : _baseIter() {}
 		explicit reverse_iterator(iterator_type it) : _baseIter(it) {}
 		template <class Iter>
 		explicit reverse_iterator(const reverse_iterator<Iter> &copy) : _baseIter(copy.base()) {}
 
+	public:
 		/* Deconstrutors */
-		~reverse_iterator();
+		~reverse_iterator() {}
 
+	public:
 		/* Derefernece Operators */
 		reference operator*() const { return *this->_baseIter; }
 		pointer operator->() const { return this->_baseIter; }
 
+	public:
 		/* Increment Operators */
 		reverse_iterator &operator++()
 		{
@@ -41,6 +46,7 @@ namespace ft
 			return tmp;
 		}
 
+	public:
 		/* Decrement Operators */
 		reverse_iterator &operator--()
 		{
@@ -54,10 +60,12 @@ namespace ft
 			return tmp;
 		}
 
+	public:
 		/* Arithmetic Operators */
 		reverse_iterator operator+(difference_type n) const { return reverse_iterator(_baseIter - n); }
 		reverse_iterator operator-(difference_type n) const { return reverse_iterator(_baseIter + n); }
 
+	public:
 		/* Compound Assignment Operators */
 		reverse_iterator &operator+=(difference_type n)
 		{
@@ -70,9 +78,11 @@ namespace ft
 			return *this;
 		}
 
+	public:
 		/* Offset Compound Operator */
 		reference operator[](difference_type n) const { return this->base()[-n - 1]; }
 
+	public:
 		/* Member Functions */
 		iterator_type base() const { return this->_baseIter; }
 
