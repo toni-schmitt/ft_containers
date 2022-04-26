@@ -135,8 +135,8 @@ namespace ft
 
 		/* Element access functions */
 	public:
-		reference operator[](size_type n);
-		const_reference operator[](size_type n) const;
+		reference operator[](size_type n) { return *(this->_content._start + n); }
+		const_reference operator[](size_type n) const { return *(this->_content._start + n); }
 
 		reference at(size_type n);
 		const_reference at(size_type n) const;
