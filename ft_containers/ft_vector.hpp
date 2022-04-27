@@ -232,8 +232,8 @@ namespace ft
 		void push_back(const value_type &val);
 		void pop_back()
 		{
-			this->_alloc.destroy(this->_content._end);
 			--this->_content._end;
+			this->_alloc.destroy(this->_content._end);
 		}
 
 		iterator insert(iterator position, const value_type &val);
