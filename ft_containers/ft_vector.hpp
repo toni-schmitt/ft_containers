@@ -206,8 +206,28 @@ namespace ft
 		/* Modifiers functions */
 	public:
 		template <class InputIterator>
-		void assign(InputIterator first, InputIterator last);
-		void assign(size_type n, const value_type &val);
+		void assign(InputIterator first, InputIterator last)
+		{
+			const size_type new_size = ft::distance(first, last);
+
+			_destroy(this->_content._start, this->_content._end);
+			if (new_size > this->_capacity)
+				this->_allocate_content(new_size);
+			
+			this->_content._end = this->_content._start;
+			this->_fill_content(first, last);
+		}
+		void assign(size_type n, const value_type &val)
+		{
+			const size_type new_size = n;
+
+			_destroy(this->_content._start, this->_content._end);
+			if (new_size > this->_capacity)
+				this->_allocate_content(new_size);
+
+			this->_content._end = this->_content._start;
+			this->_fill_content(val);
+		}
 
 		void push_back(const value_type &val);
 		void pop_back()
