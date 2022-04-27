@@ -158,9 +158,12 @@ namespace ft
 				return;
 			}
 
-			if (n > this->capacity())
+			if (n > this->_capacity)
 			{
-				this->reserve(n);
+				if (n <= this->_capacity * 2)
+					this->reserve(this->_capacity * 2);
+				else
+					this->reserve(n);
 			}
 			this->_fill_content(val, this->size());
 		}
