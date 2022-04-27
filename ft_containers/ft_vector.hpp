@@ -7,6 +7,7 @@
 #include "ft_iterator/ft_iterator_utils.hpp"
 #include "ft_algorithm/ft_equal.hpp"
 #include "ft_algorithm/ft_lexicographical_compare.hpp"
+#include <stdexcept>
 
 namespace ft
 {
@@ -56,10 +57,30 @@ namespace ft
 
 		void _fill_content(const vector &arr)
 		{
-			for (size_type i = 0; i < this->_capacity; ++i)
+			for (size_type i = 0; i < this->_capacity && i < arr.capacity(); ++i)
 			{
 				this->_alloc.construct(this->_content._end, arr[i]);
 				++this->_content._end;
+			}
+		}
+
+		template <class InputIterator>
+		void _fill_content(InputIterator first, InputIterator last)
+		{
+			while (first != last)
+			{
+				this->_alloc.construct(this->_content._end, *first);
+				++first;
+				++this->_content._end;
+			}
+		}
+
+		void _destroy(pointer start, pointer end)
+		{
+			while (end != start)
+			{
+				this->_alloc.destroy(end);
+				--end;
 			}
 		}
 
@@ -81,12 +102,7 @@ namespace ft
 			   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) : _capacity(ft::distance(first, last)), _alloc(alloc), _content()
 		{
 			this->_allocate_content(this->capacity);
-			while (first != last)
-			{
-				this->_alloc.construct(this->_content._end, *first);
-				++first;
-				++this->_content._end;
-			}
+			this->_fill_content(first, last);
 		}
 
 		/* Copy Constructor */
@@ -133,7 +149,26 @@ namespace ft
 
 		void resize(size_type n, value_type val = value_type());
 
-		void reserve(size_type n);
+		void reserve(size_type n)
+		{
+			if (n <= this->_capacity)
+				return;
+			if (n > this->max_size())
+				throw std::length_error("Cannot Reserve more than " + this->max_size());
+			
+			// copy old stuff
+			const size_type old_size = this->size();
+			const Content old_content { this->_content._start, this->_content._end };
+			// allocate new space
+			this->_allocate_content(n);
+			// copy old stuff into new space
+			this->_fill_content(iterator(old_content._start), iterator(old_content._end));
+			// destroy old stuff
+			_destroy(old_content._start, old_content._end);
+			this->_alloc.deallocate(old_content._start, old_size);
+
+			this->_capacity = n;
+		}
 
 		/* Element access functions */
 	public:
@@ -174,11 +209,7 @@ namespace ft
 
 		void clear()
 		{
-			while (this->_content._end != this->_content._start)
-			{
-				this->_alloc.destroy(this->_content._end);
-				--this->_content._end;
-			}
+			_destroy(this->_content._start, this->_content._end);
 		}
 
 		/* Allocator functions */
