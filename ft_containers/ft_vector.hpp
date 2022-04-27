@@ -46,18 +46,18 @@ namespace ft
 			this->_content._end = this->_content._start = this->_alloc.allocate(n);
 		}
 
-		void _fill_content(const value_type &val)
+		void _fill_content(const value_type &val, const size_type &start = 0)
 		{
-			for (size_type i = 0; i < this->_capacity; ++i)
+			for (size_type i = start; i < this->_capacity; ++i)
 			{
 				this->_alloc.construct(this->_content._end, val);
 				++this->_content._end;
 			}
 		}
 
-		void _fill_content(const vector &arr)
+		void _fill_content(const vector &arr, const size_type &start = 0)
 		{
-			for (size_type i = 0; i < this->_capacity && i < arr.capacity(); ++i)
+			for (size_type i = start; i < this->_capacity && i < arr.capacity(); ++i)
 			{
 				this->_alloc.construct(this->_content._end, arr[i]);
 				++this->_content._end;
@@ -147,7 +147,23 @@ namespace ft
 
 		bool empty() const { return this->size() == 0; }
 
-		void resize(size_type n, value_type val = value_type());
+		void resize(size_type n, value_type val = value_type())
+		{
+			if (n > this->max_size())
+				throw std::length_error("Cannot Resize over " + this->max_size());
+			if (n < this->size())
+			{
+				_destroy(this->_content._start + n, this->_content._end);
+				this->_content._end = this->_content._start + n;
+				return;
+			}
+
+			if (n > this->capacity())
+			{
+				this->reserve(n);
+			}
+			this->_fill_content(val, this->size());
+		}
 
 		void reserve(size_type n)
 		{
