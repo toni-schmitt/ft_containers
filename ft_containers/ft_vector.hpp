@@ -150,7 +150,7 @@ namespace ft
 		void resize(size_type n, value_type val = value_type())
 		{
 			if (n > this->max_size())
-				throw std::length_error("Cannot Resize over " + this->max_size());
+				throw std::length_error("ft::vector::resize");
 			if (n < this->size())
 			{
 				_destroy(this->_content._start + n, this->_content._end);
@@ -173,11 +173,11 @@ namespace ft
 			if (n <= this->_capacity)
 				return;
 			if (n > this->max_size())
-				throw std::length_error("Cannot Reserve more than " + this->max_size());
+				throw std::length_error("ft::vector::reserve");
 			
 			// copy old stuff
 			const size_type old_size = this->size();
-			const Content old_content { this->_content._start, this->_content._end };
+			const Content old_content = { this->_content._start, this->_content._end };
 			// allocate new space
 			this->_allocate_content(n);
 			// copy old stuff into new space
@@ -194,14 +194,14 @@ namespace ft
 		reference operator[](size_type n) { return *(this->_content._start + n); }
 		const_reference operator[](size_type n) const { return *(this->_content._start + n); }
 
-		reference at(size_type n);
-		const_reference at(size_type n) const;
+		reference at(size_type n) { return *(this->_content._start + n); }
+		const_reference at(size_type n) const { return *(this->_content._start + n); }
 
-		reference front();
-		const_reference front() const;
+		reference front() { return *(this->_content._start); }
+		const_reference front() const { return *(this->_content._start); }
 
-		reference back();
-		const_reference back() const;
+		reference back() { return *(this->_content._end - 1); }
+		const_reference back() const { return *(this->_content._end - 1); }
 
 		/* Modifiers functions */
 	public:
