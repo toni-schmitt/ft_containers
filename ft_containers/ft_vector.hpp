@@ -46,18 +46,22 @@ namespace ft
 			this->_content._end = this->_content._start = this->_alloc.allocate(n);
 		}
 
-		void _fill_content(const value_type &val, const size_type &start = 0)
+		void _fill_content(const value_type &val, const size_type &start = 0, const size_type *end = NULL)
 		{
-			for (size_type i = start; i < this->_capacity; ++i)
+			if (end == NULL)
+				end = &this->_capacity;
+			for (size_type i = start; i < *end; ++i)
 			{
 				this->_alloc.construct(this->_content._end, val);
 				++this->_content._end;
 			}
 		}
 
-		void _fill_content(const vector &arr, const size_type &start = 0)
+		void _fill_content(const vector &arr, const size_type &start = 0, const size_type *end = NULL)
 		{
-			for (size_type i = start; i < this->_capacity && i < arr.capacity(); ++i)
+			if (end == NULL)
+				end = &this->_capacity;
+			for (size_type i = start; i < *end && i < arr.capacity(); ++i)
 			{
 				this->_alloc.construct(this->_content._end, arr[i]);
 				++this->_content._end;
@@ -165,7 +169,7 @@ namespace ft
 				else
 					this->reserve(n);
 			}
-			this->_fill_content(val, this->size());
+			this->_fill_content(val, this->size(), &n);
 		}
 
 		void reserve(size_type n)
@@ -229,7 +233,10 @@ namespace ft
 			this->_fill_content(val);
 		}
 
-		void push_back(const value_type &val);
+		void push_back(const value_type &val)
+		{
+			this->resize(this->size() + 1, val);
+		}
 		void pop_back()
 		{
 			--this->_content._end;
