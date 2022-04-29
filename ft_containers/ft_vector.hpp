@@ -198,8 +198,18 @@ namespace ft
 		reference operator[](size_type n) { return *(this->_content._start + n); }
 		const_reference operator[](size_type n) const { return *(this->_content._start + n); }
 
-		reference at(size_type n) { return *(this->_content._start + n); }
-		const_reference at(size_type n) const { return *(this->_content._start + n); }
+		reference at(size_type n) 
+		{
+			if (n >= this->size())
+				throw std::out_of_range("ft::vector::at");
+			return *(this->_content._start + n); 
+		}
+		const_reference at(size_type n) const 
+		{ 
+			if (n >= this->size())
+				throw std::out_of_range("ft::vector::at");
+			return *(this->_content._start + n); 
+		}
 
 		reference front() { return *(this->_content._start); }
 		const_reference front() const { return *(this->_content._start); }
