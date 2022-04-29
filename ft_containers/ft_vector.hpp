@@ -294,6 +294,6 @@ namespace ft
 
 	/* Swap */
 	template <class T, class Alloc>
-	void swap(vector<T, Alloc> &x, vector<T, Alloc> &y);
+	void swap(vector<T, Alloc> &x, vector<T, Alloc> &y) { return x.swap(y); }
 
 } // namespace ft
