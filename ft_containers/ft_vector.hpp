@@ -44,6 +44,7 @@ namespace ft
 		void _allocate_content(const size_type &n)
 		{
 			this->_content._end = this->_content._start = this->_alloc.allocate(n);
+			this->_capacity = n;
 		}
 
 		void _fill_content(const value_type &val, const size_type &start = 0, const size_type *end = NULL)
