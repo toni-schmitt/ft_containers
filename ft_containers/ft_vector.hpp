@@ -7,6 +7,7 @@
 #include "ft_iterator/ft_iterator_utils.hpp"
 #include "ft_algorithm/ft_equal.hpp"
 #include "ft_algorithm/ft_lexicographical_compare.hpp"
+#include "ft_algorithm/ft_copy.hpp"
 #include <stdexcept>
 
 namespace ft
@@ -77,6 +78,16 @@ namespace ft
 				this->_alloc.construct(this->_content._end, *first);
 				++first;
 				++this->_content._end;
+			}
+		}
+
+		void _destroy_and_delete(pointer start, pointer end)
+		{
+			while (end != start)
+			{
+				this->_alloc.destroy(end);
+				this->_alloc.deallocae(end, 1);
+				--end;
 			}
 		}
 
@@ -254,10 +265,76 @@ namespace ft
 			this->_alloc.destroy(this->_content._end);
 		}
 
-		iterator insert(iterator position, const value_type &val);
-		void insert(iterator position, size_type n, const value_type &val);
+		iterator insert(iterator position, const value_type &val)
+		{
+			insert(position, 1, val);
+		}
+		void insert(iterator position, size_type n, const value_type &val)
+		{
+			if (this->size() + n > this->capacity())
+			{
+				// copy old stuff
+				const size_type old_cap = this->capacity();
+				const Content old_content = { this->_content._start, this->_content._end };
+				iterator old_start = this->begin();
+				iterator old_end = this->end();
+				// reallocate to capacity + n
+				this->_allocate_content(old_cap + n);
+				// write old stuff to content until position - 1
+				this->_fill_content(old_start, position - 1);
+				// write val n times
+				this->_fill_content(val, 0, &n);
+				// continue writing old stuff to content until cap
+				this->_fill_content(position, old_end);
+				// destroy old stuff
+				_destroy(old_content._start, old_content._end);
+				this->_alloc.deallocate(old_content._start, old_cap);
+			}
+			else
+			{
+				for (iterator end = this->end() - 1; end != position - 1; --end, ++this->_content._end)
+				{
+					iterator tmp = end + n;
+					*tmp = *end;
+					*end = val;
+				}
+			}
+			
+		}
 		template <class InputIterator>
-		void insert(iterator position, InputIterator first, InputIterator last);
+		void insert(iterator position, InputIterator first, InputIterator last,
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
+		{
+			if (this->size() + ft::distance(first, last) > this->capacity())
+			{
+				// copy old stuff
+				const size_type old_cap = this->capacity();
+				const Content old_content = { this->_content._start, this->_content._end };
+				iterator old_start = this->begin();
+				iterator old_end = this->end();
+				// reallocate to capacity + n
+				this->_allocate_content(old_cap + n);
+				// write old stuff to content until position - 1
+				this->_fill_content(old_start, position - 1);
+				// write val n times
+				this->_fill_content(first, last);
+				// continue writing old stuff to content until cap
+				this->_fill_content(position, old_end);
+				// destroy old stuff
+				_destroy(old_content._start, old_content._end);
+				this->_alloc.deallocate(old_content._start, old_cap);
+			}
+			else
+			{
+				for (iterator end = this->end() - 1; end != position - 1; --end, ++this->_content._end)
+				{
+					iterator tmp = end + n;
+					*tmp = *end;
+					*end = *first;
+					++first;
+				}
+			}
+		}
 
 		iterator erase(iterator position);
 		iterator erase(iterator first, iterator last);
