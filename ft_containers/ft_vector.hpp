@@ -348,7 +348,22 @@ namespace ft
 			return first;
 		}
 
-		void swap(vector &x);
+		void swap(vector &x)
+		{
+			// copy stuff from x
+			const Content x_content_copy = {x._content._start, x._content._end};
+			const size_type x_capacity = x._capacity;
+			// swap addresses from x with addresses of this
+			x._content._start = this->_content._start;
+			x._content._end = this->_content._end;
+			// swap capacity
+			x._capacity = this->_capacity;
+			// swap addresses of this with addresses of x
+			this->_content._start = x_content_copy._start;
+			this->_content._end = x_content_copy._end;
+			// swap capacity
+			this->_capacity = x_capacity;
+		}
 
 		void clear()
 		{
