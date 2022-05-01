@@ -1,13 +1,13 @@
 #pragma once
 
 #include <memory>
-#include "ft_iterator/ft_random_access_iterator.hpp"
-#include "ft_iterator/ft_reverse_iterator.hpp"
-#include "ft_type_traits/ft_type_traits.hpp"
-#include "ft_iterator/ft_iterator_utils.hpp"
-#include "ft_algorithm/ft_equal.hpp"
-#include "ft_algorithm/ft_lexicographical_compare.hpp"
-#include "ft_algorithm/ft_copy.hpp"
+#include "iterator/random_access_iterator.hpp"
+#include "iterator/reverse_iterator.hpp"
+#include "type_traits/type_traits.hpp"
+#include "iterator/iterator_utils.hpp"
+#include "algorithm/equal.hpp"
+#include "algorithm/lexicographical_compare.hpp"
+#include "algorithm/copy.hpp"
 #include <stdexcept>
 
 namespace ft

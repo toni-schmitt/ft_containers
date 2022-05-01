@@ -2,8 +2,8 @@
 
 #include <iterator>
 #include <cstddef>
-#include "ft_forward_iterator.hpp"
-#include "ft_iterator_traits.hpp"
+#include "forward_iterator.hpp"
+#include "iterator_traits.hpp"
 
 namespace ft
 {
