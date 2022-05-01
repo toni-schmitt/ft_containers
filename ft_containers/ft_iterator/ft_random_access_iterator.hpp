@@ -34,7 +34,7 @@ namespace ft
 		/* Arithmetic Operators */
 		random_access_iterator operator+(difference_type n) const { return random_access_iterator(this->_ptr + n); }
 		random_access_iterator operator-(difference_type n) const { return random_access_iterator(this->_ptr - n); }
-		difference_type operator-(const random_access_iterator &b) const { return random_access_iterator(this->_ptr - b.base()); }
+		difference_type operator-(const random_access_iterator &b) const { return this->_ptr - b.base(); }
 
 	public:
 		/* Compound Assignment Operators */
