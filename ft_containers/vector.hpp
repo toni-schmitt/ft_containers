@@ -267,7 +267,9 @@ namespace ft
 
 		iterator insert(iterator position, const value_type &val)
 		{
+			size_type dist = ft::distance(this->begin(), position);
 			insert(position, 1, val);
+			return iterator(this->_content._start + dist);
 		}
 		void insert(iterator position, size_type n, const value_type &val)
 		{
