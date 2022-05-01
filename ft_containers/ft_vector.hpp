@@ -190,10 +190,10 @@ namespace ft
 				return;
 			if (n > this->max_size())
 				throw std::length_error("ft::vector::reserve");
-			
+
 			// copy old stuff
 			const size_type old_size = this->size();
-			const Content old_content = { this->_content._start, this->_content._end };
+			const Content old_content = {this->_content._start, this->_content._end};
 			// allocate new space
 			this->_allocate_content(n);
 			// copy old stuff into new space
@@ -210,17 +210,17 @@ namespace ft
 		reference operator[](size_type n) { return *(this->_content._start + n); }
 		const_reference operator[](size_type n) const { return *(this->_content._start + n); }
 
-		reference at(size_type n) 
+		reference at(size_type n)
 		{
 			if (n >= this->size())
 				throw std::out_of_range("ft::vector::at");
-			return *(this->_content._start + n); 
+			return *(this->_content._start + n);
 		}
-		const_reference at(size_type n) const 
-		{ 
+		const_reference at(size_type n) const
+		{
 			if (n >= this->size())
 				throw std::out_of_range("ft::vector::at");
-			return *(this->_content._start + n); 
+			return *(this->_content._start + n);
 		}
 
 		reference front() { return *(this->_content._start); }
@@ -239,7 +239,7 @@ namespace ft
 			_destroy(this->_content._start, this->_content._end);
 			if (new_size > this->_capacity)
 				this->_allocate_content(new_size);
-			
+
 			this->_content._end = this->_content._start;
 			this->_fill_content(first, last);
 		}
@@ -275,7 +275,7 @@ namespace ft
 			{
 				// copy old stuff
 				const size_type old_cap = this->capacity();
-				const Content old_content = { this->_content._start, this->_content._end };
+				const Content old_content = {this->_content._start, this->_content._end};
 				iterator old_start = this->begin();
 				iterator old_end = this->end();
 				// reallocate to capacity + n
@@ -299,17 +299,16 @@ namespace ft
 					*end = val;
 				}
 			}
-			
 		}
 		template <class InputIterator>
 		void insert(iterator position, InputIterator first, InputIterator last,
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
+					typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
 		{
 			if (this->size() + ft::distance(first, last) > this->capacity())
 			{
 				// copy old stuff
 				const size_type old_cap = this->capacity();
-				const Content old_content = { this->_content._start, this->_content._end };
+				const Content old_content = {this->_content._start, this->_content._end};
 				iterator old_start = this->begin();
 				iterator old_end = this->end();
 				// reallocate to capacity + n
