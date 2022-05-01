@@ -53,7 +53,7 @@ namespace ft
 			this->_ptr++;
 			return *this;
 		}
-		forward_iterator operator++(T)
+		forward_iterator operator++(int)
 		{
 			forward_iterator tmp = *this;
 			++(*this);
