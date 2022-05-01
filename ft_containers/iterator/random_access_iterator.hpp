@@ -23,7 +23,7 @@ namespace ft
 	public:
 		/* Constructors: */
 		random_access_iterator() : bidirectional_iterator<T, Container>(NULL) {}
-		explicit random_access_iterator(pointer ptr) : bidirectional_iterator<T, Container>(ptr) {}
+		explicit random_access_iterator(pointer ptr) : random_access_iterator::bidirectional_iterator(ptr) {}
 		random_access_iterator(const random_access_iterator<typename Container::value_type, Container> &cpy) : bidirectional_iterator<T, Container>(cpy) {}
 
 	public:
