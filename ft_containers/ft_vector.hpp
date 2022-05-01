@@ -304,6 +304,7 @@ namespace ft
 		void insert(iterator position, InputIterator first, InputIterator last,
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
 		{
+			const size_type n = ft::distance(first, last);
 			if (this->size() + ft::distance(first, last) > this->capacity())
 			{
 				// copy old stuff
@@ -335,8 +336,17 @@ namespace ft
 			}
 		}
 
-		iterator erase(iterator position);
-		iterator erase(iterator first, iterator last);
+		iterator erase(iterator position) { return erase(position, position + 1); }
+		iterator erase(iterator first, iterator last)
+		{
+			iterator last_elem_added = ft::copy(last, this->end(), first);
+			for (pointer p = this->_content._start + ft::distance(this->begin(), last_elem_added); p != this->_content._end; ++p)
+			{
+				this->_alloc.destroy(p);
+			}
+			this->_content._end -= ft::distance(first, last);
+			return first;
+		}
 
 		void swap(vector &x);
 
