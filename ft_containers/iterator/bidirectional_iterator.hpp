@@ -37,7 +37,7 @@ namespace ft
 			this->_ptr--;
 			return *this;
 		}
-		bidirectional_iterator operator--(T)
+		bidirectional_iterator operator--(int)
 		{
 			bidirectional_iterator tmp = *this;
 			--(*this);
