@@ -117,14 +117,14 @@ namespace ft
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
 			   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) : _capacity(ft::distance(first, last)), _alloc(alloc), _content()
 		{
-			this->_allocate_content(this->capacity);
+			this->_allocate_content(this->_capacity);
 			this->_fill_content(first, last);
 		}
 
 		/* Copy Constructor */
 		vector(const vector &x) : _capacity(x.capacity()), _alloc(x.get_allocator()), _content()
 		{
-			this->_allocate_content(this->capacity);
+			this->_allocate_content(this->_capacity);
 			this->_fill_content(x);
 		}
 
