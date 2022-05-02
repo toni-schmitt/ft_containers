@@ -28,6 +28,18 @@ namespace ft
 		~reverse_iterator() {}
 
 	public:
+		/* Overloaded Operators */
+		reverse_iterator &operator=(const reverse_iterator &sec)
+		{
+			if (this == &sec)
+				return *this;
+
+			this->_ptr = sec._ptr;
+
+			return *this;
+		};
+
+	public:
 		/* Dereference Operators */
 		reference operator*() const { return *this->_baseIter; }
 		pointer operator->() const { return this->_baseIter; }
