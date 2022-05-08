@@ -253,7 +253,7 @@ namespace ft
 				this->_allocate_content(new_size);
 
 			this->_content._end = this->_content._start;
-			this->_fill_content(val);
+			this->_fill_content(val, 0, &new_size);
 		}
 
 		void push_back(const value_type &val)
