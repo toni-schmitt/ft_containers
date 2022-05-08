@@ -124,12 +124,20 @@ namespace ft
 		{
 			if (this->_content._start)
 			{
-				this->clear();
+				_destroy(this->_content._start, this->_content._end);
 				this->_alloc.deallocate(this->_content._start, this->_capacity);
 			}
 		}
 
 		/* Public Member Functions */
+	public:
+		vector &operator=(const vector &x)
+		{
+			this->reserve(x.size());
+			ft::copy(x.begin(), x.end(), this->begin());
+			this->_content._end = this->_content._start + x.size();
+			return *this;
+		}
 
 		/* Iterator functions */
 	public:
