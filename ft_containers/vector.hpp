@@ -81,16 +81,6 @@ namespace ft
 			}
 		}
 
-		void _destroy_and_delete(pointer start, pointer end)
-		{
-			while (end != start)
-			{
-				this->_alloc.destroy(end);
-				this->_alloc.deallocae(end, 1);
-				--end;
-			}
-		}
-
 		void _destroy(pointer start, pointer end)
 		{
 			while (end != start)
