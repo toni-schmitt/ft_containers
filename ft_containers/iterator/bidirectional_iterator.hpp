@@ -23,7 +23,7 @@ namespace ft
 	public:
 		/* Constructors: */
 		bidirectional_iterator() : forward_iterator<T, Container>() {}
-		explicit bidirectional_iterator(pointer ptr) : bidirectional_iterator::forward_iterator(ptr) {}
+		explicit bidirectional_iterator(pointer ptr) : forward_iterator<T, Container>(ptr) {}
 		bidirectional_iterator(const bidirectional_iterator<typename Container::value_type, Container> &cpy) : forward_iterator<T, Container>(cpy) {}
 
 	public:
