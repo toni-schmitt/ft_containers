@@ -284,7 +284,7 @@ namespace ft
 				// reallocate to capacity + n
 				this->_allocate_content(old_cap + n);
 				// write old stuff to content until position - 1
-				this->_fill_content(old_start, position - 1);
+				this->_fill_content(old_start, position);
 				// write val n times
 				this->_fill_content(val, 0, &n);
 				// continue writing old stuff to content until cap
@@ -318,7 +318,7 @@ namespace ft
 				// reallocate to capacity + n
 				this->_allocate_content(old_cap + n);
 				// write old stuff to content until position - 1
-				this->_fill_content(old_start, position - 1);
+				this->_fill_content(old_start, position);
 				// write val n times
 				this->_fill_content(first, last);
 				// continue writing old stuff to content until cap
@@ -371,6 +371,7 @@ namespace ft
 		void clear()
 		{
 			_destroy(this->_content._start, this->_content._end);
+			this->_content._end = this->_content._start;
 		}
 
 		/* Allocator functions */
