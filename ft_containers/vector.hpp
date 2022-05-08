@@ -232,8 +232,7 @@ namespace ft
 		/* Modifiers functions */
 	public:
 		template <class InputIterator>
-		void assign(InputIterator first, InputIterator last,
-					typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
+		void assign(InputIterator first, InputIterator last)
 		{
 			const size_type new_size = ft::distance(first, last);
 
