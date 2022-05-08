@@ -34,7 +34,7 @@ namespace ft
 			if (this == &sec)
 				return *this;
 
-			this->_ptr = sec._ptr;
+			this->_baseIter = sec._baseIter;
 
 			return *this;
 		};
