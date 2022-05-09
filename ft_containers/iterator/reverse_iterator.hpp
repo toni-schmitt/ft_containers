@@ -41,14 +41,14 @@ namespace ft
 
 	public:
 		/* Dereference Operators */
-		reference operator*() const { return *this->_baseIter; }
-		pointer operator->() const { return this->_baseIter; }
+		reference operator*() const { return this->_baseIter.operator*(); }
+		pointer operator->() const { return this->_baseIter.operator->(); }
 
 	public:
 		/* Increment Operators */
 		reverse_iterator &operator++()
 		{
-			_baseIter--;
+			--_baseIter;
 			return *this;
 		}
 		reverse_iterator operator++(int)
@@ -62,7 +62,7 @@ namespace ft
 		/* Decrement Operators */
 		reverse_iterator &operator--()
 		{
-			_baseIter++;
+			++_baseIter;
 			return *this;
 		}
 		reverse_iterator operator--(int)
