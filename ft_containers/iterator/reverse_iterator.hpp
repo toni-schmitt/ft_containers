@@ -21,7 +21,7 @@ namespace ft
 		reverse_iterator() : _baseIter() {}
 		explicit reverse_iterator(iterator_type it) : _baseIter(it) {}
 		template <class Iter>
-		explicit reverse_iterator(const reverse_iterator<Iter> &copy) : _baseIter(copy.base()) {}
+		reverse_iterator(const reverse_iterator<Iter> &copy) : _baseIter(copy.base()) {}
 
 	public:
 		/* Deconstructors */
@@ -37,12 +37,14 @@ namespace ft
 			this->_baseIter = sec._baseIter;
 
 			return *this;
-		};
+		}
 
 	public:
 		/* Dereference Operators */
-		reference operator*() const { return this->_baseIter.operator*(); }
-		pointer operator->() const { return this->_baseIter.operator->(); }
+		reference operator*() { return *(_baseIter - 1); }
+		reference operator*() const { return *(_baseIter - 1); }
+		pointer operator->() { return &(this->operator*()); }
+		pointer operator->() const { return &(this->operator*()); }
 
 	public:
 		/* Increment Operators */
@@ -75,6 +77,7 @@ namespace ft
 	public:
 		/* Arithmetic Operators */
 		reverse_iterator operator+(difference_type n) const { return reverse_iterator(_baseIter - n); }
+		difference_type operator-(const reverse_iterator &rhs) const { return rhs._baseIter - this->_baseIter; }
 		reverse_iterator operator-(difference_type n) const { return reverse_iterator(_baseIter + n); }
 
 	public:
@@ -106,7 +109,7 @@ namespace ft
 	template <class Iterator>
 	reverse_iterator<Iterator> operator+(typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator> &rev_iter) { return rev_iter + n; }
 	template <class Iterator>
-	reverse_iterator<Iterator> operator-(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs) { return lhs - rhs; }
+	reverse_iterator<Iterator> operator-(typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator> &rev_iter) { return rev_iter - n; }
 
 	/* Comparison Operators */
 	template <class Iterator>
