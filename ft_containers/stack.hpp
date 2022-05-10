@@ -14,9 +14,13 @@ namespace ft
 		typedef Container container_type;
 		typedef typename container_type::size_type size_type;
 
+		/* Private Members */
+	private:
+		container_type _container;
+
 		/* Constructors */
 	public:
-		explicit stack(const container_type &ctnr = container_type());
+		explicit stack(const container_type &ctnr = container_type()) : _container(ctnr) {}
 
 		/* Public Member functions */
 
