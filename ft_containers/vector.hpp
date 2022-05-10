@@ -63,7 +63,7 @@ namespace ft
 		{
 			if (end == NULL)
 				end = &this->_capacity;
-			for (size_type i = start; i < *end && i < arr.capacity(); ++i)
+			for (size_type i = start; i < *end && i < arr.size(); ++i)
 			{
 				this->_alloc.construct(this->_content._end, arr[i]);
 				++this->_content._end;
