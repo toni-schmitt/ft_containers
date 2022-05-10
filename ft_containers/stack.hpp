@@ -37,9 +37,9 @@ namespace ft
 
 		/* Modifiers functions */
 	public:
-		void push(const value_type &val);
+		void push(const value_type &val) { this->_container.push_back(); }
 
-		void pop();
+		void pop() { this->_container.pop_back(); }
 	};
 
 	/* Non-member function overloads */
