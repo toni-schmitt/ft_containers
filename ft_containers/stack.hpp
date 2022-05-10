@@ -26,9 +26,9 @@ namespace ft
 
 		/* Capacity functions */
 	public:
-		bool empty() const;
+		bool empty() const { return this->_container.empty(); }
 
-		size_type size() const;
+		size_type size() const { return this->_container.size(); }
 
 		/* Element access functions */
 	public:
