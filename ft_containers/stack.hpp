@@ -32,8 +32,8 @@ namespace ft
 
 		/* Element access functions */
 	public:
-		value_type &top();
-		const value_type &top() const;
+		value_type &top() { return this->_container.back(); }
+		const value_type &top() const { return this->_container.back(); }
 
 		/* Modifiers functions */
 	public:
