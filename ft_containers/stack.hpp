@@ -40,6 +40,26 @@ namespace ft
 		void push(const value_type &val) { this->_container.push_back(val); }
 
 		void pop() { this->_container.pop_back(); }
+
+		/* Friend declarations */
+	public:
+		template <class Type, class C>
+		friend bool operator==(const stack<Type, C> &lhs, const stack<Type, C> &rhs);
+
+		template <class Type, class C>
+		friend bool operator!=(const stack<Type, C> &lhs, const stack<Type, C> &rhs);
+
+		template <class Type, class C>
+		friend bool operator<(const stack<Type, C> &lhs, const stack<Type, C> &rhs);
+
+		template <class Type, class C>
+		friend bool operator<=(const stack<Type, C> &lhs, const stack<Type, C> &rhs);
+
+		template <class Type, class C>
+		friend bool operator>(const stack<Type, C> &lhs, const stack<Type, C> &rhs);
+
+		template <class Type, class C>
+		friend bool operator>=(const stack<Type, C> &lhs, const stack<Type, C> &rhs);
 	};
 
 	/* Non-member function overloads */
