@@ -68,3 +68,5 @@ dkms.conf
 .idea
 
 tst.cpp
+Makefile
+ft_containers/containers_test/
