@@ -121,17 +121,20 @@ namespace ft
             this->color = color;
         }
 
-        /**
-         * @brief Sets the color of node
-         * @param node The Node to set the color
-         * @param color The color to set
-         */
-        static void set_color(node_ptr node, node_color color)
-        {
-            if (node == NULL)
-                return;
-            node->color = color;
-        }
+    public:
+        /* Getter */
+        value_type get_data() { return this->data; }
+
+        node_ptr* get_children() { return this->children; }
+
+        node_color get_color() { return this->color; }
+
+        /* Setter */
+        void set_data(value_type new_data) { this->data = new_data; }
+
+        void set_children(node_ptr new_children[2]) { this->children = new_children; }
+
+        void set_color(node_color new_color) { this->color = new_color; }
 	};
 
 	// search, insert, delete (main operations)
