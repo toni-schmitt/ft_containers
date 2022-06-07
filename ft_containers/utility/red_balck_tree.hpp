@@ -139,6 +139,43 @@ namespace ft
 
 		/* Private Functions */
 	private:
+		/**
+		 * @brief Flips color of node
+		 *
+		 * @param node Node of which to flip color
+		 */
+		void _color_flip(node_ptr node)
+		{
+			node->flip_color();
+		}
+
+		/**
+		 * @brief Rotate node in direction
+		 *
+		 * @details Based on direction (either left or right) the rotation a node makes the node go down in direction and as a result, the child at direction (left or right) goes up.
+		 * @param direction Either left (true) or right (false)
+		 * @return node_ptr
+		 */
+		node_ptr _rotate(node_ptr node, bool direction)
+		{
+			const node_ptr opposite_child = node.children[!direction];
+
+			node_ptr tmp = opposite_child;
+			opposite_child = tmp->children[direction]; // Opposite child = Opposite childs direction (left/right) child
+			tmp->children[direction] = node;
+
+			tmp->color = node->color;
+			node->color = node_color.red;
+
+			return tmp;
+		}
+
+		node_ptr _double_rotate(node_ptr node, bool direction)
+		{
+			node->children[direction] = _rotate(node->children[!direction], !direction);
+			return _rotate(node, direction);
+		}
+
 		/* Constructors */
 	public:
 		/* Destructors */
