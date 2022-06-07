@@ -24,7 +24,7 @@ namespace ft
 		typedef ft::bidirectional_iterator<const value_type, map> const_iterator;
 		typedef ft::reverse_iterator<iterator> reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
-		typedef iterator_traits<iterator>::difference_type difference_type;
+		typedef ft::iterator_traits<iterator>::difference_type difference_type;
 		typedef typename allocator_type::size_type size_type;
 
 		class value_compare
