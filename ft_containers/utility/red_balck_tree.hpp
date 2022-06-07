@@ -85,13 +85,12 @@ namespace ft
 		rbt_node(const_node_ref copy)
 		{
 			if (&copy == this)
-				return *this;
+                return;
 
 			this->data = copy.data;
 			this->color = copy.color;
 			this->children = copy.children;
 
-			return *this;
 		}
 
 		/* Destructors */
