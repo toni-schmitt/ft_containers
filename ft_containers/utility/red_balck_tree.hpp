@@ -2,8 +2,8 @@
 
 #include <memory>
 
-#define rbt_node_left_child 0;
-#define rbt_node_right_child 1;
+#define rbt_node_left_child 0
+#define rbt_node_right_child 1
 
 namespace ft
 {
