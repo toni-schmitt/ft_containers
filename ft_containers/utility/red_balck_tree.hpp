@@ -207,7 +207,7 @@ namespace ft
 
 		node_ptr _double_rotate(node_ptr node, bool direction)
 		{
-			node->children[direction] = _rotate(node->children[!direction], !direction);
+			node->get_children()[direction] = _rotate(node->get_children()[!direction], !direction);
 			return _rotate(node, direction);
 		}
 
