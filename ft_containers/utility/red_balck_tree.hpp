@@ -192,14 +192,15 @@ namespace ft
 		 */
 		node_ptr _rotate(node_ptr node, bool direction)
 		{
-			const node_ptr opposite_child = node.children[!direction];
 
-			node_ptr tmp = opposite_child;
-			opposite_child = tmp->children[direction]; // Opposite child = Opposite childs direction (left/right) child
-			tmp->children[direction] = node;
+			node_ptr tmp = node->get_children()[!direction];
+            //node->set_child(!direction, tmp->get_children()[direction]);
+            node->get_children()[!direction] = tmp->get_children()[direction]; // Opposite child = Opposite childs direction (left/right) child
+            //tmp->set_child(direction, node);
+			tmp->get_children()[direction] = node;
 
-			tmp->color = node->color;
-			node->color = node_color::red;
+			tmp->set_color(node->get_color());
+            node->set_color(node_type::red);
 
 			return tmp;
 		}
