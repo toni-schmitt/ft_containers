@@ -56,7 +56,7 @@ namespace ft
 			if (node == NULL)
 				return;
 
-			node->color = node->color ^ 1;
+            node->color = node->color == red ? black : red;
 		}
 
 		/* Constructors */
