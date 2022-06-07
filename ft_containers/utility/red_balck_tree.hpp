@@ -110,6 +110,29 @@ namespace ft
 			_flip_color(this->children[rbt_node_left_child]);
 			_flip_color(this->children[rbt_node_right_child]);
 		}
+
+
+        /**
+         * @brief Sets the color of the current node
+         *
+         * @param color The color to set
+         */
+        void set_color(node_color color)
+        {
+            this->color = color;
+        }
+
+        /**
+         * @brief Sets the color of node
+         * @param node The Node to set the color
+         * @param color The color to set
+         */
+        static void set_color(node_ptr node, node_color color)
+        {
+            if (node == NULL)
+                return;
+            node->color = color;
+        }
 	};
 
 	// search, insert, delete (main operations)
