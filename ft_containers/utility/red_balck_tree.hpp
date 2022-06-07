@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <cstdlib>
 
 #define rbt_node_left_child 0
 #define rbt_node_right_child 1
@@ -165,7 +166,7 @@ namespace ft
 			tmp->children[direction] = node;
 
 			tmp->color = node->color;
-			node->color = node_color.red;
+			node->color = node_color::red;
 
 			return tmp;
 		}
