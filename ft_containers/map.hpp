@@ -3,6 +3,8 @@
 #include <functional>
 #include <memory>
 #include "utility/pair.hpp"
+#include "iterator/reverse_iterator.hpp"
+#include "iterator/iterator_traits.hpp"
 
 namespace ft
 {
