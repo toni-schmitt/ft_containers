@@ -45,6 +45,19 @@ namespace ft
 
 		/* Private Functions */
 	private:
+		/**
+		 * @brief Flips color of node
+		 *
+		 * @param node Node of which to flip color
+		 */
+		void _flip_color(node_ptr node)
+		{
+			if (node == NULL)
+				return;
+
+			node->color = node->color ^ 1;
+		}
+
 		/* Constructors */
 	public:
 		/**
@@ -86,6 +99,16 @@ namespace ft
 
 		/* Modifiers functions */
 	public:
+		/**
+		 * @brief Flips color of this node
+		 *
+		 */
+		void flip_color()
+		{
+			_flip_color(this);
+			_flip_color(this->children[rbt_node_left_child]);
+			_flip_color(this->children[rbt_node_right_child]);
+		}
 	};
 
 	// search, insert, delete (main operations)
