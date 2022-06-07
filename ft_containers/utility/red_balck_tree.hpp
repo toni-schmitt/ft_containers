@@ -211,6 +211,47 @@ namespace ft
 			return _rotate(node, direction);
 		}
 
+        node_ptr _insert_fix(node_ptr node, bool direction)
+        {
+            node_ptr *node_children = node->get_children();
+
+            if (node_type::is_red(node_children[direction]))
+            {
+                if (node_type::is_red(node_children[!direction]))
+                {
+                    if (node_type::is_red(node_children[direction]->get_children()[direction]) || node_type::is_red(node_children[direction]->get_children()[!direction]))
+                    {
+                        node->flip_color();
+                    }
+                }
+                else
+                {
+                    if (node_type::is_red(node_children[direction]->get_children()[direction]))
+                    {
+                        node = _rotate(node, !direction);
+                    }
+                    else if (node_type::is_red(node_children[direction]->get_children()[!direction]))
+                    {
+                        node = _double_rotate(node, !direction);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        node_ptr _insert(node_ptr node, value_type data)
+        {
+            if (node == NULL)
+                return new node_type(data, node_type::red);
+
+            bool direction = data > node->get_data();
+
+            node->get_children()[direction] = _insert(node->get_children()[direction],data);
+
+            return _insert_fix(node, direction);
+        }
+
 		/* Constructors */
 	public:
 		/* Destructors */
@@ -225,5 +266,16 @@ namespace ft
 	public:
 		/* Modifiers functions */
 	public:
+        /**
+         * @brief Insert data into the Red Black Tree
+         *
+         * @param data The Data to insert
+         */
+        void insert(value_type data)
+        {
+            _root = _insert(_root, data);
+            _root->set_color(node_type::black);
+        }
+
 	};
 } // namespace ft
