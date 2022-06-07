@@ -110,15 +110,23 @@ namespace ft
 			_flip_color(this->children[rbt_node_right_child]);
 		}
 
+    public:
+        bool is_red() { return this->color == red; }
 
-        /**
-         * @brief Sets the color of the current node
-         *
-         * @param color The color to set
-         */
-        void set_color(node_color color)
+        static bool is_red(node_ptr node)
         {
-            this->color = color;
+            if (node == NULL)
+                return false;
+            return node->is_red();
+        }
+
+        bool is_black() { return this->color == black; }
+
+        static bool is_black(node_ptr node)
+        {
+            if (node == NULL)
+                return false;
+            return node->is_black();
         }
 
     public:
