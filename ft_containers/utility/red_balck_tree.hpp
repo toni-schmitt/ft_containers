@@ -139,6 +139,18 @@ namespace ft
 
         node_ptr* get_children() { return this->children; }
 
+		uint get_children_count()
+		{
+			uint count = 0;
+			for (int i = 0; this->children[i]; ++i)
+				++count;
+			return count;
+		}
+
+		node_ptr get_left_child() { return this->children[rbt_node_left_child]; }
+
+		node_ptr get_right_child() { return this->children[rbt_node_right_child]; }
+
         node_color get_color() { return this->color; }
 
         /* Setter */
