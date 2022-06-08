@@ -56,7 +56,7 @@ namespace ft
 			if (node == NULL)
 				return;
 
-            node->color = node->color == red ? black : red;
+			node->color = node->color == red ? black : red;
 		}
 
 		/* Constructors */
@@ -85,7 +85,7 @@ namespace ft
 		rbt_node(const_node_ref copy)
 		{
 			if (&copy == this)
-                return;
+				return;
 
 			this->data = copy.data;
 			this->color = copy.color;
@@ -110,24 +110,24 @@ namespace ft
 			_flip_color(this->children[rbt_node_right_child]);
 		}
 
-    public:
-        bool is_red() { return this->color == red; }
+	public:
+		bool is_red() { return this->color == red; }
 
-        static bool is_red(node_ptr node)
-        {
-            if (node == NULL)
-                return false;
-            return node->is_red();
-        }
+		static bool is_red(node_ptr node)
+		{
+			if (node == NULL)
+				return false;
+			return node->is_red();
+		}
 
-        bool is_black() { return this->color == black; }
+		bool is_black() { return this->color == black; }
 
-        static bool is_black(node_ptr node)
-        {
-            if (node == NULL)
-                return false;
-            return node->is_black();
-        }
+		static bool is_black(node_ptr node)
+		{
+			if (node == NULL)
+				return false;
+			return node->is_black();
+		}
 
 		bool has_left_child() { return this->get_left_child() != NULL; }
 
@@ -137,7 +137,7 @@ namespace ft
         /* Getter */
         value_type get_data() { return this->data; }
 
-        node_ptr* get_children() { return this->children; }
+		node_ptr *get_children() { return this->children; }
 
 		uint get_children_count()
 		{
@@ -153,12 +153,12 @@ namespace ft
 
         node_color get_color() { return this->color; }
 
-        /* Setter */
-        void set_data(value_type new_data) { this->data = new_data; }
+		/* Setter */
+		void set_data(value_type new_data) { this->data = new_data; }
 
-        void set_children(node_ptr new_children[2]) { this->children = new_children; }
+		void set_children(node_ptr new_children[2]) { this->children = new_children; }
 
-        void set_color(node_color new_color) { this->color = new_color; }
+		void set_color(node_color new_color) { this->color = new_color; }
 	};
 
 	// search, insert, delete (main operations)
@@ -227,46 +227,46 @@ namespace ft
 			return _rotate(node, direction);
 		}
 
-        node_ptr _insert_fix(node_ptr node, bool direction)
-        {
-            node_ptr *node_children = node->get_children();
+		node_ptr _insert_fix(node_ptr node, bool direction)
+		{
+			node_ptr *node_children = node->get_children();
 
-            if (node_type::is_red(node_children[direction]))
-            {
-                if (node_type::is_red(node_children[!direction]))
-                {
-                    if (node_type::is_red(node_children[direction]->get_children()[direction]) || node_type::is_red(node_children[direction]->get_children()[!direction]))
-                    {
-                        node->flip_color();
-                    }
-                }
-                else
-                {
-                    if (node_type::is_red(node_children[direction]->get_children()[direction]))
-                    {
-                        node = _rotate(node, !direction);
-                    }
-                    else if (node_type::is_red(node_children[direction]->get_children()[!direction]))
-                    {
-                        node = _double_rotate(node, !direction);
-                    }
-                }
-            }
+			if (node_type::is_red(node_children[direction]))
+			{
+				if (node_type::is_red(node_children[!direction]))
+				{
+					if (node_type::is_red(node_children[direction]->get_children()[direction]) || node_type::is_red(node_children[direction]->get_children()[!direction]))
+					{
+						node->flip_color();
+					}
+				}
+				else
+				{
+					if (node_type::is_red(node_children[direction]->get_children()[direction]))
+					{
+						node = _rotate(node, !direction);
+					}
+					else if (node_type::is_red(node_children[direction]->get_children()[!direction]))
+					{
+						node = _double_rotate(node, !direction);
+					}
+				}
+			}
 
-            return node;
-        }
+			return node;
+		}
 
-        node_ptr _insert(node_ptr node, value_type data)
-        {
-            if (node == NULL)
-                return new node_type(data, node_type::red);
+		node_ptr _insert(node_ptr node, value_type data)
+		{
+			if (node == NULL)
+				return new node_type(data, node_type::red);
 
-            bool direction = data > node->get_data();
+			bool direction = data > node->get_data();
 
-            node->get_children()[direction] = _insert(node->get_children()[direction],data);
+			node->get_children()[direction] = _insert(node->get_children()[direction], data);
 
-            return _insert_fix(node, direction);
-        }
+			return _insert_fix(node, direction);
+		}
 
 
 		// Assumes that node only has one or fewer children
