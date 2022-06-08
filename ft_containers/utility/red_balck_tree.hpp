@@ -268,6 +268,143 @@ namespace ft
             return _insert_fix(node, direction);
         }
 
+
+		// Assumes that node only has one or fewer children
+		node_ptr get_available_child(node_ptr node)
+		{
+			if (node->has_left_child())
+				return node->get_left_child();
+			if (node->has_right_child())
+				return node->get_right_child();
+			return NULL;
+		}
+
+		node_ptr _erase_key(node_ptr key, bool &tree_is_balanced, value_type &data = value_type())
+		{
+			if (key->get_children_count() <= 1)
+			{
+				node_ptr available_child = get_available_child(key);
+
+				if (key->is_red())
+				{
+					delete key;
+					tree_is_balanced = true;
+				}
+				else if (available_child->is_red())
+				{
+					available_child->set_color(node_type::black);
+					delete key;
+					tree_is_balanced = true;
+				}
+
+				return available_child;
+			}
+
+			if (key->get_children_count() == 2)
+			{
+				node_ptr tmp = node_type::get_max(key->get_left_child());
+
+				key->set_data(tmp->get_data());
+				data = tmp->get_data();
+				return NULL;
+			}
+		}
+
+		node_ptr _erase_fix(node_ptr node, bool direction, bool &tree_is_balanced)
+		{
+			node_ptr parent = node;
+			node_ptr sibling = node->get_children()[!direction];
+
+			if (sibling->is_red())
+			{
+				node = _rotate(node, direction);
+				sibling = parent->get_children()[!direction];
+			}
+
+			if (sibling == NULL)
+				return  node;
+
+			if (!sibling->get_left_child()->is_red() && !sibling->get_right_child()->is_red())
+			{
+				if (parent->is_red())
+					tree_is_balanced = true;
+
+				parent->set_color(node_type::black);
+				sibling->set_color(node_type::red);
+				return  node;
+			}
+
+			node_color initial_color_parent = parent->get_color();
+			bool is_red_sibling_reduction = !(node == parent);
+
+			if (sibling->get_children()[!direction]->is_red())
+			{
+				parent = _rotate(parent, direction);
+			}
+			else
+			{
+				parent = _double_rotate(parent, direction);
+			}
+
+			parent->set_color(initial_color_parent);
+			parent->get_left_child()->set_color(node_type::black);
+			parent->get_right_child()->set_color(node_type::black);
+
+			if (is_red_sibling_reduction)
+			{
+				node->get_children()[direction] = parent;
+			}
+			else
+			{
+				node = parent;
+			}
+
+			tree_is_balanced = true;
+
+			return node;
+
+		}
+
+        node_ptr _erase(node_ptr node, value_type data, bool &tree_is_balanced)
+        {
+            if (node == NULL)
+            {
+                tree_is_balanced = true;
+                return NULL;
+            }
+
+            /* Current node is not the node to be erased */
+            if (node->get_data() != data)
+            {
+                bool direction = data > node->get_data();
+                node->get_children()[direction] = _erase(node->get_children()[direction], data, tree_is_balanced);
+
+                if (!tree_is_balanced)
+                    return _erase_fix(node, direction, tree_is_balanced);
+
+                return node;
+            }
+
+            /// found the delete key
+            if (node->get_children_count() <= 1)
+            {
+	            return _erase_key(node, tree_is_balanced);
+			}
+
+			if (node->get_children_count() == 2)
+			{
+				_erase_key(node, tree_is_balanced, data);
+			}
+
+            bool direction = data > node->data;
+            node->child[direction] = _erase(node->child[direction], data, tree_is_balanced); /// recurse
+
+            if (!tree_is_balanced)
+                return _erase_fix(node, direction, tree_is_balanced);
+
+            return node;
+        }
+
 		/* Constructors */
 	public:
 		/* Destructors */
@@ -291,6 +428,18 @@ namespace ft
         {
             _root = _insert(_root, data);
             _root->set_color(node_type::black);
+        }
+
+        /**
+         * @brief Erases data from the Red Black Tree
+         * @param data The Data to erase
+         */
+        void erase(value_type data)
+        {
+            bool tree_is_balanced = false;
+            this->_root = _erase(this->_root, data, tree_is_balanced);
+            if (this->_root != NULL)
+                this->_root->set_color(node_type::black);
         }
 
 	};
