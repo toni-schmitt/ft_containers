@@ -129,6 +129,10 @@ namespace ft
             return node->is_black();
         }
 
+		bool has_left_child() { return this->get_left_child() != NULL; }
+
+		bool has_right_child() { return this->get_right_child() != NULL; }
+
     public:
         /* Getter */
         value_type get_data() { return this->data; }
