@@ -281,7 +281,7 @@ namespace ft
 			return NULL;
 		}
 
-		node_ptr _erase_key(node_ptr key, bool &tree_is_balanced, value_type &data = value_type())
+		node_ptr _erase_key(node_ptr key, bool &tree_is_balanced, value_type &data)
 		{
 			if (key->get_children_count() <= 1)
 			{
@@ -310,6 +310,7 @@ namespace ft
 				data = tmp->get_data();
 				return NULL;
 			}
+			return NULL;
 		}
 
 		node_ptr _erase_fix(node_ptr node, bool direction, bool &tree_is_balanced)
@@ -390,7 +391,7 @@ namespace ft
 			/// found the delete key
 			if (node->get_children_count() <= 1)
 			{
-				return _erase_key(node, tree_is_balanced);
+				return _erase_key(node, tree_is_balanced, data);
 			}
 
 			if (node->get_children_count() == 2)
@@ -398,8 +399,8 @@ namespace ft
 				_erase_key(node, tree_is_balanced, data);
 			}
 
-			bool direction = data > node->data;
-			node->child[direction] = _erase(node->child[direction], data, tree_is_balanced); /// recurse
+			bool direction = data > node->get_data();
+			node->child[direction] = _erase(node->get_children()[direction], data, tree_is_balanced); /// recurse
 
 			if (!tree_is_balanced)
 				return _erase_fix(node, direction, tree_is_balanced);
