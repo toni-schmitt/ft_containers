@@ -95,7 +95,7 @@ namespace ft
 
 		/* Destructors */
 	public:
-		~rbt_node() {}
+		~rbt_node() { }
 
 		/* Modifiers functions */
 	public:
@@ -133,9 +133,9 @@ namespace ft
 
 		bool has_right_child() { return this->get_right_child() != NULL; }
 
-    public:
-        /* Getter */
-        value_type get_data() { return this->data; }
+	public:
+		/* Getter */
+		value_type get_data() { return this->data; }
 
 		node_ptr *get_children() { return this->children; }
 
@@ -151,7 +151,7 @@ namespace ft
 
 		node_ptr get_right_child() { return this->children[rbt_node_right_child]; }
 
-        node_color get_color() { return this->color; }
+		node_color get_color() { return this->color; }
 
 		/* Setter */
 		void set_data(value_type new_data) { this->data = new_data; }
@@ -210,13 +210,14 @@ namespace ft
 		{
 
 			node_ptr tmp = node->get_children()[!direction];
-            //node->set_child(!direction, tmp->get_children()[direction]);
-            node->get_children()[!direction] = tmp->get_children()[direction]; // Opposite child = Opposite childs direction (left/right) child
-            //tmp->set_child(direction, node);
+			//node->set_child(!direction, tmp->get_children()[direction]);
+			node->get_children()[!direction] = tmp
+					->get_children()[direction]; // Opposite child = Opposite childs direction (left/right) child
+			//tmp->set_child(direction, node);
 			tmp->get_children()[direction] = node;
 
 			tmp->set_color(node->get_color());
-            node->set_color(node_type::red);
+			node->set_color(node_type::red);
 
 			return tmp;
 		}
@@ -235,7 +236,8 @@ namespace ft
 			{
 				if (node_type::is_red(node_children[!direction]))
 				{
-					if (node_type::is_red(node_children[direction]->get_children()[direction]) || node_type::is_red(node_children[direction]->get_children()[!direction]))
+					if (node_type::is_red(node_children[direction]->get_children()[direction]) ||
+					    node_type::is_red(node_children[direction]->get_children()[!direction]))
 					{
 						node->flip_color();
 					}
@@ -322,7 +324,7 @@ namespace ft
 			}
 
 			if (sibling == NULL)
-				return  node;
+				return node;
 
 			if (!sibling->get_left_child()->is_red() && !sibling->get_right_child()->is_red())
 			{
@@ -331,7 +333,7 @@ namespace ft
 
 				parent->set_color(node_type::black);
 				sibling->set_color(node_type::red);
-				return  node;
+				return node;
 			}
 
 			node_color initial_color_parent = parent->get_color();
@@ -365,30 +367,30 @@ namespace ft
 
 		}
 
-        node_ptr _erase(node_ptr node, value_type data, bool &tree_is_balanced)
-        {
-            if (node == NULL)
-            {
-                tree_is_balanced = true;
-                return NULL;
-            }
+		node_ptr _erase(node_ptr node, value_type data, bool &tree_is_balanced)
+		{
+			if (node == NULL)
+			{
+				tree_is_balanced = true;
+				return NULL;
+			}
 
-            /* Current node is not the node to be erased */
-            if (node->get_data() != data)
-            {
-                bool direction = data > node->get_data();
-                node->get_children()[direction] = _erase(node->get_children()[direction], data, tree_is_balanced);
+			/* Current node is not the node to be erased */
+			if (node->get_data() != data)
+			{
+				bool direction = data > node->get_data();
+				node->get_children()[direction] = _erase(node->get_children()[direction], data, tree_is_balanced);
 
-                if (!tree_is_balanced)
-                    return _erase_fix(node, direction, tree_is_balanced);
+				if (!tree_is_balanced)
+					return _erase_fix(node, direction, tree_is_balanced);
 
-                return node;
-            }
+				return node;
+			}
 
-            /// found the delete key
-            if (node->get_children_count() <= 1)
-            {
-	            return _erase_key(node, tree_is_balanced);
+			/// found the delete key
+			if (node->get_children_count() <= 1)
+			{
+				return _erase_key(node, tree_is_balanced);
 			}
 
 			if (node->get_children_count() == 2)
@@ -396,14 +398,14 @@ namespace ft
 				_erase_key(node, tree_is_balanced, data);
 			}
 
-            bool direction = data > node->data;
-            node->child[direction] = _erase(node->child[direction], data, tree_is_balanced); /// recurse
+			bool direction = data > node->data;
+			node->child[direction] = _erase(node->child[direction], data, tree_is_balanced); /// recurse
 
-            if (!tree_is_balanced)
-                return _erase_fix(node, direction, tree_is_balanced);
+			if (!tree_is_balanced)
+				return _erase_fix(node, direction, tree_is_balanced);
 
-            return node;
-        }
+			return node;
+		}
 
 		/* Constructors */
 	public:
@@ -419,28 +421,28 @@ namespace ft
 	public:
 		/* Modifiers functions */
 	public:
-        /**
-         * @brief Insert data into the Red Black Tree
-         *
-         * @param data The Data to insert
-         */
-        void insert(value_type data)
-        {
-            _root = _insert(_root, data);
-            _root->set_color(node_type::black);
-        }
+		/**
+		 * @brief Insert data into the Red Black Tree
+		 *
+		 * @param data The Data to insert
+		 */
+		void insert(value_type data)
+		{
+			_root = _insert(_root, data);
+			_root->set_color(node_type::black);
+		}
 
-        /**
-         * @brief Erases data from the Red Black Tree
-         * @param data The Data to erase
-         */
-        void erase(value_type data)
-        {
-            bool tree_is_balanced = false;
-            this->_root = _erase(this->_root, data, tree_is_balanced);
-            if (this->_root != NULL)
-                this->_root->set_color(node_type::black);
-        }
+		/**
+		 * @brief Erases data from the Red Black Tree
+		 * @param data The Data to erase
+		 */
+		void erase(value_type data)
+		{
+			bool tree_is_balanced = false;
+			this->_root = _erase(this->_root, data, tree_is_balanced);
+			if (this->_root != NULL)
+				this->_root->set_color(node_type::black);
+		}
 
 	};
 } // namespace ft
