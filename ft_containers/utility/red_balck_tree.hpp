@@ -113,7 +113,7 @@ namespace ft
 	public:
 		node_ptr get_max()
 		{
-			node_ptr current = *this;
+			node_ptr current = this;
 
 			while (current->get_right_child() != NULL)
 			{
@@ -414,7 +414,7 @@ namespace ft
 			}
 
 			bool direction = data > node->get_data();
-			node->child[direction] = _erase(node->get_children()[direction], data, tree_is_balanced); /// recurse
+			node->get_children()[direction] = _erase(node->get_children()[direction], data, tree_is_balanced); /// recurse
 
 			if (!tree_is_balanced)
 				return _erase_fix(node, direction, tree_is_balanced);
