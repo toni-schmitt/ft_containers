@@ -111,6 +111,20 @@ namespace ft
 		}
 
 	public:
+		node_ptr get_max()
+		{
+			node_ptr current = *this;
+
+			while (current->get_right_child() != NULL)
+			{
+				current = current->get_right_child();
+				if (current == NULL)
+					break;
+			}
+			return current;
+		}
+
+	public:
 		bool is_red() { return this->color == red; }
 
 		static bool is_red(node_ptr node)
@@ -304,7 +318,7 @@ namespace ft
 
 			if (key->get_children_count() == 2)
 			{
-				node_ptr tmp = node_type::get_max(key->get_left_child());
+				node_ptr tmp = key->get_left_child()->get_max();
 
 				key->set_data(tmp->get_data());
 				data = tmp->get_data();
