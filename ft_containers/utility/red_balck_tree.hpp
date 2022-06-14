@@ -316,7 +316,7 @@ namespace ft
 					delete key;
 					tree_is_balanced = true;
 				}
-				else if (available_child->is_red())
+				else if (node_type::is_red(available_child))
 				{
 					node_type::set_color(available_child, node_type::black);
 					delete key;
@@ -342,7 +342,7 @@ namespace ft
 			node_ptr parent = node;
 			node_ptr sibling = node->get_children()[!direction];
 
-			if (sibling->is_red())
+			if (node_type::is_red(sibling))
 			{
 				node = _rotate(node, direction);
 				sibling = parent->get_children()[!direction];
@@ -351,7 +351,8 @@ namespace ft
 			if (sibling == NULL)
 				return node;
 
-			if (!sibling->get_left_child()->is_red() && !sibling->get_right_child()->is_red())
+			if (node_type::is_red(sibling->get_left_child()) == false
+			&& node_type::is_red(sibling->get_right_child()) == false)
 			{
 				if (parent->is_red())
 					tree_is_balanced = true;
@@ -364,7 +365,7 @@ namespace ft
 			node_color initial_color_parent = parent->get_color();
 			bool is_red_sibling_reduction = !(node == parent);
 
-			if (sibling->get_children()[!direction]->is_red())
+			if (node_type::is_red(sibling->get_children()[!direction]))
 			{
 				parent = _rotate(parent, direction);
 			}
