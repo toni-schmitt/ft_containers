@@ -175,6 +175,14 @@ namespace ft
 		void set_children(node_ptr new_children[2]) { this->children = new_children; }
 
 		void set_color(node_color new_color) { this->color = new_color; }
+
+		static void set_color(node_ptr node, node_color new_color)
+		{
+			if (node == NULL)
+				return;
+
+			node->set_color(new_color);
+		}
 	};
 
 	// search, insert, delete (main operations)
@@ -232,8 +240,8 @@ namespace ft
 			//tmp->set_child(direction, node);
 			tmp->get_children()[direction] = node;
 
-			tmp->set_color(node->get_color());
-			node->set_color(node_type::red);
+			node_type::set_color(tmp, node->get_color());
+			node_type::set_color(node, node_type::red);
 
 			return tmp;
 		}
@@ -310,7 +318,7 @@ namespace ft
 				}
 				else if (available_child->is_red())
 				{
-					available_child->set_color(node_type::black);
+					node_type::set_color(available_child, node_type::black);
 					delete key;
 					tree_is_balanced = true;
 				}
@@ -348,8 +356,8 @@ namespace ft
 				if (parent->is_red())
 					tree_is_balanced = true;
 
-				parent->set_color(node_type::black);
-				sibling->set_color(node_type::red);
+				node_type::set_color(parent, node_type::black);
+				node_type::set_color(sibling, node_type::red);
 				return node;
 			}
 
@@ -365,9 +373,9 @@ namespace ft
 				parent = _double_rotate(parent, direction);
 			}
 
-			parent->set_color(initial_color_parent);
-			parent->get_left_child()->set_color(node_type::black);
-			parent->get_right_child()->set_color(node_type::black);
+			node_type::set_color(parent, initial_color_parent);
+			node_type::set_color(parent->get_left_child(), node_type::black);
+			node_type::set_color(parent->get_right_child(), node_type::black);
 
 			if (is_red_sibling_reduction)
 			{
@@ -446,7 +454,7 @@ namespace ft
 		void insert(value_type data)
 		{
 			_root = _insert(_root, data);
-			_root->set_color(node_type::black);
+			node_type::set_color(this->_root, node_type::black);
 		}
 
 		/**
@@ -457,8 +465,7 @@ namespace ft
 		{
 			bool tree_is_balanced = false;
 			this->_root = _erase(this->_root, data, tree_is_balanced);
-			if (this->_root != NULL)
-				this->_root->set_color(node_type::black);
+			node_type::set_color(this->_root, node_type::black);
 		}
 
 	};
