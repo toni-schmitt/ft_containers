@@ -156,7 +156,9 @@ namespace ft
 		uint get_children_count()
 		{
 			uint count = 0;
-			for (int i = 0; this->children[i]; ++i)
+			if (this->get_right_child() != NULL)
+				++count;
+			if (this->get_left_child() != NULL)
 				++count;
 			return count;
 		}
