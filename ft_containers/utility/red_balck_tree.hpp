@@ -435,6 +435,19 @@ namespace ft
 
 		/* Constructors */
 	public:
+		/**
+		 * @brief Construct a new red black tree object
+		 * 
+		 */
+		red_black_tree()
+		{
+			this->_root = NULL;
+		}
+
+		explicit red_black_tree(const value_type &data)
+		{
+			this->_root = new node_type(data, node_type::red);
+		}
 		/* Destructors */
 	public:
 		/* Public Member Functions */
