@@ -53,7 +53,7 @@ namespace ft
 		 *
 		 * @param node Node of which to flip color
 		 */
-		void _flip_color(node_ptr node)
+		inline void _flip_color(node_ptr node)
 		{
 			if (node == NULL)
 				return;
@@ -105,7 +105,7 @@ namespace ft
 		 * @brief Flips color of this node
 		 *
 		 */
-		void flip_color()
+		inline void flip_color()
 		{
 			_flip_color(this);
 			_flip_color(this->children[rbt_node_left_child]);
@@ -113,7 +113,7 @@ namespace ft
 		}
 
 	public:
-		node_ptr get_max()
+		inline node_ptr get_max()
 		{
 			node_ptr current = this;
 
@@ -127,35 +127,35 @@ namespace ft
 		}
 
 	public:
-		bool is_red() { return this->color == red; }
+		inline bool is_red() { return this->color == red; }
 
-		static bool is_red(node_ptr node)
+		inline static bool is_red(node_ptr node)
 		{
 			if (node == NULL)
 				return false;
 			return node->is_red();
 		}
 
-		bool is_black() { return this->color == black; }
+		inline bool is_black() { return this->color == black; }
 
-		static bool is_black(node_ptr node)
+		inline static bool is_black(node_ptr node)
 		{
 			if (node == NULL)
 				return false;
 			return node->is_black();
 		}
 
-		bool has_left_child() { return this->get_left_child() != NULL; }
+		inline bool has_left_child() { return this->get_left_child() != NULL; }
 
-		bool has_right_child() { return this->get_right_child() != NULL; }
+		inline bool has_right_child() { return this->get_right_child() != NULL; }
 
 	public:
 		/* Getter */
-		value_type get_data() { return this->data; }
+		inline value_type get_data() { return this->data; }
 
-		node_ptr *get_children() { return this->children; }
+		inline node_ptr *get_children() { return this->children; }
 
-		uint get_children_count()
+		inline uint get_children_count()
 		{
 			uint count = 0;
 			if (this->get_right_child() != NULL)
@@ -165,20 +165,20 @@ namespace ft
 			return count;
 		}
 
-		node_ptr get_left_child() { return this->children[rbt_node_left_child]; }
+		inline node_ptr get_left_child() { return this->children[rbt_node_left_child]; }
 
-		node_ptr get_right_child() { return this->children[rbt_node_right_child]; }
+		inline node_ptr get_right_child() { return this->children[rbt_node_right_child]; }
 
-		node_color get_color() { return this->color; }
+		inline node_color get_color() { return this->color; }
 
 		/* Setter */
-		void set_data(value_type new_data) { this->data = new_data; }
+		inline void set_data(value_type new_data) { this->data = new_data; }
 
-		void set_children(node_ptr new_children[2]) { this->children = new_children; }
+		inline void set_children(node_ptr new_children[2]) { this->children = new_children; }
 
-		void set_color(node_color new_color) { this->color = new_color; }
+		inline void set_color(node_color new_color) { this->color = new_color; }
 
-		static void set_color(node_ptr node, node_color new_color)
+		inline static void set_color(node_ptr node, node_color new_color)
 		{
 			if (node == NULL)
 				return;
@@ -220,7 +220,7 @@ namespace ft
 		 *
 		 * @param node Node of which to flip color
 		 */
-		void _color_flip(node_ptr node)
+		inline void _color_flip(node_ptr node)
 		{
 			node->flip_color();
 		}
@@ -232,7 +232,7 @@ namespace ft
 		 * @param direction Either left (true) or right (false)
 		 * @return node_ptr
 		 */
-		node_ptr _rotate(node_ptr node, bool direction)
+		inline node_ptr _rotate(node_ptr node, bool direction)
 		{
 
 			node_ptr tmp = node->get_children()[!direction];
@@ -248,7 +248,7 @@ namespace ft
 			return tmp;
 		}
 
-		node_ptr _double_rotate(node_ptr node, bool direction)
+		inline node_ptr _double_rotate(node_ptr node, bool direction)
 		{
 			node->get_children()[direction] = _rotate(node->get_children()[!direction], !direction);
 			return _rotate(node, direction);
@@ -284,7 +284,7 @@ namespace ft
 			return node;
 		}
 
-		node_ptr _insert(node_ptr node, value_type data)
+		inline node_ptr _insert(node_ptr node, value_type data)
 		{
 			if (node == NULL)
 				return new node_type(data, node_type::red);
@@ -298,7 +298,7 @@ namespace ft
 
 
 		// Assumes that node only has one or fewer children
-		node_ptr get_available_child(node_ptr node)
+		inline node_ptr get_available_child(node_ptr node)
 		{
 			if (node->has_left_child())
 				return node->get_left_child();
@@ -395,7 +395,7 @@ namespace ft
 
 		}
 
-		node_ptr _erase(node_ptr node, value_type data, bool &tree_is_balanced)
+		inline node_ptr _erase(node_ptr node, value_type data, bool &tree_is_balanced)
 		{
 			if (node == NULL)
 			{
@@ -467,7 +467,7 @@ namespace ft
 		 *
 		 * @param data The Data to insert
 		 */
-		void insert(value_type data)
+		inline void insert(value_type data)
 		{
 			_root = _insert(_root, data);
 			node_type::set_color(this->_root, node_type::black);
@@ -477,7 +477,7 @@ namespace ft
 		 * @brief Erases data from the Red Black Tree
 		 * @param data The Data to erase
 		 */
-		void erase(value_type data)
+		inline void erase(value_type data)
 		{
 			bool tree_is_balanced = false;
 			this->_root = _erase(this->_root, data, tree_is_balanced);
