@@ -3,6 +3,8 @@
 #include <memory>
 #include <cstdlib>
 
+typedef unsigned int uint;
+
 #define rbt_node_left_child 0
 #define rbt_node_right_child 1
 
