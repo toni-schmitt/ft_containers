@@ -448,7 +448,8 @@ namespace ft
 
 		explicit red_black_tree(const value_type &data)
 		{
-			this->_root = new node_type(data, node_type::red);
+			this->_root = NULL;
+			this->insert(data);
 		}
 		/* Destructors */
 	public:
