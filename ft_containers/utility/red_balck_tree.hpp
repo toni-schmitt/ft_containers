@@ -146,6 +146,54 @@ namespace ft
 
 		/* Setter */
 	public:
+		inline void set_left_child(node_ptr left_child)
+		{
+			if (left_child == NULL)
+				return;
+
+			this->_left_child = left_child;
+		}
+
+		inline void set_right_child(node_ptr right_child)
+		{
+			if (right_child == NULL)
+				return;
+
+			this->_right_child = right_child;
+		}
+
+		inline void set_parent(node_ptr parent)
+		{
+			if (parent == NULL)
+				return;
+
+			this->_parent = parent;
+		}
+
+		inline void set_color(node_color color) { this->_color = color; }
+
+
+		/* Special Modifier functions */
+	public:
+		static inline void reset_left_child(node_ptr node)
+		{
+			if (node == NULL)
+				return;
+
+			node->reset_left_child();
+		}
+
+		inline void reset_left_child() { this->_left_child = NULL; }
+
+		static inline void reset_right_child(node_ptr node)
+		{
+			if (node == NULL)
+				return;
+
+			node->reset_right_child();
+		}
+
+		inline void reset_right_child() { this->_right_child = NULL; }
 	};
 
 	// search, insert, delete (main operations)
