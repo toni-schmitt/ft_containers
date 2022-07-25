@@ -380,6 +380,99 @@ namespace ft
 		{
 			this->insert(data);
 		}
+
+		/* Private Functions */
+	private:
+		/**
+		 * @brief Rotates at node in direction
+		 * @param node Node at which to rotate
+		 * @param direction Direction to Rotate in
+		 */
+		inline void _rotate(node_ptr node, rotate_direction direction)
+		{
+			if (node == NULL)
+				return;
+
+			node_ptr x = node;
+
+			node_ptr x_parent = x->get_parent();
+
+			node_ptr y = x->get_left_child();
+
+			// Reset Right Child of x
+			x->reset_right_child();
+
+			// Set Node's Parent to y
+			if (x_parent == NULL)
+				this->_root = y;
+			else if (x_parent->get_left_child() == x)
+				x_parent->set_left_child(y);
+			else if (x_parent->get_right_child() == x)
+				x_parent->set_right_child(y);
+			// Set Parent of y to Node's Parent
+			y->set_parent(x_parent);
+
+			switch (direction)
+			{
+				case left_rotation:
+					// Set left child of y to x
+					y->set_left_child(x);
+					break;
+				case right_rotation:
+					// Set right child of y to x
+					y->set_right_child(x);
+					break;
+			}
+			// Set x's Parent to y
+			x->set_parent(y);
+		}
+
+		inline node_ptr _get_node_from_key(node_ptr node, value_type key)
+		{
+			if (node == NULL)
+				return NULL;
+
+			if (node->get_data() == key)
+				return node;
+
+			if (node->get_data() < key)
+				return _get_node_from_key(node->get_left_child(), key);
+			return _get_node_from_key(node->get_right_child(), key);
+		}
+
+		/* Element Access functions */
+	public:
+		inline node_ptr get_node_from_key(value_type key)
+		{
+			return _get_node_from_key(this->_root, key);
+		}
+
+		inline node_ptr get_minimum()
+		{
+			if (this->_root == NULL)
+				return NULL;
+
+			node_ptr current_node = this->_root;
+			while (current_node != NULL)
+			{
+				current_node = current_node->get_left_child();
+			}
+			return current_node;
+		}
+
+		inline node_ptr get_maximum()
+		{
+			if (this->_root == NULL)
+				return NULL;
+
+			node_ptr current_node = this->_root;
+			while (current_node != NULL)
+			{
+				current_node = current_node->get_right_child();
+			}
+			return current_node;
+		}
+
 		/* Modifiers functions */
 	public:
 		/**
