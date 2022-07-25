@@ -116,6 +116,23 @@ namespace ft
 
 		/* Modifiers functions */
 	public:
+		static inline void flip_color(node_ptr node)
+		{
+			if (node == NULL)
+				return;
+
+			node->flip_color();
+		}
+
+		inline void flip_color()
+		{
+			if (this->_color == black)
+				this->_color = red;
+			else if (this->_color == red)
+				this->_color = black;
+		}
+
+	public:
 		/* Getter */
 		inline node_ptr get_parent() { return this->_parent; }
 
