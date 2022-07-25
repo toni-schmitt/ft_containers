@@ -9,7 +9,7 @@ namespace ft
 {
 
 	/**
-	 * @brief Node Structor for Red Black Tree
+	 * @brief Node Structure for Red Black Tree
 	 *
 	 * @tparam T Value Type of Node Data
 	 * @tparam Alloc Allocator of Value Type (Defaults to std::allocator<T>)
