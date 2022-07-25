@@ -61,11 +61,11 @@ namespace ft
 				node_ptr right_child = NULL
 		)
 		{
-			this->parent = parent;
+			this->_parent = parent;
 			this->_data = data;
 			this->_color = color;
-			this->left_child = left_child;
-			this->right_child = right_child;
+			this->_left_child = left_child;
+			this->_right_child = right_child;
 		}
 
 		/* Destructors */
@@ -117,15 +117,15 @@ namespace ft
 		/* Modifiers functions */
 	public:
 		/* Getter */
-		inline node_ptr get_parent() { return this->parent; }
+		inline node_ptr get_parent() { return this->_parent; }
 
-		inline value_type get_data() { return this->data; }
+		inline value_type get_data() { return this->_data; }
 
-		inline value_type get_color() { return this->color; }
+		inline value_type get_color() { return this->_color; }
 
-		inline node_ptr get_left_child() { return this->left_child; }
+		inline node_ptr get_left_child() { return this->_left_child; }
 
-		inline node_ptr get_right_child() { return this->right_child; }
+		inline node_ptr get_right_child() { return this->_right_child; }
 
 		/* Setter */
 	public:
