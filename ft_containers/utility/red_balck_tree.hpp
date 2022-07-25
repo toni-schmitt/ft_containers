@@ -482,6 +482,14 @@ namespace ft
 		 */
 		inline void insert(value_type data)
 		{
+			if (this->_root == NULL)
+			{
+				this->_root = new node_type(NULL, data);
+				this->_root->set_color(node_type::black);
+				return;
+			}
+
+			this->_inserter.insert(data);
 		}
 
 		/**
