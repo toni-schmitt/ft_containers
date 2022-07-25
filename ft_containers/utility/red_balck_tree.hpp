@@ -37,13 +37,13 @@ namespace ft
 			black = 1
 		};
 
-		/* Protected Members */
-	protected:
-		node_ptr parent;
-		value_type data;
-		node_color color;
-		node_ptr left_child;
-		node_ptr right_child;
+		/* Private Members */
+	private:
+		node_ptr _parent;
+		value_type _data;
+		node_color _color;
+		node_ptr _left_child;
+		node_ptr _right_child;
 
 		/* Constructors */
 	public:
