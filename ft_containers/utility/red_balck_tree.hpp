@@ -215,22 +215,168 @@ namespace ft
 		typedef typename node_type::node_ptr node_ptr;
 		typedef typename node_type::const_node_ptr const_node_ptr;
 		typedef typename node_type::node_color node_color;
+		typedef enum { left_rotation = 0, right_rotation = 1 } rotate_direction;
+
+		/* Private Local Class */
+	private:
+		/**
+		 * @brief Local Class for Insertion into the Red Black Tree
+		 */
+		class Inserter
+		{
+			/* Private Locals Insertion Fixer Class */
+		private:
+			class InsertionFixer
+			{
+			private:
+				const Inserter &_parent_class;
+
+			private:
+				void _fix_case_3(node_ptr &new_node, node_ptr uncle)
+				{
+					if (uncle->get_color() == node_type::red)
+					{
+						uncle->set_color(node_type::black);
+						new_node->get_parent()->set_color(node_type::black);
+						new_node->get_parent()->get_parent()->set_color(node_type::red);
+						new_node = new_node->get_parent()->get_parent();
+					}
+					else
+					{
+						if (new_node == new_node->get_parent()->get_left_child())
+						{
+							new_node = new_node->get_parent();
+							this->_parent_class._parent_class._rotate(new_node, right_rotation);
+						}
+						new_node->get_parent()->set_color(node_type::black);
+						new_node->get_parent()->get_parent()->set_color(node_type::red);
+						this->_parent_class._parent_class._rotate(new_node, left_rotation);
+					}
+				}
+
+			public:
+				explicit InsertionFixer(const Inserter &parent_class) : _parent_class(parent_class) { }
+
+				void fix(node_ptr &new_node)
+				{
+					node_ptr uncle;
+
+					while (new_node->get_parent()->get_color() == node_type::red)
+					{
+						if (new_node->get_parent() == new_node->get_parent()->get_parent()->get_right_child())
+						{
+							uncle = new_node->get_parent()->get_left_child();
+							this->_fix_case_3(new_node, uncle);
+						}
+						else
+						{
+							uncle = new_node->get_parent()->get_parent()->get_right_child();
+							this->_fix_case_3(new_node, uncle);
+						}
+						if (new_node == this->_parent_class._parent_class._root)
+						{
+							break;
+						}
+					}
+					this->_parent_class._parent_class._root->set_color(node_type::black);
+				}
+			};
+
+		private:
+			/* Parent Class of Local Class for Insertion */
+			const red_black_tree<T, Alloc> &_parent_class;
+			const InsertionFixer &_insertion_fixer;
+
+		public:
+			/**
+			 * @brief Parameter Constructor
+			 * @param parent_class Reference to Class that called Constructor
+			 */
+			explicit Inserter(const red_black_tree<T, Alloc> &parent_class) : _parent_class(parent_class)
+			{
+				this->_insertion_fixer = InsertionFixer(*this);
+			}
+
+			/**
+			 * @brief Inserts data into the Red Black Tree
+			 * @param data
+			 */
+			inline void insert(const value_type &data) const
+			{
+				node_ptr new_node;
+
+				{
+					node_ptr place_to_insert_new_node = this->_get_place_to_insert_new_node(data);
+
+					new_node = new node_type(place_to_insert_new_node, data, node_type::red);
+					if (data < place_to_insert_new_node->get_data())
+						place_to_insert_new_node->set_left_child(new_node);
+					else
+						place_to_insert_new_node->set_right_child(new_node);
+				}
+
+				if (new_node->get_parent()->get_parent() == NULL)
+					return;
+
+				this->_insertion_fixer.fix(new_node);
+			}
+
+			/**
+			 * @brief Returns a suitable place to insert data
+			 * @param data Data to Inserter
+			 * @return A suitable place for insertion
+			 */
+			inline node_ptr _get_place_to_insert_new_node(const value_type &data) const
+			{
+				node_ptr place_to_insert_new_node = NULL;
+
+				for (node_ptr current_node = this->_parent_class._root; current_node != NULL;)
+				{
+					place_to_insert_new_node = current_node;
+					current_node = this->_iterate_tree_by_data(current_node, data);
+				}
+
+				return place_to_insert_new_node;
+			}
+
+			/**
+			 * @brief Iterates the Red Black Tree (based on comparison of keys)
+			 * @param current_node
+			 * @param data
+			 * @return
+			 */
+			inline node_ptr _iterate_tree_by_data(node_ptr &current_node, value_type data) const
+			{
+				if (current_node == NULL)
+					return NULL;
+
+
+				if (data < current_node->get_data())
+				{
+					return current_node->get_left_child();
+				}
+				return current_node->get_right_child();
+			}
+		};
 
 		/* Private Members */
 	private:
 		node_ptr _root;
+		const Inserter _inserter;
+
+
 
 		/* Constructors */
 	public:
 		/**
 		 * @brief Construct a new red black tree object
 		 */
-		red_black_tree()
+		red_black_tree() : _inserter(Inserter(*this))
 		{
 			this->_root = NULL;
 		}
 
-		explicit red_black_tree(const value_type &data)
+		explicit red_black_tree(const value_type &data) : _inserter(Inserter(*this))
 		{
 			this->insert(data);
 		}
