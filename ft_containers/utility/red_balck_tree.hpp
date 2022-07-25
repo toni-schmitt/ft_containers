@@ -5,9 +5,6 @@
 
 typedef unsigned int uint;
 
-#define rbt_node_left_child 0
-#define rbt_node_right_child 1
-
 namespace ft
 {
 
@@ -42,149 +39,96 @@ namespace ft
 
 		/* Protected Members */
 	protected:
+		node_ptr parent;
 		value_type data;
-		node_ptr children[2];
 		node_color color;
-
-		/* Private Functions */
-	private:
-		/**
-		 * @brief Flips color of node
-		 *
-		 * @param node Node of which to flip color
-		 */
-		inline void _flip_color(node_ptr node)
-		{
-			if (node == NULL)
-				return;
-
-			node->color = node->color == red ? black : red;
-		}
+		node_ptr left_child;
+		node_ptr right_child;
 
 		/* Constructors */
 	public:
 		/**
 		 * @brief Construct a new rbt node object
 		 *
-		 * @param data Data to store in Node
-		 * @param color Color of Node (see enum node_color)
-		 * @param left_child Left Child of Node
-		 * @param right_child Right Child of Node
+		 * @param parent Parent of the node
+		 * @param data Data of the node
+		 * @param color Color of the node
+		 * @param left_child Left Child of the node
+		 * @param right_child Right Child of the node
 		 */
-		rbt_node(value_const_ref data, node_color color, node_ptr left_child = NULL, node_ptr right_child = NULL)
+		rbt_node(
+				node_ptr parent, value_type data, node_color color = node_color::black, node_ptr left_child = NULL,
+				node_ptr right_child = NULL
+		)
 		{
-			this->data = data;
-			this->children[rbt_node_left_child] = left_child;
-			this->children[rbt_node_right_child] = right_child;
-			this->color = color;
-		}
-
-		/**
-		 * @brief Construct a new rbt node object from copy
-		 *
-		 * @param copy Copy of which to construct object
-		 */
-		rbt_node(const_node_ref copy)
-		{
-			if (&copy == this)
-				return;
-
-			this->data = copy.data;
-			this->color = copy.color;
-			this->children = copy.children;
-
+			this->parent = parent;
+			this->_data = data;
+			this->_color = color;
+			this->left_child = left_child;
+			this->right_child = right_child;
 		}
 
 		/* Destructors */
 	public:
 		~rbt_node() { }
 
+		/* Static Functions */
+	public:
+		static inline node_ptr get_parent(node_ptr node)
+		{
+			if (node == NULL)
+				return node_ptr();
+
+			return node->get_parent();
+		}
+
+		static inline value_type get_data(node_ptr node)
+		{
+			if (node == NULL)
+				return value_type();
+
+			return node->get_data();
+		}
+
+		static inline node_color get_color(node_ptr node)
+		{
+			if (node == NULL)
+				return node_color();
+
+			return node->get_color();
+		}
+
+		static inline node_ptr get_left_child(node_ptr node)
+		{
+			if (node == NULL)
+				return node_ptr();
+
+			return node->get_left_child();
+		}
+
+		static inline node_ptr get_right_child(node_ptr node)
+		{
+			if (node == NULL)
+				return node_ptr();
+
+			return node->get_right_child();
+		}
+
 		/* Modifiers functions */
 	public:
-		/**
-		 * @brief Flips color of this node
-		 *
-		 */
-		inline void flip_color()
-		{
-			_flip_color(this);
-			_flip_color(this->children[rbt_node_left_child]);
-			_flip_color(this->children[rbt_node_right_child]);
-		}
-
-	public:
-		inline node_ptr get_max()
-		{
-			node_ptr current = this;
-
-			while (current->get_right_child() != NULL)
-			{
-				current = current->get_right_child();
-				if (current == NULL)
-					break;
-			}
-			return current;
-		}
-
-	public:
-		inline bool is_red() { return this->color == red; }
-
-		inline static bool is_red(node_ptr node)
-		{
-			if (node == NULL)
-				return false;
-			return node->is_red();
-		}
-
-		inline bool is_black() { return this->color == black; }
-
-		inline static bool is_black(node_ptr node)
-		{
-			if (node == NULL)
-				return false;
-			return node->is_black();
-		}
-
-		inline bool has_left_child() { return this->get_left_child() != NULL; }
-
-		inline bool has_right_child() { return this->get_right_child() != NULL; }
-
-	public:
 		/* Getter */
+		inline node_ptr get_parent() { return this->parent; }
+
 		inline value_type get_data() { return this->data; }
 
-		inline node_ptr *get_children() { return this->children; }
+		inline value_type get_color() { return this->color; }
 
-		inline uint get_children_count()
-		{
-			uint count = 0;
-			if (this->get_right_child() != NULL)
-				++count;
-			if (this->get_left_child() != NULL)
-				++count;
-			return count;
-		}
+		inline node_ptr get_left_child() { return this->left_child; }
 
-		inline node_ptr get_left_child() { return this->children[rbt_node_left_child]; }
-
-		inline node_ptr get_right_child() { return this->children[rbt_node_right_child]; }
-
-		inline node_color get_color() { return this->color; }
+		inline node_ptr get_right_child() { return this->right_child; }
 
 		/* Setter */
-		inline void set_data(value_type new_data) { this->data = new_data; }
-
-		inline void set_children(node_ptr new_children[2]) { this->children = new_children; }
-
-		inline void set_color(node_color new_color) { this->color = new_color; }
-
-		inline static void set_color(node_ptr node, node_color new_color)
-		{
-			if (node == NULL)
-				return;
-
-			node->set_color(new_color);
-		}
+	public:
 	};
 
 	// search, insert, delete (main operations)
