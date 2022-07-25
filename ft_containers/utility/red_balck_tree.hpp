@@ -17,7 +17,7 @@ namespace ft
 	 * @tparam T Value Type of Node Data
 	 * @tparam Alloc Allocator of Value Type (Defaults to std::allocator<T>)
 	 */
-	template <class T, class Alloc = std::allocator<T> >
+	template < class T, class Alloc = std::allocator<T> >
 	struct rbt_node
 	{
 		/* Member Types */
@@ -189,7 +189,7 @@ namespace ft
 
 	// search, insert, delete (main operations)
 	// helpers: rotation, color flip
-	template <class T, class Alloc = std::allocator<T> >
+	template < class T, class Alloc = std::allocator<T> >
 	class red_black_tree
 	{
 		/* Member Types */
