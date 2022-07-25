@@ -196,8 +196,6 @@ namespace ft
 		inline void reset_right_child() { this->_right_child = NULL; }
 	};
 
-	// search, insert, delete (main operations)
-	// helpers: rotation, color flip
 	template < class T, class Alloc = std::allocator<T> >
 	class red_black_tree
 	{
