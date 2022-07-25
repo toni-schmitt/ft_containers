@@ -57,7 +57,7 @@ namespace ft
 		 * @param right_child Right Child of the node
 		 */
 		rbt_node(
-				node_ptr parent, value_type data, node_color color = node_color::black, node_ptr left_child = NULL,
+				node_ptr parent, value_type data, node_color color = black, node_ptr left_child = NULL,
 				node_ptr right_child = NULL
 		)
 		{
