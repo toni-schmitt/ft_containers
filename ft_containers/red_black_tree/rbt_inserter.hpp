@@ -236,37 +236,37 @@ namespace ft
 				// case 3 (Parent of node is red)
 				// This violates Property 4
 				// If a Node is Red, both of its children are black
-				if (node->is_red() && node->get_parent()->is_red())
+				if (!node->is_red() || !node->get_parent()->is_red())
+					return;
+				// We need to check the Aunt of node to see if the Tree is further violated
+				/// CASE 3.x
+
+				// case 3.1
+				if (is_red_triangle(node))
 				{
-					// We need to check the Aunt of node to see if the Tree is further violated
-					/// CASE 3.x
-
-					// case 3.1
-					if (is_red_triangle(node))
-						fix_red_triangle(node);
-
-					/// CASE 3.2.x
-					const node_ptr aunt = node->get_aunt();
-					if (aunt == NULL || aunt->is_black())
-					{
-						// case 3.2.1
-						if (is_right_leaning(node))
-							fix_right_lean(node);
-
-						// case 3.2.2
-						if (is_right_left_leaning(node))
-							fix_right_left_lean(node);
-
-						// case 3.2.3
-						if (is_left_leaning(node))
-							fix_left_lean(node);
-
-						// case 3.2.3
-						if (is_left_right_leaning(node))
-							fix_left_right_lean(node);
-					}
-
+					fix_red_triangle(node);
+					return;
 				}
+
+				/// CASE 3.2.x
+				const node_ptr aunt = node->get_aunt();
+				if (aunt != NULL && !aunt->is_black())
+					return;
+				// case 3.2.1
+				if (is_right_leaning(node))
+					fix_right_lean(node);
+
+				// case 3.2.2
+				if (is_right_left_leaning(node))
+					fix_right_left_lean(node);
+
+				// case 3.2.3
+				if (is_left_leaning(node))
+					fix_left_lean(node);
+
+				// case 3.2.3
+				if (is_left_right_leaning(node))
+					fix_left_right_lean(node);
 
 			}
 
