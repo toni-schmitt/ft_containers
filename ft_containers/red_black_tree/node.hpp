@@ -271,6 +271,14 @@ namespace ft
 
 		/* Special Modifier functions */
 	public:
+		inline void reset_parent()
+		{
+			if (is_null(this))
+				return;
+
+			this->_parent = NULL;
+		}
+
 		inline void reset_left_child()
 		{
 			if (is_null(this))
