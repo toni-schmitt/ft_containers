@@ -38,7 +38,6 @@ namespace ft
 		typedef typename node_type::node_color node_color;
 		typedef rbt_inserter<value_type, allocator_type> inserter_type;
 		typedef rbt_eraser<value_type, allocator_type> eraser_type;
-		typedef enum { left_rotation = 0, right_rotation = 1 } rotate_direction;
 
 		/* Private Members */
 	private:
@@ -87,49 +86,55 @@ namespace ft
 		 * @param node Node to Rotate at
 		 * @param direction Direction in which to rotate
 		 */
-		void _rotate(node_ptr node, rotate_direction direction)
+		void _left_rotation(node_ptr node)
+		{
+			(void)node;
+			throw std::logic_error("Not Implemented Exception");
+		}
+
+		void _right_rotation(node_ptr node)
 		{
 			if (node == NULL)
 				return;
 
-			node_ptr &to_rotate = node;
+			node_ptr parent = node->get_parent();
 
-			node_ptr to_rotate_parent = to_rotate->get_parent();
+			node_ptr left_child = node->get_left_child();
 
-			node_ptr to_rotate_left_child = to_rotate->get_left_child();
-
-			// Reset Right Child of to_rotate
-			to_rotate->reset_right_child();
-
-			// Set Node's Parent to to_rotate_left_child
-			if (to_rotate_parent == NULL)
-				this->_root = to_rotate_left_child;
-			else if (to_rotate_parent->get_left_child() == to_rotate)
-				to_rotate_parent->set_left_child(to_rotate_left_child);
-			else if (to_rotate_parent->get_right_child() == to_rotate)
-				to_rotate_parent->set_right_child(to_rotate_left_child);
-
-//			if (to_rotate_left_child == NULL)
-//			{
-//				to_rotate->set_parent(NULL);
-//				return;
-//			}
-			// TODO: Do not use variables for this, use static accessing via ->
-			// Set Parent of to_rotate_left_child to Node's Parent
-			to_rotate->get_left_child()->set_parent(to_rotate_parent);
-			switch (direction)
+			// Update node
+			// 1. Update Left Child
+			node->set_left_child(left_child->get_right_child());
+			if (left_child->get_right_child() == NULL)
+				node->reset_left_child();
+			// 2. Update Parent
+			if (node->get_parent() == NULL)
 			{
-				case left_rotation:
-					// Set left child of to_rotate_left_child to to_rotate
-					to_rotate->get_left_child()->set_left_child(to_rotate);
-					break;
-				case right_rotation:
-					// Set right child of to_rotate_left_child to to_rotate
-					to_rotate->get_left_child()->set_right_child(to_rotate);
-					break;
+				// node is root node
+				this->_root = left_child;
+				left_child->reset_parent();
+				node->set_parent(left_child);
 			}
-			// Set to_rotate's Parent to to_rotate_left_child
-			to_rotate->set_parent(to_rotate_left_child);
+			else
+			{
+				if (parent->get_left_child() == node)
+				{
+					parent->set_left_child(left_child);
+				}
+				else if (parent->get_right_child() == node)
+				{
+					parent->set_right_child(left_child);
+				}
+				node->set_parent(left_child);
+				left_child->set_parent(parent);
+			}
+
+			// 3. Update left_child
+			node_ptr left_child_right_child = left_child->get_right_child();
+
+			left_child->set_right_child(node);
+			if (left_child_right_child != NULL)
+				left_child_right_child->set_parent(node);
+
 		}
 
 	};

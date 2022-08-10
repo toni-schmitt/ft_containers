@@ -72,8 +72,7 @@ namespace ft
 				node_ptr grand_parent = parent->get_parent();
 
 				// TODO: Reimplement Rotation Function
-				this->_caller_class._caller_class
-					._rotate(grand_parent, this->_caller_class._caller_class.right_rotation);
+				this->_caller_class._caller_class._right_rotation(grand_parent);
 				grand_parent->set_color(node_type::red);
 				parent->set_color(node_type::black);
 			}
@@ -168,8 +167,7 @@ namespace ft
 				node_ptr parent = node->get_parent();
 				node_ptr grand_parent = parent->get_parent();
 
-				this->_caller_class._caller_class
-					._rotate(grand_parent, this->_caller_class._caller_class.left_rotation);
+				this->_caller_class._caller_class._left_rotation(node);
 				grand_parent->set_color(node_type::red);
 				parent->set_color(node_type::black);
 			}
@@ -197,7 +195,7 @@ namespace ft
 			{
 				node_ptr parent = node->get_parent();
 
-				this->_caller_class._caller_class._rotate(parent, this->_caller_class._caller_class.right_rotation);
+				this->_caller_class._caller_class._right_rotation(parent);
 				fix_right_lean(node);
 			}
 
@@ -224,7 +222,7 @@ namespace ft
 			{
 				node_ptr parent = node->get_parent();
 
-				this->_caller_class._caller_class._rotate(parent, this->_caller_class._caller_class.left_rotation);
+				this->_caller_class._caller_class._left_rotation(parent);
 				fix_left_lean(node);
 			}
 
@@ -342,13 +340,11 @@ namespace ft
 					if (new_node == new_node->get_parent()->get_left_child())
 					{
 						new_node = new_node->get_parent();
-						this->_caller_class._caller_class
-							._rotate(new_node, this->_caller_class._caller_class.right_rotation);
+						this->_caller_class._caller_class._right_rotation(new_node);
 					}
 					new_node->get_parent()->set_color(node_type::black);
 					new_node->get_parent()->get_parent()->set_color(node_type::red);
-					this->_caller_class._caller_class
-						._rotate(new_node, this->_caller_class._caller_class.left_rotation);
+					this->_caller_class._caller_class._left_rotation(new_node);
 				}
 			}
 		};
