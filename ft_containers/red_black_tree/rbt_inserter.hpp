@@ -76,8 +76,8 @@ namespace ft
 
 				// TODO: Reimplement Rotation Function
 				this->_caller_class._caller_class._right_rotation(grand_parent);
-				grand_parent->set_color(node_type::red);
-				parent->set_color(node_type::black);
+				grand_parent->set_color(node_type::RED);
+				parent->set_color(node_type::BLACK);
 			}
 
 			bool _is_left_leaning(const node_ptr &node)
@@ -141,9 +141,9 @@ namespace ft
 
 				// Only recolor Grandparent if it is not the Root Node
 				if (grand_parent != this->_caller_class._caller_class._root)
-					grand_parent->set_color(node_type::red);
-				parent->set_color(node_type::black);
-				aunt->set_color(node_type::black);
+					grand_parent->set_color(node_type::RED);
+				parent->set_color(node_type::BLACK);
+				aunt->set_color(node_type::BLACK);
 			}
 
 			bool _is_right_leaning(const node_ptr &node)
@@ -171,8 +171,8 @@ namespace ft
 				node_ptr grand_parent = parent->get_parent();
 
 				this->_caller_class._caller_class._left_rotation(node);
-				grand_parent->set_color(node_type::red);
-				parent->set_color(node_type::black);
+				grand_parent->set_color(node_type::RED);
+				parent->set_color(node_type::BLACK);
 			}
 
 			inline bool _is_right_left_leaning(node_ptr &node)
@@ -308,7 +308,7 @@ namespace ft
 			{
 				node_ptr place_to_insert_new_node = this->_get_place_to_insert_new_node(data);
 
-				new_node = new node_type(place_to_insert_new_node, data, node_type::red);
+				new_node = new node_type(place_to_insert_new_node, data, node_type::RED);
 				if (data < place_to_insert_new_node->get_data())
 					place_to_insert_new_node->set_left_child(new_node);
 				else
