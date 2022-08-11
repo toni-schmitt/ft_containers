@@ -88,8 +88,45 @@ namespace ft
 		 */
 		void _left_rotation(node_ptr node)
 		{
-			(void)node;
-			throw std::logic_error("Not Implemented Method");
+			if (node == NULL)
+				return;
+
+			node_ptr parent = node->get_parent();
+			node_ptr right_child = node->get_right_child();
+
+			// Update node
+			// 1. Update right child
+			node->set_right_child(right_child->get_left_child());
+			if (right_child->get_left_child() == NULL)
+				node->reset_right_child();
+			// 2. Update Parent
+			if (parent == NULL)
+			{
+				this->_root = right_child;
+				right_child->reset_parent();
+				node->set_parent(right_child);
+			}
+			else
+			{
+				if (parent->get_left_child() == node)
+				{
+					parent->set_left_child(right_child);
+				}
+				else if (parent->get_right_child() == node)
+				{
+					parent->set_right_child(right_child);
+				}
+				node->set_parent(right_child);
+				right_child->set_parent(parent);
+			}
+
+			// 3. Update right_child
+			node_ptr right_child_left_child = right_child->get_left_child();
+
+			right_child->set_left_child(node);
+			if (right_child_left_child != NULL)
+				right_child_left_child->set_parent(node);
+
 		}
 
 		void _right_rotation(node_ptr node)
