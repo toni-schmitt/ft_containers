@@ -36,8 +36,8 @@ namespace ft
 	public:
 		enum node_color
 		{
-			red = 0,
-			black = 1
+			RED = 0,
+			BLACK = 1
 		};
 
 		/* Private Members */
@@ -60,7 +60,7 @@ namespace ft
 		 * @param right_child Right Child of the node
 		 */
 		rbt_node(
-				node_ptr parent, value_type data, node_color color = black, node_ptr left_child = NULL,
+				node_ptr parent, value_type data, node_color color = BLACK, node_ptr left_child = NULL,
 				node_ptr right_child = NULL
 		)
 		{
@@ -123,7 +123,7 @@ namespace ft
 			if (is_null(this))
 				return (false);
 
-			return _color != black;
+			return _color != BLACK;
 		}
 
 		inline bool is_black()
@@ -131,7 +131,7 @@ namespace ft
 			if (is_null(this))
 				return (false);
 
-			return _color != red;
+			return _color != RED;
 		}
 
 		/* Modifiers functions */
@@ -149,10 +149,10 @@ namespace ft
 			if (is_null(this))
 				return;
 
-			if (this->_color == black)
-				this->_color = red;
-			else if (this->_color == red)
-				this->_color = black;
+			if (this->_color == BLACK)
+				this->_color = RED;
+			else if (this->_color == RED)
+				this->_color = BLACK;
 		}
 
 	public:

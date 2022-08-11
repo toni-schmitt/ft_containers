@@ -66,7 +66,7 @@ namespace ft
 			if (this->_root == NULL)
 			{
 				this->_root = new node_type(NULL, data);
-				this->_root->set_color(node_type::black);
+				this->_root->set_color(node_type::BLACK);
 				return;
 			}
 

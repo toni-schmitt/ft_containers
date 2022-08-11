@@ -40,13 +40,13 @@ namespace ft
 	public:
 		bool erase(const node_ptr &to_erase)
 		{
-			(void) to_erase;
+			( void ) to_erase;
 			return true;
 		}
 
 		bool erase(const value_type &data)
 		{
-			(void) data;
+			( void ) data;
 			return true;
 		}
 

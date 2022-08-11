@@ -33,7 +33,6 @@ namespace ft
 		class rbt_insertion_fixer
 		{
 
-
 			friend class rbt_inserter;
 
 			/* Member Types */
@@ -52,7 +51,7 @@ namespace ft
 		private:
 			rbt_insertion_fixer &operator=(const rbt_insertion_fixer &copy)
 			{
-				(void) copy;
+				( void ) copy;
 				throw not_allowed_constructor_call();
 			}
 
@@ -64,7 +63,9 @@ namespace ft
 				}
 			};
 
-			void fix_left_lean(node_ptr &node)
+			/* Private Member Functions */
+		private:
+			void _fix_left_lean(node_ptr &node)
 			{
 				// case 3.2.3
 
@@ -77,7 +78,7 @@ namespace ft
 				parent->set_color(node_type::black);
 			}
 
-			bool is_left_leaning(const node_ptr &node)
+			bool _is_left_leaning(const node_ptr &node)
 			{
 				if (node == NULL)
 					return false;
@@ -103,7 +104,7 @@ namespace ft
 				return true;
 			}
 
-			bool is_red_triangle(const node_ptr &node)
+			bool _is_red_triangle(const node_ptr &node)
 			{
 				if (node == NULL)
 					return false;
@@ -130,7 +131,7 @@ namespace ft
 				return true;
 			}
 
-			void fix_red_triangle(node_ptr &node)
+			void _fix_red_triangle(node_ptr &node)
 			{
 				node_ptr parent = node->get_parent();
 				node_ptr grand_parent = node->get_parent();
@@ -143,7 +144,7 @@ namespace ft
 				aunt->set_color(node_type::black);
 			}
 
-			bool is_right_leaning(const node_ptr &node)
+			bool _is_right_leaning(const node_ptr &node)
 			{
 				if (node == NULL)
 					return false;
@@ -162,7 +163,7 @@ namespace ft
 				return true;
 			}
 
-			void fix_right_lean(node_ptr &node)
+			void _fix_right_lean(node_ptr &node)
 			{
 				node_ptr parent = node->get_parent();
 				node_ptr grand_parent = parent->get_parent();
@@ -172,7 +173,7 @@ namespace ft
 				parent->set_color(node_type::black);
 			}
 
-			inline bool is_right_left_leaning(node_ptr &node)
+			inline bool _is_right_left_leaning(node_ptr &node)
 			{
 				if (node == NULL)
 					return false;
@@ -191,15 +192,15 @@ namespace ft
 				return true;
 			}
 
-			void fix_right_left_lean(node_ptr &node)
+			void _fix_right_left_lean(node_ptr &node)
 			{
 				node_ptr parent = node->get_parent();
 
 				this->_caller_class._caller_class._right_rotation(parent);
-				fix_right_lean(node);
+				_fix_right_lean(node);
 			}
 
-			inline bool is_left_right_leaning(node_ptr &node)
+			inline bool _is_left_right_leaning(node_ptr &node)
 			{
 				if (node == NULL)
 					return false;
@@ -218,16 +219,23 @@ namespace ft
 				return true;
 			}
 
-			void fix_left_right_lean(node_ptr &node)
+			void _fix_left_right_lean(node_ptr &node)
 			{
 				node_ptr parent = node->get_parent();
 
 				this->_caller_class._caller_class._left_rotation(parent);
-				fix_left_lean(node);
+				_fix_left_lean(node);
 			}
 
+			/* Public Member Functions */
+		public:
+			/**
+			 * @brief Checks if the current Node Violates any Property and fixes them
+			 * @param node to check
+			 */
 			void fix_tree(node_ptr &node)
 			{
+				// Cases from: https://algorithmtutor.com/Data-Structures/Tree/Red-Black-Trees/#Insertion
 				// case 1 (rbt is Empty, not handled here)
 
 				// case 2 (Parent of node is black)
@@ -238,115 +246,38 @@ namespace ft
 				// If a Node is Red, both of its children are black
 				if (!node->is_red() || !node->get_parent()->is_red())
 					return;
-				// We need to check the Aunt of node to see if the Tree is further violated
 				/// CASE 3.x
 
 				// case 3.1
-				if (is_red_triangle(node))
+				if (_is_red_triangle(node))
 				{
-					fix_red_triangle(node);
+					_fix_red_triangle(node);
 					return;
 				}
 
+				// We need to check the Aunt of node to see if the Tree is further violated
 				/// CASE 3.2.x
 				const node_ptr aunt = node->get_aunt();
 				if (aunt != NULL && !aunt->is_black())
 					return;
 				// case 3.2.1
-				if (is_right_leaning(node))
-					fix_right_lean(node);
+				if (_is_right_leaning(node))
+					_fix_right_lean(node);
 
 				// case 3.2.2
-				if (is_right_left_leaning(node))
-					fix_right_left_lean(node);
+				if (_is_right_left_leaning(node))
+					_fix_right_left_lean(node);
 
 				// case 3.2.3
-				if (is_left_leaning(node))
-					fix_left_lean(node);
+				if (_is_left_leaning(node))
+					_fix_left_lean(node);
 
 				// case 3.2.3
-				if (is_left_right_leaning(node))
-					fix_left_right_lean(node);
+				if (_is_left_right_leaning(node))
+					_fix_left_right_lean(node);
 
 			}
 
-			void _fix_iterate_tree(node_ptr &node)
-			{
-				node_ptr &current = node;
-
-				if (current->get_left_child() != NULL)
-					_fix_iterate_tree(current->get_left_child());
-				if (current->get_right_child() != NULL)
-					_fix_iterate_tree(current->get_right_child());
-
-				fix_tree(current);
-			}
-
-			void fix_iterate_tree()
-			{
-				this->_fix_iterate_tree(this->_caller_class._caller_class._root);
-			}
-
-
-			/* Public Member Functions */
-		public:
-//			void fix_tree(node_ptr &new_node)
-//			{
-//
-//				for (node_ptr current = this->_caller_class._root; current != NULL;)
-//				{
-//					current = current->get_left_child();
-//				}
-//
-////				while (node_type::get_color(node_type::get_parent(new_node)))
-//				while (new_node->get_parent()->get_color() == node_type::red)
-//				{
-////					node_ptr new_nodes_father = node_type ::get_parent(new_node);
-////					node_ptr new_nodes_grandfather = node_type ::get_parent(new_nodes_father);
-//					node_ptr new_nodes_father = new_node->get_parent();
-//					node_ptr new_nodes_grandfather = new_nodes_father->get_parent();
-//
-//					if (new_nodes_father == new_nodes_grandfather->get_left_child())
-//					{
-//						node_ptr uncle = new_nodes_father->get_left_child();
-//						this->_fix_case_3(new_node, uncle);
-//					}
-//					else
-//					{
-//						node_ptr uncle = new_nodes_grandfather->get_right_child();
-//						this->_fix_case_3(new_node, uncle);
-//					}
-//
-//					if (new_node == this->_caller_class._caller_class._root)
-//						break;
-//				}
-//
-//				this->_caller_class._caller_class._root->set_color(node_type::black);
-//			}
-
-			/* Private Member Functions */
-		private:
-			void _fix_case_3(node_ptr &new_node, node_ptr &uncle)
-			{
-				if (uncle != NULL && uncle->get_color() == node_type::red)
-				{
-					uncle->set_color(node_type::black);
-					new_node->get_parent()->set_color(node_type::black);
-					new_node->get_parent()->get_parent()->set_color(node_type::red);
-					new_node = new_node->get_parent()->get_parent();
-				}
-				else
-				{
-					if (new_node == new_node->get_parent()->get_left_child())
-					{
-						new_node = new_node->get_parent();
-						this->_caller_class._caller_class._right_rotation(new_node);
-					}
-					new_node->get_parent()->set_color(node_type::black);
-					new_node->get_parent()->get_parent()->set_color(node_type::red);
-					this->_caller_class._caller_class._left_rotation(new_node);
-				}
-			}
 		};
 
 		/* Private Members */
@@ -418,7 +349,6 @@ namespace ft
 		{
 			if (current_node == NULL)
 				return NULL;
-
 
 			if (data < current_node->get_data())
 			{
