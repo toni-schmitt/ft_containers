@@ -89,7 +89,7 @@ namespace ft
 		void _left_rotation(node_ptr node)
 		{
 			(void)node;
-			throw std::logic_error("Not Implemented Exception");
+			throw std::logic_error("Not Implemented Method");
 		}
 
 		void _right_rotation(node_ptr node)

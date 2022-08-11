@@ -219,7 +219,7 @@ namespace ft
 
 			node_ptr parent = this->get_parent();
 			if (parent == NULL)
-				return node_ptr ();
+				return node_ptr();
 
 			if (this == parent->get_left_child())
 				return parent->get_right_child();
@@ -233,7 +233,7 @@ namespace ft
 		inline void set_left_child(node_ptr left_child)
 		{
 			if (is_null(this))
-				throw "u";
+				throw std::logic_error("Cannot dereference if this is NULL");
 			if (left_child == NULL)
 				return;
 
@@ -243,7 +243,7 @@ namespace ft
 		inline void set_right_child(node_ptr right_child)
 		{
 			if (is_null(this))
-				throw "u";
+				throw std::logic_error("Cannot dereference if this is NULL");
 			if (right_child == NULL)
 				return;
 
@@ -253,7 +253,7 @@ namespace ft
 		inline void set_parent(node_ptr parent)
 		{
 			if (is_null(this))
-				throw "u";
+				throw std::logic_error("Cannot dereference if this is NULL");
 			if (parent == NULL)
 				return;
 
@@ -263,7 +263,7 @@ namespace ft
 		inline void set_color(node_color color)
 		{
 			if (is_null(this))
-				throw "u";
+				throw std::logic_error("Cannot dereference if this is NULL");
 
 			this->_color = color;
 		}

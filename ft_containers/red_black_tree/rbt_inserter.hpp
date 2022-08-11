@@ -44,9 +44,11 @@ namespace ft
 			caller_type &_caller_class;
 
 			/* Constructor */
+		public:
 			explicit rbt_insertion_fixer(caller_type &caller_class = caller_type()) : _caller_class(
-					caller_class) { }
-
+					caller_class)
+			{
+			}
 
 		private:
 			rbt_insertion_fixer &operator=(const rbt_insertion_fixer &copy)
