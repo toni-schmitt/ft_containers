@@ -172,17 +172,17 @@ namespace ft
 
 		/* Public Member Functions */
 	public:
-		void insert(const value_type &data)
+		void insert(const value_type &key)
 		{
 			node_ptr new_node = NULL;
 
 			{
-				node_ptr place_to_insert_new_node = this->_get_place_to_insert_new_node(data);
+				node_ptr place_to_insert_new_node = this->_get_place_to_insert_new_node(key);
 
-				new_node = this->_caller_class._new_node(place_to_insert_new_node, data, node_type::RED);
-				if (data < place_to_insert_new_node->get_data())
+				new_node = this->_caller_class._new_node(place_to_insert_new_node, key, node_type::RED);
+				if (key < place_to_insert_new_node->get_key())
 					place_to_insert_new_node->set_left_child(new_node);
-				else if (data > place_to_insert_new_node->get_data())
+				else if (key > place_to_insert_new_node->get_key())
 					place_to_insert_new_node->set_right_child(new_node);
 				else
 				{
@@ -201,17 +201,17 @@ namespace ft
 	private:
 		/**
 			 * @brief Returns a suitable place to insert data
-			 * @param data Data to Inserter
+			 * @param key Data to Inserter
 			 * @return A suitable place for insertion
 			 */
-		inline node_ptr _get_place_to_insert_new_node(const value_type &data) const
+		inline node_ptr _get_place_to_insert_new_node(const value_type &key) const
 		{
 			node_ptr place_to_insert_new_node = NULL;
 
 			for (node_ptr current_node = this->_caller_class._root; current_node != NULL;)
 			{
 				place_to_insert_new_node = current_node;
-				current_node = this->_iterate_tree_by_data(current_node, data);
+				current_node = this->_iterate_tree_by_key(current_node, key);
 			}
 
 			return place_to_insert_new_node;
@@ -220,15 +220,15 @@ namespace ft
 		/**
 		 * @brief Iterates the Red Black Tree (based on comparison of keys)
 		 * @param current_node
-		 * @param data
+		 * @param key
 		 * @return
 		 */
-		inline node_ptr _iterate_tree_by_data(const node_ptr &current_node, value_type data) const
+		inline node_ptr _iterate_tree_by_key(const node_ptr &current_node, value_type key) const
 		{
 			if (current_node == NULL)
 				return NULL;
 
-			if (data < current_node->get_data())
+			if (key < current_node->get_key())
 			{
 				return current_node->get_left_child();
 			}

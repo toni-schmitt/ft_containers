@@ -86,29 +86,29 @@ namespace ft
 
 		/* Modifiers Functions */
 	public:
-		inline void insert(const value_type &data)
+		inline void insert(const value_type &key)
 		{
 			if (this->_root == NULL)
 			{
-				this->_root = _new_node(NULL, data);
+				this->_root = _new_node(NULL, key);
 				this->_root->set_color(node_type::BLACK);
 				return;
 			}
 
-			this->_inserter.insert(data);
+			this->_inserter.insert(key);
 		}
 
-		inline void erase(const value_type &data)
+		inline void erase(const value_type &key)
 		{
-			this->_eraser.erase(data);
+			this->_eraser.erase(key);
 		}
 
 		/* Private Member Functions */
 	private:
-		node_ptr _new_node(node_ptr parent, value_type data, node_color color = node_type::BLACK,
+		node_ptr _new_node(node_ptr parent, value_type key, node_color color = node_type::BLACK,
 						   node_ptr left_child = NULL, node_ptr right_child = NULL)
 		{
-			node_ptr new_node = new node_type(parent, data, color, left_child, right_child);
+			node_ptr new_node = new node_type(parent, key, color, left_child, right_child);
 			this->_garbage_collector.add_node(new_node);
 			return new_node;
 		}

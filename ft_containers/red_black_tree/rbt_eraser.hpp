@@ -40,22 +40,22 @@ namespace ft
 
 		/* Private Member Functions */
 	private:
-		node_ptr _get_node_to_erase(const value_type &data)
+		node_ptr _get_node_to_erase(const value_type &key)
 		{
 			node_ptr current = this->_caller_class._root;
 
 			while (current != NULL)
 			{
-				if (data == current->get_data())
+				if (key == current->get_key())
 					break;
 
-				if (data < current->get_data())
+				if (key < current->get_key())
 					current = current->get_left_child();
 				else
 					current = current->get_right_child();
 			}
 
-			if (data != current->get_data())
+			if (key != current->get_key())
 				return NULL;
 			return current;
 		}
@@ -196,7 +196,7 @@ namespace ft
 			{
 				node_ptr in_order_successor = this->_find_minimum(to_erase->get_right_child());
 
-				to_erase->set_data(in_order_successor->get_data());
+				to_erase->set_key(in_order_successor->get_key());
 
 				moved_up_node = this->_delete_node_zero_or_one_child(in_order_successor);
 				erased_node_color = in_order_successor->get_color();
@@ -214,9 +214,9 @@ namespace ft
 			return true;
 		}
 
-		bool erase(const value_type &data)
+		bool erase(const value_type &key)
 		{
-			node_ptr to_erase = _get_node_to_erase(data);
+			node_ptr to_erase = _get_node_to_erase(key);
 			if (to_erase == NULL)
 				return false;
 

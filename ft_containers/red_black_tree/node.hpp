@@ -43,7 +43,7 @@ namespace ft
 		/* Private Members */
 	private:
 		node_ptr _parent;
-		value_type _data;
+		value_type _key;
 		node_color _color;
 		node_ptr _left_child;
 		node_ptr _right_child;
@@ -54,18 +54,18 @@ namespace ft
 		 * @brief Construct a new rbt node object
 		 *
 		 * @param parent Parent of the node
-		 * @param data Data of the node
+		 * @param key Data of the node
 		 * @param color Color of the node
 		 * @param left_child Left Child of the node
 		 * @param right_child Right Child of the node
 		 */
 		rbt_node(
-				node_ptr parent, value_type data, node_color color = BLACK, node_ptr left_child = NULL,
+				node_ptr parent, value_type key, node_color color = BLACK, node_ptr left_child = NULL,
 				node_ptr right_child = NULL
 		)
 		{
 			this->_parent = parent;
-			this->_data = data;
+			this->_key = key;
 			this->_color = color;
 			this->_left_child = left_child;
 			this->_right_child = right_child;
@@ -85,12 +85,12 @@ namespace ft
 			return node->get_parent();
 		}
 
-		static inline value_type get_data(node_ptr node)
+		static inline value_type get_key(node_ptr node)
 		{
 			if (node == NULL)
 				return value_type();
 
-			return node->get_data();
+			return node->get_key();
 		}
 
 		static inline node_color get_color(node_ptr node)
@@ -165,12 +165,12 @@ namespace ft
 			return this->_parent;
 		}
 
-		inline value_type get_data()
+		inline value_type get_key()
 		{
 			if (is_null(this))
 				return value_type();
 
-			return this->_data;
+			return this->_key;
 		}
 
 		inline node_color get_color()
@@ -301,13 +301,13 @@ namespace ft
 			this->_color = color;
 		}
 
-		inline void set_data(value_type data)
+		inline void set_key(value_type key)
 		{
 			if (is_null(this))
 				return;
 //				throw std::logic_error("Cannot dereference if this is NULL");
 
-			this->_data = data;
+			this->_key = key;
 		}
 
 
