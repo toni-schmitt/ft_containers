@@ -173,10 +173,10 @@ namespace ft
 			return this->_data;
 		}
 
-		inline value_type get_color()
+		inline node_color get_color()
 		{
 			if (is_null(this))
-				return value_type();
+				return node_color();
 
 			return this->_color;
 		}
