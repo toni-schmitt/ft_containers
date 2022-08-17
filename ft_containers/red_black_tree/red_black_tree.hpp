@@ -36,6 +36,7 @@ namespace ft
 		typedef typename node_type::node_ptr node_ptr;
 		typedef typename node_type::const_node_ptr const_node_ptr;
 		typedef typename node_type::node_color node_color;
+		typedef rbt_nil_node<value_type, allocator_type> nil_node_type;
 		typedef rbt_inserter<value_type, allocator_type> inserter_type;
 		typedef rbt_eraser<value_type, allocator_type> eraser_type;
 

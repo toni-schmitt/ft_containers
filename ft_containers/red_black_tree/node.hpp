@@ -294,4 +294,20 @@ namespace ft
 			this->_right_child = NULL;
 		}
 	};
+
+	/**
+	 * Represents a NIL-Leaf Node
+	 * @tparam T
+	 * @tparam Alloc
+	 */
+	template < class T, class Alloc = std::allocator<T> >
+	struct rbt_nil_node : public rbt_node<T>
+	{
+		/* Constructor */
+	public:
+		rbt_nil_node() : rbt_node<T>(NULL, 0, this->BLACK, NULL, NULL)
+		{
+			this->set_color(this->BLACK);
+		}
+	};
 } // namespace ft
