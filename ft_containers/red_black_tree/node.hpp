@@ -228,6 +228,19 @@ namespace ft
 			return NULL;
 		}
 
+		inline int get_children_count()
+		{
+			if (is_null(this))
+				return int();
+
+			int count = 0;
+			if (this->_left_child != NULL)
+				count += 1;
+			if (this->_right_child != NULL)
+				count += 1;
+			return count;
+		}
+
 		/* Setter */
 	public:
 		inline void set_left_child(node_ptr left_child)
