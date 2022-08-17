@@ -189,12 +189,28 @@ namespace ft
 			return this->_left_child;
 		}
 
+		inline bool has_left_child()
+		{
+			if (is_null(this))
+				return bool();
+
+			return this->_left_child != NULL;
+		}
+
 		inline node_ptr get_right_child()
 		{
 			if (is_null(this))
 				return node_ptr();
 
 			return this->_right_child;
+		}
+
+		inline bool has_right_child()
+		{
+			if (is_null(this))
+				return bool();
+
+			return this->_right_child != NULL;
 		}
 
 		inline node_ptr get_aunt()
