@@ -116,7 +116,7 @@ namespace ft
 
 			if (node == this->_caller_class._root)
 			{
-				node-set_color(node_type::BLACK);
+				node->set_color(node_type::BLACK);
 				return;
 			}
 
