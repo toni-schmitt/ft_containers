@@ -67,166 +67,23 @@ namespace ft
 
 			/* Private Member Functions */
 		private:
-			void _fix_left_lean(node_ptr &node)
+
+			void _iterate_fix_tree(node_ptr node)
 			{
-				// case 3.2.3
+				node_ptr current = node;
 
-				node_ptr parent = node->get_parent();
-				node_ptr grand_parent = parent->get_parent();
+				if (current == NULL)
+					return;
 
-				// TODO: Reimplement Rotation Function
-				this->_caller_class._caller_class._right_rotation(grand_parent);
-				grand_parent->set_color(node_type::RED);
-				parent->set_color(node_type::BLACK);
-			}
-
-			bool _is_left_leaning(const node_ptr &node)
-			{
-				if (node == NULL)
-					return false;
-
-				const node_ptr parent = node->get_parent();
-				const node_ptr grand_parent = parent->get_parent();
-
-				// If node is not left of parent and parent is not left of grand_parent
-				if (node != parent->get_left_child() && parent != grand_parent->get_left_child())
-					// Tree cannot be left leaning since Parent and Grandparent are not on left side
-					return false;
-
-				// If grand_parent is not black
-				if (!grand_parent->is_black())
-					// Tree does not need fixing, since Red Grandparent is valid
-					return false;
-
-				// If parent and node are not red
-				if (!parent->is_red() && !node->is_red())
-					// Tree does not need fixing, since two consecutive blacks are allowed
-					return false;
-
-				return true;
-			}
-
-			bool _is_red_triangle(const node_ptr &node)
-			{
-				if (node == NULL)
-					return false;
-
-				const node_ptr parent = node->get_parent();
-				const node_ptr grand_parent = parent->get_parent();
-				const node_ptr aunt = node->get_aunt();
-
-				if (parent == NULL || grand_parent == NULL || aunt == NULL)
-					return false;
-
-				if (!node->is_red())
-					// Tree cannot have red triangle because one of 3 nodes is not red
-					return false;
-
-				if (!parent->is_red())
-					// Tree cannot have red triangle because one of 3 nodes is not red
-					return false;
-
-				if (!aunt->is_red())
-					// Tree cannot have red triangle because one of 3 nodes is not red
-					return false;
-
-				return true;
-			}
-
-			void _fix_red_triangle(node_ptr &node)
-			{
-				node_ptr parent = node->get_parent();
-				node_ptr grand_parent = node->get_parent();
-				node_ptr aunt = node->get_aunt();
-
-				// Only recolor Grandparent if it is not the Root Node
-				if (grand_parent != this->_caller_class._caller_class._root)
-					grand_parent->set_color(node_type::RED);
-				parent->set_color(node_type::BLACK);
-				aunt->set_color(node_type::BLACK);
-			}
-
-			bool _is_right_leaning(const node_ptr &node)
-			{
-				if (node == NULL)
-					return false;
-
-				const node_ptr parent = node->get_parent();
-				const node_ptr grand_parent = parent->get_parent();
-
-				// If Node is not on right side of parent
-				if (node != parent->get_right_child())
-					return false;
-
-				// If Parent is not on right side of grandparent
-				if (parent != grand_parent->get_right_child())
-					return false;
-
-				return true;
-			}
-
-			void _fix_right_lean(node_ptr &node)
-			{
-				node_ptr parent = node->get_parent();
-				node_ptr grand_parent = parent->get_parent();
-
-				this->_caller_class._caller_class._left_rotation(node);
-				grand_parent->set_color(node_type::RED);
-				parent->set_color(node_type::BLACK);
-			}
-
-			inline bool _is_right_left_leaning(node_ptr &node)
-			{
-				if (node == NULL)
-					return false;
-
-				const node_ptr parent = node->get_parent();
-				const node_ptr grand_parent = parent->get_parent();
-
-				// If Node is not on left side of parent
-				if (node != parent->get_left_child())
-					return false;
-
-				// If Parent is not on right side of grandparent
-				if (parent != grand_parent->get_right_child())
-					return false;
-
-				return true;
-			}
-
-			void _fix_right_left_lean(node_ptr &node)
-			{
-				node_ptr parent = node->get_parent();
-
-				this->_caller_class._caller_class._right_rotation(parent);
-				_fix_right_lean(node);
-			}
-
-			inline bool _is_left_right_leaning(node_ptr &node)
-			{
-				if (node == NULL)
-					return false;
-
-				const node_ptr parent = node->get_parent();
-				const node_ptr grand_parent = parent->get_parent();
-
-				// If Node is not on left side of parent
-				if (node != parent->get_right_child())
-					return false;
-
-				// If Parent is not on right side of grandparent
-				if (parent != grand_parent->get_left_child())
-					return false;
-
-				return true;
-			}
-
-			void _fix_left_right_lean(node_ptr &node)
-			{
-				node_ptr parent = node->get_parent();
-
-				this->_caller_class._caller_class._left_rotation(parent);
-				_fix_left_lean(node);
+				if (current->get_left_child() != NULL)
+				{
+					this->_iterate_fix_tree(current->get_left_child());
+				}
+				if (current->get_right_child() != NULL)
+				{
+					this->_iterate_fix_tree(current->get_right_child());
+				}
+				this->fix_tree(current);
 			}
 
 			/* Public Member Functions */
@@ -237,47 +94,61 @@ namespace ft
 			 */
 			void fix_tree(node_ptr &node)
 			{
-				// Cases from: https://algorithmtutor.com/Data-Structures/Tree/Red-Black-Trees/#Insertion
-				// case 1 (rbt is Empty, not handled here)
+				// Cases from: https://www.happycoders.eu/algorithms/red-black-tree-java/#red-black-tree-insertion <- this is good :)
 
-				// case 2 (Parent of node is black)
-				// does not violate any property
 
-				// case 3 (Parent of node is red)
-				// This violates Property 4
-				// If a Node is Red, both of its children are black
-				if (!node->is_red() || !node->get_parent()->is_red())
+				// Case 1: New Node is Root (RBT is Empty)
+				if (node == this->_caller_class._caller_class._root)
 					return;
-				/// CASE 3.x
 
-				// case 3.1
-				if (_is_red_triangle(node))
+				node_ptr parent = node->get_parent();
+				if (parent->is_black())
+					return;
+
+				node_ptr grand_parent = parent->get_parent();
+				if (grand_parent == NULL)
 				{
-					_fix_red_triangle(node);
+					parent->set_color(node_type::BLACK);
 					return;
 				}
 
-				// We need to check the Aunt of node to see if the Tree is further violated
-				/// CASE 3.2.x
-				const node_ptr aunt = node->get_aunt();
-				if (aunt != NULL && !aunt->is_black())
+				node_ptr aunt = node->get_aunt();
+
+				if (aunt != NULL && aunt->get_color() == node_type::RED)
+				{
+					parent->set_color(node_type::BLACK);
+					grand_parent->set_color(node_type::RED);
+					aunt->set_color(node_type::BLACK);
+
+					fix_tree(grand_parent);
 					return;
-				// case 3.2.1
-				if (_is_right_leaning(node))
-					_fix_right_lean(node);
+				}
 
-				// case 3.2.2
-				if (_is_right_left_leaning(node))
-					_fix_right_left_lean(node);
+				if (parent == grand_parent->get_left_child())
+				{
+					if (node == parent->get_right_child())
+					{
+						this->_caller_class._caller_class._left_rotation(parent);
+						parent = node;
+					}
 
-				// case 3.2.3
-				if (_is_left_leaning(node))
-					_fix_left_lean(node);
+					this->_caller_class._caller_class._right_rotation(grand_parent);
 
-				// case 3.2.3
-				if (_is_left_right_leaning(node))
-					_fix_left_right_lean(node);
+					parent->set_color(node_type::BLACK);
+					grand_parent->set_color(node_type::RED);
+					return;
+				}
 
+				if (node == parent->get_left_child())
+				{
+					this->_caller_class._caller_class._right_rotation(parent);
+					parent = node;
+				}
+
+				this->_caller_class._caller_class._left_rotation(grand_parent);
+
+				parent->set_color(node_type::BLACK);
+				grand_parent->set_color(node_type::RED);
 			}
 
 		};
@@ -311,8 +182,13 @@ namespace ft
 				new_node = new node_type(place_to_insert_new_node, data, node_type::RED);
 				if (data < place_to_insert_new_node->get_data())
 					place_to_insert_new_node->set_left_child(new_node);
-				else
+				else if (data > place_to_insert_new_node->get_data())
 					place_to_insert_new_node->set_right_child(new_node);
+				else
+				{
+					// Node is already in Tree
+					// TODO: Handle Error (Throw Exception, Return false?)
+				}
 			}
 
 			if (new_node->get_parent()->get_parent() == NULL)
