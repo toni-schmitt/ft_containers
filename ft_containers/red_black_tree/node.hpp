@@ -262,7 +262,8 @@ namespace ft
 		inline void set_left_child(node_ptr left_child)
 		{
 			if (is_null(this))
-				throw std::logic_error("Cannot dereference if this is NULL");
+				return;
+//				throw std::logic_error("Cannot dereference if this is NULL");
 			if (left_child == NULL)
 				return;
 
@@ -272,7 +273,8 @@ namespace ft
 		inline void set_right_child(node_ptr right_child)
 		{
 			if (is_null(this))
-				throw std::logic_error("Cannot dereference if this is NULL");
+				return;
+//				throw std::logic_error("Cannot dereference if this is NULL");
 			if (right_child == NULL)
 				return;
 
@@ -282,7 +284,8 @@ namespace ft
 		inline void set_parent(node_ptr parent)
 		{
 			if (is_null(this))
-				throw std::logic_error("Cannot dereference if this is NULL");
+				return;
+//				throw std::logic_error("Cannot dereference if this is NULL");
 			if (parent == NULL)
 				return;
 
@@ -292,7 +295,8 @@ namespace ft
 		inline void set_color(node_color color)
 		{
 			if (is_null(this))
-				throw std::logic_error("Cannot dereference if this is NULL");
+				return;
+//				throw std::logic_error("Cannot dereference if this is NULL");
 
 			this->_color = color;
 		}
@@ -300,7 +304,8 @@ namespace ft
 		inline void set_data(value_type data)
 		{
 			if (is_null(this))
-				throw std::logic_error("Cannot dereference if this is NULL");
+				return;
+//				throw std::logic_error("Cannot dereference if this is NULL");
 
 			this->_data = data;
 		}
