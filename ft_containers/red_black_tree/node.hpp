@@ -281,6 +281,14 @@ namespace ft
 			this->_color = color;
 		}
 
+		inline void set_data(value_type data)
+		{
+			if (is_null(this))
+				throw std::logic_error("Cannot dereference if this is NULL");
+
+			this->_data = data;
+		}
+
 
 		/* Special Modifier functions */
 	public:
