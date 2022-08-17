@@ -32,11 +32,11 @@ namespace ft
 
 		/* Private Members */
 	private:
-		const caller_type &_caller_class;
+		caller_type &_caller_class;
 
 		/* Constructor */
 	public:
-		explicit rbt_eraser(const caller_type &caller_class) : _caller_class(caller_class) { }
+		explicit rbt_eraser(caller_type &caller_class) : _caller_class(caller_class) { }
 
 		/* Private Member Functions */
 	private:
