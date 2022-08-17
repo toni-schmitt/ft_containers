@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "../vector.hpp"
 #include "node.hpp"
 
 
@@ -40,20 +41,43 @@ namespace ft
 		typedef rbt_inserter<value_type, allocator_type> inserter_type;
 		typedef rbt_eraser<value_type, allocator_type> eraser_type;
 
+		class garbage_collector
+		{
+		private:
+			ft::vector<node_ptr> _nodes;
+
+		public:
+			void add_node(node_ptr node)
+			{
+				_nodes.push_back(node);
+			}
+
+			~garbage_collector()
+			{
+				for (size_t i = 0; i < _nodes.size(); i++)
+				{
+					delete _nodes[ i ];
+				}
+			}
+		};
+
 		/* Private Members */
 	private:
 		node_ptr _root;
 		inserter_type _inserter;
 		eraser_type _eraser;
+		garbage_collector _garbage_collector;
 
 		/* Constructor */
 	public:
-		red_black_tree() : _inserter(inserter_type(*this)), _eraser(eraser_type(*this))
+		red_black_tree() : _inserter(inserter_type(*this)), _eraser(eraser_type(*this)),
+						   _garbage_collector(garbage_collector())
 		{
 			this->_root = NULL;
 		}
 
-		explicit red_black_tree(const value_type &key) : _inserter(inserter_type(*this)), _eraser(eraser_type(*this))
+		explicit red_black_tree(const value_type &key) : _inserter(inserter_type(*this)), _eraser(eraser_type(*this)),
+														 _garbage_collector(garbage_collector())
 		{
 			this->_root = this->insert(key);
 		}
@@ -66,7 +90,7 @@ namespace ft
 		{
 			if (this->_root == NULL)
 			{
-				this->_root = new node_type(NULL, data);
+				this->_root = _new_node(NULL, data);
 				this->_root->set_color(node_type::BLACK);
 				return;
 			}
@@ -81,6 +105,21 @@ namespace ft
 
 		/* Private Member Functions */
 	private:
+		node_ptr _new_node(node_ptr parent, value_type data, node_color color = node_type::BLACK,
+						   node_ptr left_child = NULL, node_ptr right_child = NULL)
+		{
+			node_ptr new_node = new node_type(parent, data, color, left_child, right_child);
+			this->_garbage_collector.add_node(new_node);
+			return new_node;
+		}
+
+		node_ptr _new_nil_node()
+		{
+			node_ptr new_nil_node = new nil_node_type();
+			this->_garbage_collector.add_node(new_nil_node);
+			return new_nil_node;
+		}
+
 		/* Modifiers Functions */
 		/**
 		 * @brief Rotates the Red Black Tree at node in direction

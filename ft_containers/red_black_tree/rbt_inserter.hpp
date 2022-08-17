@@ -179,7 +179,7 @@ namespace ft
 			{
 				node_ptr place_to_insert_new_node = this->_get_place_to_insert_new_node(data);
 
-				new_node = new node_type(place_to_insert_new_node, data, node_type::RED);
+				new_node = this->_caller_class._new_node(place_to_insert_new_node, data, node_type::RED);
 				if (data < place_to_insert_new_node->get_data())
 					place_to_insert_new_node->set_left_child(new_node);
 				else if (data > place_to_insert_new_node->get_data())
