@@ -59,17 +59,6 @@ namespace ft
 			}
 		}
 
-		void _fill_content(const vector &arr, const size_type &start = 0, const size_type *end = NULL)
-		{
-			if (end == NULL)
-				end = &this->_capacity;
-			for (size_type i = start; i < *end && i < arr.size(); ++i)
-			{
-				this->_alloc.construct(this->_content._end, arr[i]);
-				++this->_content._end;
-			}
-		}
-
 		template <class InputIterator>
 		void _fill_content(InputIterator first, InputIterator last)
 		{
