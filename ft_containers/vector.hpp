@@ -196,7 +196,8 @@ namespace ft
 			this->_fill_content(iterator(old_content._start), iterator(old_content._end));
 			// destroy old stuff
 			_destroy(old_content._start, old_content._end);
-			this->_alloc.deallocate(old_content._start, old_size);
+			if (old_content._start != NULL)
+				this->_alloc.deallocate(old_content._start, old_size);
 
 			this->_capacity = n;
 		}
@@ -296,7 +297,8 @@ namespace ft
 				this->_fill_content(position, old_end);
 				// destroy old stuff
 				_destroy(old_content._start, old_content._end);
-				this->_alloc.deallocate(old_content._start, old_cap);
+				if (old_content._start != NULL)
+					this->_alloc.deallocate(old_content._start, old_cap);
 			}
 			else
 			{
@@ -330,7 +332,8 @@ namespace ft
 				this->_fill_content(position, old_end);
 				// destroy old stuff
 				_destroy(old_content._start, old_content._end);
-				this->_alloc.deallocate(old_content._start, old_cap);
+				if (old_content._start != NULL)
+					this->_alloc.deallocate(old_content._start, old_cap);
 			}
 			else
 			{
