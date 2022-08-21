@@ -52,10 +52,9 @@ namespace ft
 		{
 			if (end == NULL)
 				end = &this->_capacity;
-			for (size_type i = start; i < *end; ++i)
+			for (size_type i = start; i < *end; ++i, ++this->_content._end)
 			{
-				this->_alloc.construct(this->_content._end, val);
-				++this->_content._end;
+				this->_alloc.construct(this->_content._end, val); 
 			}
 		}
 
