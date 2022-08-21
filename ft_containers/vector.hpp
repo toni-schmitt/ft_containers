@@ -72,10 +72,9 @@ namespace ft
 
 		void _destroy(pointer start, pointer end)
 		{
-			while (end != start)
+			for (pointer i = start; i != end; ++i)
 			{
-				this->_alloc.destroy(end);
-				--end;
+				this->_alloc.destroy(i);
 			}
 		}
 
