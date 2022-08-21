@@ -220,11 +220,16 @@ namespace ft
 		void assign(InputIterator first, InputIterator last,
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
 		{
+			// TODO: ft::distnace increments first also outside of distance function only if InputIterator is std Iterator
 			const size_type new_size = ft::distance(first, last);
 
 			_destroy(this->_content._start, this->_content._end);
 			if (new_size > this->_capacity)
+			{
+				if (this->_content._start != NULL)
+					this->_alloc.deallocate(this->_content._start, this->_capacity);
 				this->_allocate_content(new_size);
+			}
 
 			this->_content._end = this->_content._start;
 			this->_fill_content(first, last);
@@ -235,7 +240,11 @@ namespace ft
 
 			_destroy(this->_content._start, this->_content._end);
 			if (new_size > this->_capacity)
+			{
+				if (this->_content._start != NULL)
+					this->_alloc.deallocate(this->_content._start, this->_capacity);
 				this->_allocate_content(new_size);
+			}
 
 			this->_content._end = this->_content._start;
 			this->_fill_content(val, 0, &new_size);
