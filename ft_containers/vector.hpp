@@ -280,6 +280,9 @@ namespace ft
 		}
 		void insert(iterator position, size_type n, const value_type &val)
 		{
+			if (n == 0)
+				return;
+
 			if (this->size() + n > this->capacity())
 			{
 				// copy old stuff
