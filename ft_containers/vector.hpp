@@ -202,7 +202,7 @@ namespace ft
 				throw std::length_error("ft::vector::reserve");
 
 			// copy old stuff
-			const size_type old_size = this->size();
+			const size_type old_capacity = this->capacity();
 			const Content old_content = {this->_content._start, this->_content._end};
 			// allocate new space
 			this->_allocate_content(n);
@@ -211,7 +211,7 @@ namespace ft
 			// destroy old stuff
 			_destroy(old_content._start, old_content._end);
 			if (old_content._start != NULL)
-				this->_alloc.deallocate(old_content._start, old_size);
+				this->_alloc.deallocate(old_content._start, old_capacity);
 
 			this->_capacity = n;
 		}
