@@ -89,6 +89,17 @@ namespace ft
 			}
 		}
 
+		void _copy_assign_alloc(const vector &x)
+		{
+			if (this->_alloc != x._alloc)
+			{
+				this->clear();
+				this->_alloc.deallocate(this->_content._start, this->_capacity);
+				this->_content._start = this->_content._end = NULL;
+			}
+			this->_alloc = x._alloc;
+		}
+
 		/* Constructors */
 	public:
 		/* Default Constructor */
@@ -132,9 +143,11 @@ namespace ft
 	public:
 		vector &operator=(const vector &x)
 		{
-			this->reserve(x.size());
-			ft::copy(x.begin(), x.end(), this->begin());
-			this->_content._end = this->_content._start + x.size();
+			if (this == &x)
+				return *this;
+
+			this->_copy_assign_alloc(x);
+			this->assign(x.begin(), x.end());
 			return *this;
 		}
 
