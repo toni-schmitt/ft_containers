@@ -55,7 +55,7 @@ namespace ft
 				end = &this->_capacity;
 			for (size_type i = start; i < *end; ++i, ++this->_content._end)
 			{
-				this->_alloc.construct(this->_content._end, val); 
+				this->_alloc.construct(this->_content._end, val);
 			}
 		}
 
