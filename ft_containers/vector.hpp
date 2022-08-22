@@ -8,6 +8,7 @@
 #include "algorithm/equal.hpp"
 #include "algorithm/lexicographical_compare.hpp"
 #include "algorithm/copy.hpp"
+#include "algorithm/min.hpp"
 #include <stdexcept>
 
 namespace ft
@@ -154,7 +155,7 @@ namespace ft
 		/* Capacity functions */
 	public:
 		size_type size() const { return ft::distance(this->begin(), this->end()); }
-		size_type max_size() const { return this->_alloc.max_size(); }
+		size_type max_size() const { return ft::min<size_type>(this->_alloc.max_size(), std::numeric_limits<difference_type>::max()); }
 		size_type capacity() const { return this->_capacity; }
 
 		bool empty() const { return this->size() == 0; }
