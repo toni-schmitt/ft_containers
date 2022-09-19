@@ -393,7 +393,7 @@ namespace ft
 
 		void clear()
 		{
-			_destroy(this->_content._start, this->_content._end);
+			this->erase(this->begin(), this->end());
 			this->_content._end = this->_content._start;
 		}
 
