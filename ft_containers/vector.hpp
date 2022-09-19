@@ -10,6 +10,7 @@
 #include "algorithm/copy.hpp"
 #include "algorithm/min.hpp"
 #include <stdexcept>
+#include <limits>
 
 namespace ft
 {
@@ -115,10 +116,13 @@ namespace ft
 		/* Range Constructor */
 		template <class InputIterator>
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
-			   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) : _capacity(ft::distance(first, last)), _alloc(alloc), _content()
+			   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) : _capacity(size_type()), _alloc(alloc), _content()
 		{
-			this->_allocate_content(this->_capacity);
-			this->_fill_content(first, last);
+			this->clear();
+			for (InputIterator iter = first; iter != last; ++iter)
+			{
+				this->push_back(*iter);
+			}
 		}
 
 		/* Copy Constructor */
@@ -242,7 +246,6 @@ namespace ft
 
 		/* Modifiers functions */
 	public:
-
 		template <class InputIterator>
 		void assign(InputIterator first, InputIterator last,
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
@@ -359,7 +362,6 @@ namespace ft
 				}
 			}
 		}
-
 		iterator erase(iterator position) { return erase(position, position + 1); }
 		iterator erase(iterator first, iterator last)
 		{
