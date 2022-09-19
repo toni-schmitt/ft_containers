@@ -322,20 +322,25 @@ namespace ft
 		void insert(iterator position, InputIterator first, InputIterator last,
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
 		{
-			const size_type n = ft::distance(first, last);
-			if (this->size() + ft::distance(first, last) > this->capacity())
+			vector vc(first, last);
+			const size_type n = vc.size();
+
+			if (n == 0)
+				return;
+			
+			if (this->size() + n > this->capacity())
 			{
 				// copy old stuff
 				const size_type old_cap = this->capacity();
-				const Content old_content = {this->_content._start, this->_content._end};
+				const Content old_content = { this->_content._start, this->_content._end };
 				iterator old_start = this->begin();
 				iterator old_end = this->end();
 				// reallocate to capacity + n
 				this->_allocate_content(old_cap + n);
-				// write old stuff to content until position - 1
+				// write old stuff to vector
 				this->_fill_content(old_start, position);
-				// write val n times
-				this->_fill_content(first, last);
+				// write range to vector
+				this->_fill_content(vc.begin(), vc.end());
 				// continue writing old stuff to content until cap
 				this->_fill_content(position, old_end);
 				// destroy old stuff
@@ -349,8 +354,8 @@ namespace ft
 				{
 					iterator tmp = end + n;
 					*tmp = *end;
-					*end = *first;
-					++first;
+					*end = *(vc.begin());
+					vc.erase(vc.begin());
 				}
 			}
 		}
