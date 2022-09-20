@@ -28,7 +28,8 @@ namespace ft
 	Iterator next(Iterator it,
 				  typename iterator_traits<Iterator>::difference_type n = 1)
 	{
-		return std::next(it, n, typename iterator_traits<Iterator>::iterator_category());
+		ft::advance(it, n);
+		return it;
 	}
 
 } // namespace ft
