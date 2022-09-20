@@ -138,7 +138,7 @@ namespace ft
 		{
 			if (this->_content._start)
 			{
-				_destroy(this->_content._start, this->_content._end);
+				this->clear();
 				this->_alloc.deallocate(this->_content._start, this->_capacity);
 			}
 		}
