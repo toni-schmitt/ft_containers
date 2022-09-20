@@ -60,24 +60,24 @@ namespace ft
 			}
 		}
 
-		void _fill_content(const vector &arr, const size_type &start = 0, const size_type *end = NULL)
+		template <class Vector>
+		void _fill_content(Vector &vc,
+						   typename ft::enable_if<!ft::is_integral<Vector>::value, bool>::type = true)
 		{
-			if (end == NULL)
-				end = &this->_capacity;
-			for (size_type i = start; i < *end && i < arr.size(); ++i)
+			for (size_type i = 0; i < vc.size(); ++i)
 			{
-				this->_alloc.construct(this->_content._end, arr[i]);
+				this->_alloc.construct(this->_content._end, vc[i]);
 				++this->_content._end;
 			}
 		}
 
 		template <class InputIterator>
-		void _fill_content(InputIterator first, InputIterator last)
+		void _fill_content(InputIterator first, InputIterator last,
+						   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
 		{
-			while (first != last)
+			for (size_type n = 0; n < this->capacity() && first != last; ++n, ++first)
 			{
 				this->_alloc.construct(this->_content._end, *first);
-				++first;
 				++this->_content._end;
 			}
 		}
