@@ -330,7 +330,7 @@ namespace ft
 
 			if (n == 0)
 				return;
-			
+
 			if (this->size() + n > this->capacity())
 			{
 				// copy old stuff
@@ -343,7 +343,7 @@ namespace ft
 				// write old stuff to vector
 				this->_fill_content(old_start, position);
 				// write range to vector
-				this->_fill_content(vc.begin(), vc.end());
+				this->_fill_content(vc);
 				// continue writing old stuff to content until cap
 				this->_fill_content(position, old_end);
 				// destroy old stuff
