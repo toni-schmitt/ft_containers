@@ -310,35 +310,22 @@ namespace ft
 			if (n == 0)
 				return;
 
-			if (this->size() + n > this->capacity())
-			{
-				// copy old stuff
-				const size_type old_cap = this->capacity();
-				const content old_content = { this->_content.start, this->_content.end };
-				iterator old_start = this->begin();
-				iterator old_end = this->end();
-				// reallocate to capacity + n
-				this->_allocate_content(old_cap + n);
-				// write old stuff to content until position - 1
-				this->_fill_content(old_start, position);
-				// write val n times
-				this->_fill_content(val, 0, &n);
-				// continue writing old stuff to content until cap
-				this->_fill_content(position, old_end);
-				// destroy old stuff
-				_destroy(old_content.start, old_content.end);
-				if (old_content.start != NULL)
-					this->_alloc.deallocate(old_content.start, old_cap);
-			}
-			else
-			{
-				for (iterator end = this->end() - 1; end != position - 1; --end, ++this->_content.end)
-				{
-					iterator tmp = end + n;
-					*tmp = *end;
-					*end = val;
-				}
-			}
+			const size_type old_cap = this->capacity();
+			const content old_content = { this->_content.start, this->_content.end };
+			iterator old_start = this->begin();
+			iterator old_end = this->end();
+			// reallocate to capacity + n
+			this->_allocate_content(old_cap + n);
+			// write old stuff to content until position - 1
+			this->_fill_content(old_start, position);
+			// write val n times
+			this->_fill_content(val, 0, &n);
+			// continue writing old stuff to content until cap
+			this->_fill_content(position, old_end);
+			// destroy old stuff
+			_destroy(old_content.start, old_content.end);
+			if (old_content.start != NULL)
+				this->_alloc.deallocate(old_content.start, old_cap);
 		}
 
 		template < class InputIterator >
@@ -351,36 +338,22 @@ namespace ft
 			if (n == 0)
 				return;
 
-			if (this->size() + n > this->capacity())
-			{
-				// copy old stuff
-				const size_type old_cap = this->capacity();
-				const content old_content = { this->_content.start, this->_content.end };
-				iterator old_start = this->begin();
-				iterator old_end = this->end();
-				// reallocate to capacity + n
-				this->_allocate_content(old_cap + n);
-				// write old stuff to vector
-				this->_fill_content(old_start, position);
-				// write range to vector
-				this->_fill_content(vc);
-				// continue writing old stuff to content until cap
-				this->_fill_content(position, old_end);
-				// destroy old stuff
-				_destroy(old_content.start, old_content.end);
-				if (old_content.start != NULL)
-					this->_alloc.deallocate(old_content.start, old_cap);
-			}
-			else
-			{
-				for (iterator end = this->end() - 1; end != position - 1; --end, ++this->_content.end)
-				{
-					iterator tmp = end + n;
-					*tmp = *end;
-					*end = *(vc.begin());
-					vc.erase(vc.begin());
-				}
-			}
+			const size_type old_cap = this->capacity();
+			const content old_content = { this->_content.start, this->_content.end };
+			iterator old_start = this->begin();
+			iterator old_end = this->end();
+			// reallocate to capacity + n
+			this->_allocate_content(old_cap + n);
+			// write old stuff to vector
+			this->_fill_content(old_start, position);
+			// write range to vector
+			this->_fill_content(vc);
+			// continue writing old stuff to content until cap
+			this->_fill_content(position, old_end);
+			// destroy old stuff
+			_destroy(old_content.start, old_content.end);
+			if (old_content.start != NULL)
+				this->_alloc.deallocate(old_content.start, old_cap);
 		}
 
 		iterator erase(iterator position) { return erase(position, position + 1); }
