@@ -120,7 +120,8 @@ namespace ft
 			   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) : _capacity(
 				size_type()), _alloc(alloc), _content()
 		{
-			this->clear();
+			if (this->_content.start != NULL && this->_content.end != NULL)
+				this->clear();
 			for (InputIterator iter = first; iter != last; ++iter)
 			{
 				this->push_back(*iter);
@@ -386,6 +387,9 @@ namespace ft
 
 		iterator erase(iterator first, iterator last)
 		{
+			if (this->_content.start == NULL && this->_content.end == NULL)
+				return first;
+
 			iterator last_elem_added = ft::copy(last, this->end(), first);
 			for (pointer p = this->_content.start + ft::distance(this->begin(), last_elem_added);
 				 p != this->_content.end; ++p)
@@ -415,6 +419,8 @@ namespace ft
 
 		void clear()
 		{
+			if (this->_content.start == NULL && this->_content.end == NULL)
+				return;
 			this->erase(this->begin(), this->end());
 			this->_content.end = this->_content.start;
 		}
