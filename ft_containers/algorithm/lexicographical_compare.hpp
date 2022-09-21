@@ -4,19 +4,19 @@ namespace ft
 {
 	template < class InputIterator1, class InputIterator2 >
 	bool lexicographical_compare(
-			InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2
+			InputIterator1 first_1, InputIterator1 last_1, InputIterator2 first_2, InputIterator2 last_2
 	)
 	{
-		while (first1 != last1)
+		while (first_1 != last_1)
 		{
-			if (first2 == last2 || *first2 < *first1)
+			if (first_2 == last_2 || *first_2 < *first_1)
 				return false;
-			else if (*first1 < *first2)
+			else if (*first_1 < *first_2)
 				return true;
-			++first1;
-			++first2;
+			++first_1;
+			++first_2;
 		}
-		return (first2 != last2);
+		return (first_2 != last_2);
 	}
 
 } // namespace ft

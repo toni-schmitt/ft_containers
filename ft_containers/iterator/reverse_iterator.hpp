@@ -18,15 +18,15 @@ namespace ft
 
 	public:
 		/* Constructors */
-		reverse_iterator() : _baseIter() { }
+		reverse_iterator() : _base_iter() { }
 
-		explicit reverse_iterator(iterator_type it) : _baseIter(it) { }
+		explicit reverse_iterator(iterator_type it) : _base_iter(it) { }
 
 		template < class Iter >
-		reverse_iterator(const reverse_iterator<Iter> &copy) : _baseIter(copy.base()) { }
+		reverse_iterator(const reverse_iterator<Iter> &copy) : _base_iter(copy.base()) { }
 
 	public:
-		/* Deconstructors */
+		/* Destructor */
 		~reverse_iterator() { }
 
 	public:
@@ -36,16 +36,16 @@ namespace ft
 			if (this == &sec)
 				return *this;
 
-			this->_baseIter = sec._baseIter;
+			this->_base_iter = sec._base_iter;
 
 			return *this;
 		}
 
 	public:
 		/* Dereference Operators */
-		reference operator*() { return *(_baseIter - 1); }
+		reference operator*() { return *(_base_iter - 1); }
 
-		reference operator*() const { return *(_baseIter - 1); }
+		reference operator*() const { return *(_base_iter - 1); }
 
 		pointer operator->() { return &(this->operator*()); }
 
@@ -55,7 +55,7 @@ namespace ft
 		/* Increment Operators */
 		reverse_iterator &operator++()
 		{
-			--_baseIter;
+			--_base_iter;
 			return *this;
 		}
 
@@ -70,7 +70,7 @@ namespace ft
 		/* Decrement Operators */
 		reverse_iterator &operator--()
 		{
-			++_baseIter;
+			++_base_iter;
 			return *this;
 		}
 
@@ -83,23 +83,23 @@ namespace ft
 
 	public:
 		/* Arithmetic Operators */
-		reverse_iterator operator+(difference_type n) const { return reverse_iterator(_baseIter - n); }
+		reverse_iterator operator+(difference_type n) const { return reverse_iterator(_base_iter - n); }
 
-		difference_type operator-(const reverse_iterator &rhs) const { return rhs._baseIter - this->_baseIter; }
+		difference_type operator-(const reverse_iterator &rhs) const { return rhs._base_iter - this->_base_iter; }
 
-		reverse_iterator operator-(difference_type n) const { return reverse_iterator(_baseIter + n); }
+		reverse_iterator operator-(difference_type n) const { return reverse_iterator(_base_iter + n); }
 
 	public:
 		/* Compound Assignment Operators */
 		reverse_iterator &operator+=(difference_type n)
 		{
-			this->_baseIter -= n;
+			this->_base_iter -= n;
 			return *this;
 		}
 
 		reverse_iterator &operator-=(difference_type n)
 		{
-			this->_baseIter += n;
+			this->_base_iter += n;
 			return *this;
 		}
 
@@ -109,10 +109,10 @@ namespace ft
 
 	public:
 		/* Member Functions */
-		iterator_type base() const { return this->_baseIter; }
+		iterator_type base() const { return this->_base_iter; }
 
 	private:
-		iterator_type _baseIter;
+		iterator_type _base_iter;
 	};
 
 	/* Arithmetic Operators */
