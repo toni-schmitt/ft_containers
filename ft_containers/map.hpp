@@ -8,7 +8,7 @@
 
 namespace ft
 {
-	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
+	template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
 	class map
 	{
 		/* Member Types */
@@ -42,7 +42,8 @@ namespace ft
 			/* Protected Members */
 		protected:
 			Compare comp;
-			value_compare(Compare c) : comp(c) {}
+
+			value_compare(Compare c) : comp(c) { }
 
 			/* Public Member functions */
 		public:
@@ -56,9 +57,12 @@ namespace ft
 	public:
 		/* Default Constructor */
 		explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type());
+
 		/* Range Constructor */
-		template <class InputIterator>
-		map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type());
+		template < class InputIterator >
+		map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(),
+			const allocator_type &alloc = allocator_type());
+
 		/* Copy Constructor */
 		map(const map &x);
 
@@ -73,15 +77,19 @@ namespace ft
 		/* Iterator functions */
 	public:
 		iterator begin();
+
 		const_iterator begin() const;
 
 		iterator end();
+
 		const_iterator end() const;
 
 		reverse_iterator rbegin() { return reverse_iterator(this->end()); }
+
 		const_reverse_iterator rbegin() const { return const_reverse_iterator(this->end()); }
 
 		reverse_iterator rend() { return reverse_iterator(this->begin()); }
+
 		const_reverse_iterator rend() const { return const_reverse_iterator(this->begin()); }
 
 		/* Capacity functions */
@@ -101,15 +109,19 @@ namespace ft
 		/* Insert functions */
 		/* Insert Single Element */
 		pair<iterator, bool> insert(const value_type &val);
+
 		/* Insert With Hint */
 		iterator insert(iterator position, const value_type &val);
+
 		/* Insert Range */
-		template <class InputIterator>
+		template < class InputIterator >
 		void insert(InputIterator first, InputIterator last);
 
 		/* Erase functions */
 		void erase(iterator position);
+
 		size_type erase(const key_type &k);
+
 		void erase(iterator first, iterator last);
 
 		/* Swap function */
@@ -127,17 +139,21 @@ namespace ft
 		/* Operation functions */
 	public:
 		iterator find(const key_type &k);
+
 		const_iterator find(const key_type &k) const;
 
 		size_type count(const key_type &k) const;
 
 		iterator lower_bound(const key_type &k);
+
 		const_iterator lower_bound(const key_type &k) const;
 
 		iterator upper_bound(const key_type &k);
+
 		const_iterator upper_bound(const key_type &k) const;
 
 		pair<const_iterator, const_iterator> equal_range(const key_type &k) const;
+
 		pair<iterator, iterator> equal_range(const key_type &k);
 
 		/* Allocator functions */

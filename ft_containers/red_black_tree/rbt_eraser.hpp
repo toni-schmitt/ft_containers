@@ -103,7 +103,8 @@ namespace ft
 			}
 			else
 			{
-				node_ptr new_child = to_erase->get_color() == node_type::BLACK ? this->_caller_class._new_nil_node() : NULL;
+				node_ptr new_child =
+						to_erase->get_color() == node_type::BLACK ? this->_caller_class._new_nil_node() : NULL;
 				this->_replace_parents_child(to_erase->get_parent(), to_erase, new_child);
 				return new_child;
 			}

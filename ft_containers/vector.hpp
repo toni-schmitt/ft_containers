@@ -14,7 +14,7 @@
 
 namespace ft
 {
-	template <class T, class Alloc = std::allocator<T> >
+	template < class T, class Alloc = std::allocator<T> >
 	class vector
 	{
 		/* Member Types */
@@ -36,17 +36,17 @@ namespace ft
 	private:
 		size_type _capacity;
 		allocator_type _alloc;
-		struct Content
+		struct content
 		{
-			pointer _start;
-			pointer _end;
+			pointer start;
+			pointer end;
 		} _content;
 
 		/* Private Functions */
 	private:
 		void _allocate_content(const size_type &n)
 		{
-			this->_content._end = this->_content._start = this->_alloc.allocate(n);
+			this->_content.end = this->_content.start = this->_alloc.allocate(n);
 			this->_capacity = n;
 		}
 
@@ -54,31 +54,31 @@ namespace ft
 		{
 			if (end == NULL)
 				end = &this->_capacity;
-			for (size_type i = start; i < *end; ++i, ++this->_content._end)
+			for (size_type i = start; i < *end; ++i, ++this->_content.end)
 			{
-				this->_alloc.construct(this->_content._end, val);
+				this->_alloc.construct(this->_content.end, val);
 			}
 		}
 
-		template <class Vector>
+		template < class Vector >
 		void _fill_content(Vector &vc,
 						   typename ft::enable_if<!ft::is_integral<Vector>::value, bool>::type = true)
 		{
 			for (size_type i = 0; i < vc.size(); ++i)
 			{
-				this->_alloc.construct(this->_content._end, vc[i]);
-				++this->_content._end;
+				this->_alloc.construct(this->_content.end, vc[ i ]);
+				++this->_content.end;
 			}
 		}
 
-		template <class InputIterator>
+		template < class InputIterator >
 		void _fill_content(InputIterator first, InputIterator last,
 						   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
 		{
 			for (size_type n = 0; n < this->capacity() && first != last; ++n, ++first)
 			{
-				this->_alloc.construct(this->_content._end, *first);
-				++this->_content._end;
+				this->_alloc.construct(this->_content.end, *first);
+				++this->_content.end;
 			}
 		}
 
@@ -95,8 +95,8 @@ namespace ft
 			if (this->_alloc != x._alloc)
 			{
 				this->clear();
-				this->_alloc.deallocate(this->_content._start, this->_capacity);
-				this->_content._start = this->_content._end = NULL;
+				this->_alloc.deallocate(this->_content.start, this->_capacity);
+				this->_content.start = this->_content.end = NULL;
 			}
 			this->_alloc = x._alloc;
 		}
@@ -104,19 +104,21 @@ namespace ft
 		/* Constructors */
 	public:
 		/* Default Constructor */
-		explicit vector(const allocator_type &alloc = allocator_type()) : _capacity(), _alloc(alloc), _content() {}
+		explicit vector(const allocator_type &alloc = allocator_type()) : _capacity(), _alloc(alloc), _content() { }
 
 		/* Fill Constructor */
-		explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) : _capacity(n), _alloc(alloc)
+		explicit vector(size_type n, const value_type &val = value_type(),
+						const allocator_type &alloc = allocator_type()) : _capacity(n), _alloc(alloc)
 		{
 			this->_allocate_content(this->_capacity);
 			this->_fill_content(val);
 		}
 
 		/* Range Constructor */
-		template <class InputIterator>
+		template < class InputIterator >
 		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
-			   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) : _capacity(size_type()), _alloc(alloc), _content()
+			   typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) : _capacity(
+				size_type()), _alloc(alloc), _content()
 		{
 			this->clear();
 			for (InputIterator iter = first; iter != last; ++iter)
@@ -136,10 +138,10 @@ namespace ft
 	public:
 		~vector()
 		{
-			if (this->_content._start)
+			if (this->_content.start)
 			{
 				this->clear();
-				this->_alloc.deallocate(this->_content._start, this->_capacity);
+				this->_alloc.deallocate(this->_content.start, this->_capacity);
 			}
 		}
 
@@ -157,22 +159,31 @@ namespace ft
 
 		/* Iterator functions */
 	public:
-		iterator begin() { return iterator(this->_content._start); }
-		const_iterator begin() const { return const_iterator(this->_content._start); }
+		iterator begin() { return iterator(this->_content.start); }
 
-		iterator end() { return iterator(this->_content._end); }
-		const_iterator end() const { return const_iterator(this->_content._end); }
+		const_iterator begin() const { return const_iterator(this->_content.start); }
+
+		iterator end() { return iterator(this->_content.end); }
+
+		const_iterator end() const { return const_iterator(this->_content.end); }
 
 		reverse_iterator rbegin() { return reverse_iterator(this->end()); }
+
 		const_reverse_iterator rbegin() const { return const_reverse_iterator(this->end()); }
 
 		reverse_iterator rend() { return reverse_iterator(this->begin()); }
+
 		const_reverse_iterator rend() const { return const_reverse_iterator(this->begin()); }
 
 		/* Capacity functions */
 	public:
 		size_type size() const { return ft::distance(this->begin(), this->end()); }
-		size_type max_size() const { return ft::min<size_type>(this->_alloc.max_size(), std::numeric_limits<difference_type>::max()); }
+
+		size_type max_size() const
+		{
+			return ft::min<size_type>(this->_alloc.max_size(), std::numeric_limits<difference_type>::max());
+		}
+
 		size_type capacity() const { return this->_capacity; }
 
 		bool empty() const { return this->size() == 0; }
@@ -183,8 +194,8 @@ namespace ft
 				throw std::length_error("ft::vector::resize");
 			if (n < this->size())
 			{
-				_destroy(this->_content._start + n, this->_content._end);
-				this->_content._end = this->_content._start + n;
+				_destroy(this->_content.start + n, this->_content.end);
+				this->_content.end = this->_content.start + n;
 				return;
 			}
 
@@ -207,46 +218,50 @@ namespace ft
 
 			// copy old stuff
 			const size_type old_capacity = this->capacity();
-			const Content old_content = {this->_content._start, this->_content._end};
+			const content old_content = { this->_content.start, this->_content.end };
 			// allocate new space
 			this->_allocate_content(n);
 			// copy old stuff into new space
-			this->_fill_content(iterator(old_content._start), iterator(old_content._end));
+			this->_fill_content(iterator(old_content.start), iterator(old_content.end));
 			// destroy old stuff
-			_destroy(old_content._start, old_content._end);
-			if (old_content._start != NULL)
-				this->_alloc.deallocate(old_content._start, old_capacity);
+			_destroy(old_content.start, old_content.end);
+			if (old_content.start != NULL)
+				this->_alloc.deallocate(old_content.start, old_capacity);
 
 			this->_capacity = n;
 		}
 
 		/* Element access functions */
 	public:
-		reference operator[](size_type n) { return *(this->_content._start + n); }
-		const_reference operator[](size_type n) const { return *(this->_content._start + n); }
+		reference operator[](size_type n) { return *(this->_content.start + n); }
+
+		const_reference operator[](size_type n) const { return *(this->_content.start + n); }
 
 		reference at(size_type n)
 		{
 			if (n >= this->size())
 				throw std::out_of_range("ft::vector::at");
-			return *(this->_content._start + n);
+			return *(this->_content.start + n);
 		}
+
 		const_reference at(size_type n) const
 		{
 			if (n >= this->size())
 				throw std::out_of_range("ft::vector::at");
-			return *(this->_content._start + n);
+			return *(this->_content.start + n);
 		}
 
-		reference front() { return *(this->_content._start); }
-		const_reference front() const { return *(this->_content._start); }
+		reference front() { return *(this->_content.start); }
 
-		reference back() { return *(this->_content._end - 1); }
-		const_reference back() const { return *(this->_content._end - 1); }
+		const_reference front() const { return *(this->_content.start); }
+
+		reference back() { return *(this->_content.end - 1); }
+
+		const_reference back() const { return *(this->_content.end - 1); }
 
 		/* Modifiers functions */
 	public:
-		template <class InputIterator>
+		template < class InputIterator >
 		void assign(InputIterator first, InputIterator last,
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
 		{
@@ -254,19 +269,20 @@ namespace ft
 			for (InputIterator iter = first; iter != last; ++iter)
 				this->push_back(*iter);
 		}
+
 		void assign(size_type n, const value_type &val)
 		{
 			const size_type new_size = n;
 
-			_destroy(this->_content._start, this->_content._end);
+			_destroy(this->_content.start, this->_content.end);
 			if (new_size > this->_capacity)
 			{
-				if (this->_content._start != NULL)
-					this->_alloc.deallocate(this->_content._start, this->_capacity);
+				if (this->_content.start != NULL)
+					this->_alloc.deallocate(this->_content.start, this->_capacity);
 				this->_allocate_content(new_size);
 			}
 
-			this->_content._end = this->_content._start;
+			this->_content.end = this->_content.start;
 			this->_fill_content(val, 0, &new_size);
 		}
 
@@ -274,18 +290,20 @@ namespace ft
 		{
 			this->resize(this->size() + 1, val);
 		}
+
 		void pop_back()
 		{
-			--this->_content._end;
-			this->_alloc.destroy(this->_content._end);
+			--this->_content.end;
+			this->_alloc.destroy(this->_content.end);
 		}
 
 		iterator insert(iterator position, const value_type &val)
 		{
 			size_type dist = ft::distance(this->begin(), position);
 			insert(position, 1, val);
-			return iterator(this->_content._start + dist);
+			return iterator(this->_content.start + dist);
 		}
+
 		void insert(iterator position, size_type n, const value_type &val)
 		{
 			if (n == 0)
@@ -295,7 +313,7 @@ namespace ft
 			{
 				// copy old stuff
 				const size_type old_cap = this->capacity();
-				const Content old_content = {this->_content._start, this->_content._end};
+				const content old_content = { this->_content.start, this->_content.end };
 				iterator old_start = this->begin();
 				iterator old_end = this->end();
 				// reallocate to capacity + n
@@ -307,13 +325,13 @@ namespace ft
 				// continue writing old stuff to content until cap
 				this->_fill_content(position, old_end);
 				// destroy old stuff
-				_destroy(old_content._start, old_content._end);
-				if (old_content._start != NULL)
-					this->_alloc.deallocate(old_content._start, old_cap);
+				_destroy(old_content.start, old_content.end);
+				if (old_content.start != NULL)
+					this->_alloc.deallocate(old_content.start, old_cap);
 			}
 			else
 			{
-				for (iterator end = this->end() - 1; end != position - 1; --end, ++this->_content._end)
+				for (iterator end = this->end() - 1; end != position - 1; --end, ++this->_content.end)
 				{
 					iterator tmp = end + n;
 					*tmp = *end;
@@ -321,7 +339,8 @@ namespace ft
 				}
 			}
 		}
-		template <class InputIterator>
+
+		template < class InputIterator >
 		void insert(iterator position, InputIterator first, InputIterator last,
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true)
 		{
@@ -335,7 +354,7 @@ namespace ft
 			{
 				// copy old stuff
 				const size_type old_cap = this->capacity();
-				const Content old_content = { this->_content._start, this->_content._end };
+				const content old_content = { this->_content.start, this->_content.end };
 				iterator old_start = this->begin();
 				iterator old_end = this->end();
 				// reallocate to capacity + n
@@ -347,13 +366,13 @@ namespace ft
 				// continue writing old stuff to content until cap
 				this->_fill_content(position, old_end);
 				// destroy old stuff
-				_destroy(old_content._start, old_content._end);
-				if (old_content._start != NULL)
-					this->_alloc.deallocate(old_content._start, old_cap);
+				_destroy(old_content.start, old_content.end);
+				if (old_content.start != NULL)
+					this->_alloc.deallocate(old_content.start, old_cap);
 			}
 			else
 			{
-				for (iterator end = this->end() - 1; end != position - 1; --end, ++this->_content._end)
+				for (iterator end = this->end() - 1; end != position - 1; --end, ++this->_content.end)
 				{
 					iterator tmp = end + n;
 					*tmp = *end;
@@ -362,31 +381,34 @@ namespace ft
 				}
 			}
 		}
+
 		iterator erase(iterator position) { return erase(position, position + 1); }
+
 		iterator erase(iterator first, iterator last)
 		{
 			iterator last_elem_added = ft::copy(last, this->end(), first);
-			for (pointer p = this->_content._start + ft::distance(this->begin(), last_elem_added); p != this->_content._end; ++p)
+			for (pointer p = this->_content.start + ft::distance(this->begin(), last_elem_added);
+				 p != this->_content.end; ++p)
 			{
 				this->_alloc.destroy(p);
 			}
-			this->_content._end -= ft::distance(first, last);
+			this->_content.end -= ft::distance(first, last);
 			return first;
 		}
 
 		void swap(vector &x)
 		{
 			// copy stuff from x
-			const Content x_content_copy = {x._content._start, x._content._end};
+			const content x_content_copy = { x._content.start, x._content.end };
 			const size_type x_capacity = x._capacity;
 			// swap addresses from x with addresses of this
-			x._content._start = this->_content._start;
-			x._content._end = this->_content._end;
+			x._content.start = this->_content.start;
+			x._content.end = this->_content.end;
 			// swap capacity
 			x._capacity = this->_capacity;
 			// swap addresses of this with addresses of x
-			this->_content._start = x_content_copy._start;
-			this->_content._end = x_content_copy._end;
+			this->_content.start = x_content_copy.start;
+			this->_content.end = x_content_copy.end;
 			// swap capacity
 			this->_capacity = x_capacity;
 		}
@@ -394,7 +416,7 @@ namespace ft
 		void clear()
 		{
 			this->erase(this->begin(), this->end());
-			this->_content._end = this->_content._start;
+			this->_content.end = this->_content.start;
 		}
 
 		/* Allocator functions */
@@ -403,26 +425,32 @@ namespace ft
 	};
 
 	/* Relational Operators Overload */
-	template <class T, class Alloc>
-	bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()); }
+	template < class T, class Alloc >
+	bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+	}
 
-	template <class T, class Alloc>
+	template < class T, class Alloc >
 	bool operator!=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return !(lhs == rhs); }
 
-	template <class T, class Alloc>
-	bool operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()); }
+	template < class T, class Alloc >
+	bool operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
 
-	template <class T, class Alloc>
+	template < class T, class Alloc >
 	bool operator<=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return !(rhs < lhs); }
 
-	template <class T, class Alloc>
+	template < class T, class Alloc >
 	bool operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return rhs < lhs; }
 
-	template <class T, class Alloc>
+	template < class T, class Alloc >
 	bool operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) { return !(lhs < rhs); }
 
 	/* Swap */
-	template <class T, class Alloc>
+	template < class T, class Alloc >
 	void swap(vector<T, Alloc> &x, vector<T, Alloc> &y) { return x.swap(y); }
 
 } // namespace ft

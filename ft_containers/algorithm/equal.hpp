@@ -3,7 +3,7 @@
 namespace ft
 {
 	/* Equal */
-	template <class InputIterator1, class InputIterator2>
+	template < class InputIterator1, class InputIterator2 >
 	bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2)
 	{
 		while (first1 != last1)
@@ -17,7 +17,7 @@ namespace ft
 	}
 
 	/* Predicate */
-	template <class InputIterator1, class InputIterator2, class BinaryPredicate>
+	template < class InputIterator1, class InputIterator2, class BinaryPredicate >
 	bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate pred)
 	{
 		while (first1 != last1)

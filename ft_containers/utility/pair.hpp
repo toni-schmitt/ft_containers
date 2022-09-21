@@ -2,7 +2,7 @@
 
 namespace ft
 {
-	template <class T1, class T2>
+	template < class T1, class T2 >
 	struct pair
 	{
 		/* Member Types */
@@ -19,9 +19,11 @@ namespace ft
 	public:
 		/* Default Constructor */
 		pair();
+
 		/* Copy Constructor */
-		template <class U, class V>
+		template < class U, class V >
 		pair(const pair<U, V> &pr);
+
 		/* Initialization Constructor */
 		pair(const first_type &a, const second_type &b);
 
@@ -33,17 +35,22 @@ namespace ft
 	/* Non-member function overloads */
 
 	/* Relational Operators */
-	template <class T1, class T2>
+	template < class T1, class T2 >
 	bool operator==(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
-	template <class T1, class T2>
+
+	template < class T1, class T2 >
 	bool operator!=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
-	template <class T1, class T2>
+
+	template < class T1, class T2 >
 	bool operator<(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
-	template <class T1, class T2>
+
+	template < class T1, class T2 >
 	bool operator<=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
-	template <class T1, class T2>
+
+	template < class T1, class T2 >
 	bool operator>(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
-	template <class T1, class T2>
+
+	template < class T1, class T2 >
 	bool operator>=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
 
 } // namespace ft
