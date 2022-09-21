@@ -252,13 +252,13 @@ namespace ft
 			return *(this->_content.start + n);
 		}
 
-		reference front() { return *(this->_content.start); }
+		reference front() { return *(this->begin()); }
 
-		const_reference front() const { return *(this->_content.start); }
+		const_reference front() const { return *(this->begin()); }
 
-		reference back() { return *(this->_content.end - 1); }
+		reference back() { return *(this->end() - 1); }
 
-		const_reference back() const { return *(this->_content.end - 1); }
+		const_reference back() const { return *(this->end() - 1); }
 
 		/* Modifiers functions */
 	public:
