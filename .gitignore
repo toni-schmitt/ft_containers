@@ -8,7 +8,7 @@
 !*/
 
 # Unignore Makefile
-!Makefile
+# !Makefile
 
 # Prerequisites
 *.d
@@ -67,8 +67,8 @@ dkms.conf
 .vscode
 .idea
 
+# Local Tests
+/tester/
+test.sh
 tst.cpp
 tst.hpp
-rbtreestl.hpp
-Makefile
-ft_containers/containers_test/
