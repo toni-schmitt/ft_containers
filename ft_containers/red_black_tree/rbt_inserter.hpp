@@ -172,7 +172,12 @@ namespace ft
 
 		/* Public Member Functions */
 	public:
-		void insert(const value_type &key)
+		/**
+		 * Inserts the key into the RB-Tree
+		 * @param key Key to Insert
+		 * @return true on success, false on failure
+		 */
+		bool insert(const value_type &key)
 		{
 			node_ptr new_node = NULL;
 
@@ -187,18 +192,24 @@ namespace ft
 				else
 				{
 					// Node is already in Tree
-					// TODO: Handle Error (Throw Exception, Return false?)
+					return false;
 				}
 			}
 
-			if (new_node->get_parent()->get_parent() == NULL)
-				return;
-
-			this->_insertion_fixer.fix_tree(new_node);
+			if (!_node_is_roots_child(new_node))
+				this->_insertion_fixer.fix_tree(new_node);
+			return true;
 		}
 
 		/* Private Member Functions */
 	private:
+		inline bool _node_is_roots_child(node_ptr node)
+		{
+			if (node->get_parent() == NULL)
+				return false;
+			return node->get_parent()->get_parent() == NULL;
+		}
+
 		/**
 			 * @brief Returns a suitable place to insert data
 			 * @param key Data to Inserter
