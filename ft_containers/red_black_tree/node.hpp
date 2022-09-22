@@ -157,6 +157,14 @@ namespace ft
 
 	public:
 		/* Getter */
+		inline bool has_parent()
+		{
+			if (is_null(this))
+				return false;
+
+			return this->get_parent() != NULL;
+		}
+
 		inline node_ptr get_parent()
 		{
 			if (is_null(this))
