@@ -1,0 +1,156 @@
+#pragma once
+
+#include <memory>
+#include <list>
+
+namespace ft
+{
+	template < class T, class Alloc = std::allocator<T> >
+	class rbt_traverser
+	{
+		friend class red_black_tree<T, Alloc>;
+
+		/* Member Types */
+	public:
+		typedef T value_type;
+		typedef Alloc allocator_type;
+		typedef typename allocator_type::reference reference;
+		typedef typename allocator_type::const_reference const_reference;
+		typedef typename allocator_type::pointer pointer;
+		typedef typename allocator_type::const_pointer const_pointer;
+
+	private:
+		typedef ft::red_black_tree<value_type, allocator_type> caller_type;
+		typedef typename caller_type::node_type node_type;
+		typedef typename node_type::node_ref node_ref;
+		typedef typename node_type::const_node_ref const_node_ref;
+		typedef typename node_type::node_ptr node_ptr;
+		typedef typename node_type::const_node_ptr const_node_ptr;
+		typedef typename node_type::node_color node_color;
+
+		/* Private Members */
+	private:
+		caller_type &_red_black_tree;
+		node_ptr &_root;
+
+		/* Constructor */
+	public:
+		rbt_traverser() { }
+
+		explicit rbt_traverser(caller_type &caller_class) : _red_black_tree(caller_class), _root(caller_class._root) { }
+
+		/* Public Member Functions */
+		node_ptr get_next_node()
+		{
+			static node_ptr last_visited_node = NULL;
+
+			node_ptr next_node = _get_next_node(last_visited_node);
+			last_visited_node = next_node;
+			return next_node;
+		}
+
+		/* Private Member Functions */
+	private:
+		node_ptr _get_left_most_child(node_ptr node)
+		{
+			node_ptr current_node = node;
+			while (current_node->get_left_child())
+				current_node = current_node->get_left_child();
+			return current_node;
+		}
+
+		node_ptr _get_left_most_child()
+		{
+			return _get_left_most_child(this->_root);
+		}
+
+		bool _is_right_child(node_ptr node)
+		{
+			if (!node->has_parent())
+				return false;
+			if (!node->get_parent()->has_right_child())
+				return false;
+			if (node != node->get_parent()->get_right_child())
+				return false;
+			return true;
+			return node == node->get_parent()->get_right_child();
+		}
+
+		bool _is_left_child(node_ptr node)
+		{
+			if (!node->get_parent())
+				return false;
+			if (!node->get_parent()->has_left_child())
+				return false;
+			if (node != node->get_parent()->get_left_child())
+				return false;
+			return true;
+		}
+
+		node_ptr _get_next_node_after_visiting_root_node(node_ptr last_visited_node)
+		{
+			if (last_visited_node == NULL)
+				return _get_left_most_child();
+
+			if (last_visited_node->get_children_count() == 0 && !_is_left_child(last_visited_node))
+			{
+				return last_visited_node->get_parent();
+			}
+			else if (last_visited_node->has_left_child())
+			{
+				node_ptr left_child = last_visited_node->get_left_child();
+				if (!left_child->has_right_child())
+					return left_child;
+				return _get_left_most_child(left_child);
+			}
+			else if (last_visited_node->get_children_count() == 0 && _is_left_child(last_visited_node))
+			{
+				node_ptr current_node = last_visited_node->get_parent();
+				while (current_node && current_node->get_key() < last_visited_node->get_key())
+				{
+					current_node = current_node->get_parent();
+				}
+				return current_node;
+			}
+			return last_visited_node->get_parent()->get_parent();
+		}
+
+		node_ptr _get_next_node(node_ptr last_visited_node)
+		{
+
+			/*
+			 * If last_visited_node is NULL, Tree has not been traversed
+			 * Tree Traversal always starts (in in-Order Traversal) at left most child
+			 */
+			if (last_visited_node == NULL)
+			{
+				return _get_left_most_child();
+			}
+			if (last_visited_node->get_children_count() == 0 && !_is_right_child(last_visited_node))
+			{
+				return last_visited_node->get_parent();
+			}
+			else if (last_visited_node->has_right_child())
+			{
+				node_ptr right_child = last_visited_node->get_right_child();
+				if (!right_child->has_left_child())
+					return right_child;
+				return _get_left_most_child(right_child);
+			}
+			else if (last_visited_node->get_children_count() <= 1 && _is_right_child(last_visited_node))
+			{
+				node_ptr current_node = last_visited_node->get_parent();
+				while (current_node && current_node->get_key() < last_visited_node->get_key())
+				{
+					current_node = current_node->get_parent();
+				}
+				return current_node;
+			}
+			else if (!last_visited_node->has_right_child())
+				return last_visited_node->get_parent();
+			return last_visited_node->get_parent()->get_parent();
+
+		}
+
+	};
+} // namespace ft

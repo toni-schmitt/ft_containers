@@ -14,12 +14,17 @@ namespace ft
 	template < class T, class Alloc >
 	class rbt_eraser;
 
+	template < class T, class Alloc >
+	class rbt_traverser;
+
 	template < class T, class Alloc = std::allocator<T> >
 	class red_black_tree
 	{
 		friend class rbt_inserter<T, Alloc>;
 
 		friend class rbt_eraser<T, Alloc>;
+
+		friend class rbt_traverser<T, Alloc>;
 
 		/* Member Types */
 	public:
@@ -39,6 +44,7 @@ namespace ft
 		typedef typename node_type::node_color node_color;
 		typedef rbt_nil_node<value_type, allocator_type> nil_node_type;
 		typedef rbt_inserter<value_type, allocator_type> inserter_type;
+		typedef rbt_traverser<value_type, allocator_type> traverser_type;
 		typedef rbt_eraser<value_type, allocator_type> eraser_type;
 
 		class garbage_collector
@@ -66,23 +72,41 @@ namespace ft
 		node_ptr _root;
 		inserter_type _inserter;
 		eraser_type _eraser;
+		traverser_type _traverser;
 		garbage_collector _garbage_collector;
 
 		/* Constructor */
 	public:
-		red_black_tree() : _inserter(inserter_type(*this)), _eraser(eraser_type(*this)),
+		red_black_tree() : _inserter(inserter_type(*this)), _eraser(eraser_type(*this)), _traverser(*this),
 						   _garbage_collector(garbage_collector())
 		{
 			this->_root = NULL;
 		}
 
 		explicit red_black_tree(const value_type &key) : _inserter(inserter_type(*this)), _eraser(eraser_type(*this)),
-														 _garbage_collector(garbage_collector())
+														 _traverser(*this), _garbage_collector(garbage_collector())
 		{
 			this->_root = this->insert(key);
 		}
 
+		/* Exceptions */
+	public:
+		struct end_of_tree_exception : public std::exception
+		{
+			virtual const char *what() const throw() { return "End of Tree reached"; }
+		};
+
 		/* Public Member Functions */
+
+		/* Traversal Functions */
+	public:
+		inline value_type get_next_key()
+		{
+			node_ptr next_node = this->_traverser.get_next_node();
+			if (next_node == NULL)
+				throw end_of_tree_exception();
+			return next_node->get_key();
+		}
 
 		/* Modifiers Functions */
 	public:
@@ -95,7 +119,11 @@ namespace ft
 				return;
 			}
 
-			this->_inserter.insert(key);
+			if (!this->_inserter.insert(key))
+			{
+				// Node is already in Tree
+				return;
+			}
 		}
 
 		inline void erase(const value_type &key)
@@ -105,6 +133,14 @@ namespace ft
 
 		/* Private Member Functions */
 	private:
+		bool _is_root_node(node_ptr node)
+		{
+//			if (node != this->_root)
+//				return false;
+//			return true;
+			return node == this->_root;
+		}
+
 		node_ptr _new_node(node_ptr parent, value_type key, node_color color = node_type::BLACK,
 						   node_ptr left_child = NULL, node_ptr right_child = NULL)
 		{
@@ -220,3 +256,4 @@ namespace ft
 
 #include "rbt_inserter.hpp"
 #include "rbt_eraser.hpp"
+#include "rbt_traverser.hpp"
