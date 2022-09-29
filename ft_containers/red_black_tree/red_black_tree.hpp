@@ -71,6 +71,11 @@ namespace ft
 			this->_root = this->insert(key);
 		}
 
+		~red_black_tree()
+		{
+			this->clear();
+		}
+
 		/* Exceptions */
 	public:
 		struct end_of_tree_exception : public std::exception
@@ -111,6 +116,14 @@ namespace ft
 		inline void erase(const value_type &key)
 		{
 			this->_eraser.erase(key);
+		}
+
+		inline void clear()
+		{
+			while (this->_root)
+			{
+				this->erase(this->_root->get_key());
+			}
 		}
 
 		/* Private Member Functions */
