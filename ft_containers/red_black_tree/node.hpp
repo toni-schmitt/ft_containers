@@ -73,7 +73,7 @@ namespace ft
 
 		/* Destructors */
 	public:
-		~rbt_node() { }
+		virtual ~rbt_node() { }
 
 		/* Static Functions */
 	public:

@@ -133,6 +133,17 @@ namespace ft
 
 		/* Private Member Functions */
 	private:
+		bool _is_nil_node(const node_ptr node)
+		{
+			node_ptr res = dynamic_cast<nil_node_type *>(node);
+			if (res != NULL)
+			{
+				std::cout << "node is nil node" << std::endl;
+				return true;
+			}
+			return false;
+		}
+
 		bool _is_root_node(node_ptr node)
 		{
 //			if (node != this->_root)
