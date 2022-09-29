@@ -49,6 +49,7 @@ namespace ft
 		/* Private Members */
 	private:
 		node_ptr _root;
+		allocator_type _alloc;
 		inserter_type _inserter;
 		eraser_type _eraser;
 		traverser_type _traverser;
@@ -57,17 +58,15 @@ namespace ft
 	public:
 		red_black_tree(
 				const allocator_type &alloc = allocator_type()
-		) : _inserter(inserter_type(*this)), _eraser(eraser_type(*this)), _traverser(*this)
+		) : _alloc(alloc), _inserter(inserter_type(*this)), _eraser(eraser_type(*this)), _traverser(*this)
 		{
-			( void ) alloc;
 			this->_root = NULL;
 		}
 
 		explicit red_black_tree(
 				const value_type &key, const allocator_type &alloc = allocator_type()
-		) : _inserter(inserter_type(*this)), _eraser(eraser_type(*this)), _traverser(*this)
+		) : _alloc(alloc), _inserter(inserter_type(*this)), _eraser(eraser_type(*this)), _traverser(*this)
 		{
-			( void ) alloc;
 			this->_root = this->insert(key);
 		}
 
