@@ -87,7 +87,7 @@ namespace ft
 
 		/* Traversal Functions */
 	public:
-		inline value_type get_next_key()
+		inline value_type get_next_key() const
 		{
 			node_ptr next_node = this->_traverser.get_next_node();
 			if (next_node == NULL)
@@ -99,6 +99,8 @@ namespace ft
 	public:
 		inline void insert(const value_type &key)
 		{
+			this->_traverser.reset_traversal();
+
 			if (this->_root == NULL)
 			{
 				this->_root = _new_node(NULL, key);
@@ -115,6 +117,8 @@ namespace ft
 
 		inline void erase(const value_type &key)
 		{
+			this->_traverser.reset_traversal();
+
 			this->_eraser.erase(key);
 		}
 
