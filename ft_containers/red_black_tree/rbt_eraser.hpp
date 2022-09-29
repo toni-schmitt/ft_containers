@@ -210,7 +210,7 @@ namespace ft
 			if (erased_node_color == node_type::BLACK)
 			{
 				this->_fix_tree(moved_up_node);
-				if (typeid(moved_up_node) == typeid(nil_node_type))
+				if (this->_caller_class._is_nil_node(moved_up_node))
 				{
 					this->_replace_parents_child(moved_up_node->get_parent(), moved_up_node, NULL);
 					node_type::delete_node(moved_up_node);
