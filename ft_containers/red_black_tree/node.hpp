@@ -343,6 +343,23 @@ namespace ft
 				return;
 			this->_right_child = NULL;
 		}
+
+		inline void reset()
+		{
+			if (is_null(this))
+				return;
+
+			this->reset_left_child();
+			this->reset_right_child();
+			this->reset_parent();
+		}
+
+		static inline void delete_node(node_ptr &to_delete)
+		{
+			to_delete->reset();
+			delete to_delete;
+			to_delete = NULL;
+		}
 	};
 
 	/**

@@ -178,7 +178,7 @@ namespace ft
 		}
 		/* Public Member Functions */
 	public:
-		bool erase(const node_ptr &to_erase)
+		bool erase(node_ptr &to_erase)
 		{
 			if (to_erase == NULL)
 				return false;
@@ -192,6 +192,8 @@ namespace ft
 			{
 				moved_up_node = this->_delete_node_zero_or_one_child(to_erase);
 				erased_node_color = to_erase->get_color();
+
+				node_type::delete_node(to_erase);
 			}
 			else
 			{
@@ -201,6 +203,8 @@ namespace ft
 
 				moved_up_node = this->_delete_node_zero_or_one_child(in_order_successor);
 				erased_node_color = in_order_successor->get_color();
+
+				node_type::delete_node(in_order_successor);
 			}
 
 			if (erased_node_color == node_type::BLACK)
@@ -209,6 +213,7 @@ namespace ft
 				if (typeid(moved_up_node) == typeid(nil_node_type))
 				{
 					this->_replace_parents_child(moved_up_node->get_parent(), moved_up_node, NULL);
+					node_type::delete_node(moved_up_node);
 				}
 			}
 
