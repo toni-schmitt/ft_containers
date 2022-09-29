@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include "../vector.hpp"
 #include "node.hpp"
 
 
@@ -47,45 +46,28 @@ namespace ft
 		typedef rbt_traverser<value_type, allocator_type> traverser_type;
 		typedef rbt_eraser<value_type, allocator_type> eraser_type;
 
-		class garbage_collector
-		{
-		private:
-			ft::vector<node_ptr> _nodes;
-
-		public:
-			void add_node(node_ptr node)
-			{
-				_nodes.push_back(node);
-			}
-
-			~garbage_collector()
-			{
-				for (size_t i = 0; i < _nodes.size(); i++)
-				{
-					delete _nodes[ i ];
-				}
-			}
-		};
-
 		/* Private Members */
 	private:
 		node_ptr _root;
 		inserter_type _inserter;
 		eraser_type _eraser;
 		traverser_type _traverser;
-		garbage_collector _garbage_collector;
 
 		/* Constructor */
 	public:
-		red_black_tree() : _inserter(inserter_type(*this)), _eraser(eraser_type(*this)), _traverser(*this),
-						   _garbage_collector(garbage_collector())
+		red_black_tree(
+				const allocator_type &alloc = allocator_type()
+		) : _inserter(inserter_type(*this)), _eraser(eraser_type(*this)), _traverser(*this)
 		{
+			( void ) alloc;
 			this->_root = NULL;
 		}
 
-		explicit red_black_tree(const value_type &key) : _inserter(inserter_type(*this)), _eraser(eraser_type(*this)),
-														 _traverser(*this), _garbage_collector(garbage_collector())
+		explicit red_black_tree(
+				const value_type &key, const allocator_type &alloc = allocator_type()
+		) : _inserter(inserter_type(*this)), _eraser(eraser_type(*this)), _traverser(*this)
 		{
+			( void ) alloc;
 			this->_root = this->insert(key);
 		}
 
@@ -156,14 +138,12 @@ namespace ft
 						   node_ptr left_child = NULL, node_ptr right_child = NULL)
 		{
 			node_ptr new_node = new node_type(parent, key, color, left_child, right_child);
-			this->_garbage_collector.add_node(new_node);
 			return new_node;
 		}
 
 		node_ptr _new_nil_node()
 		{
 			node_ptr new_nil_node = new nil_node_type();
-			this->_garbage_collector.add_node(new_nil_node);
 			return new_nil_node;
 		}
 
