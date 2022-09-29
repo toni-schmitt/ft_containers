@@ -40,18 +40,44 @@ namespace ft
 		explicit rbt_traverser(caller_type &caller_class) : _red_black_tree(caller_class), _root(caller_class._root) { }
 
 		/* Public Member Functions */
-		node_ptr get_next_node()
+		node_ptr get_last_visited_node() const
 		{
-			static node_ptr last_visited_node = NULL;
+			return _last_visited_node();
+		}
 
-			node_ptr next_node = _get_next_node(last_visited_node);
-			last_visited_node = next_node;
+		void reset_traversal() const
+		{
+			_last_visited_node(NULL, true);
+		}
+
+		node_ptr get_next_node(bool reset = false) const
+		{
+
+			if (reset)
+				this->reset_traversal();
+
+			node_ptr next_node = _get_next_node(_last_visited_node());
+			if (this->_red_black_tree._is_nil_node(next_node))
+				return NULL;
+			_last_visited_node(next_node);
 			return next_node;
 		}
 
+
 		/* Private Member Functions */
 	private:
-		node_ptr _get_left_most_child(node_ptr node)
+		node_ptr &_last_visited_node(node_ptr set = NULL, bool reset = false) const
+		{
+			static node_ptr last_visited_node = NULL;
+
+			if (reset)
+				last_visited_node = NULL;
+			if (set != NULL)
+				last_visited_node = set;
+			return last_visited_node;
+		}
+
+		node_ptr _get_left_most_child(node_ptr node) const
 		{
 			node_ptr current_node = node;
 			while (current_node->get_left_child())
@@ -59,12 +85,12 @@ namespace ft
 			return current_node;
 		}
 
-		node_ptr _get_left_most_child()
+		node_ptr _get_left_most_child() const
 		{
 			return _get_left_most_child(this->_root);
 		}
 
-		bool _is_right_child(node_ptr node)
+		bool _is_right_child(node_ptr node) const
 		{
 			if (!node->has_parent())
 				return false;
@@ -76,7 +102,7 @@ namespace ft
 			return node == node->get_parent()->get_right_child();
 		}
 
-		bool _is_left_child(node_ptr node)
+		bool _is_left_child(node_ptr node) const
 		{
 			if (!node->get_parent())
 				return false;
@@ -87,35 +113,7 @@ namespace ft
 			return true;
 		}
 
-		node_ptr _get_next_node_after_visiting_root_node(node_ptr last_visited_node)
-		{
-			if (last_visited_node == NULL)
-				return _get_left_most_child();
-
-			if (last_visited_node->get_children_count() == 0 && !_is_left_child(last_visited_node))
-			{
-				return last_visited_node->get_parent();
-			}
-			else if (last_visited_node->has_left_child())
-			{
-				node_ptr left_child = last_visited_node->get_left_child();
-				if (!left_child->has_right_child())
-					return left_child;
-				return _get_left_most_child(left_child);
-			}
-			else if (last_visited_node->get_children_count() == 0 && _is_left_child(last_visited_node))
-			{
-				node_ptr current_node = last_visited_node->get_parent();
-				while (current_node && current_node->get_key() < last_visited_node->get_key())
-				{
-					current_node = current_node->get_parent();
-				}
-				return current_node;
-			}
-			return last_visited_node->get_parent()->get_parent();
-		}
-
-		node_ptr _get_next_node(node_ptr last_visited_node)
+		node_ptr _get_next_node(node_ptr last_visited_node) const
 		{
 
 			/*
