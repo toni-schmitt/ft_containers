@@ -58,7 +58,7 @@ namespace ft
 
 			node_ptr next_node = _get_next_node(_last_visited_node());
 			if (this->_red_black_tree._is_nil_node(next_node))
-				return NULL;
+				return NULL; // TODO: Better thing to return here
 			_last_visited_node(next_node);
 			return next_node;
 		}
