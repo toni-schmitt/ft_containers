@@ -86,12 +86,25 @@ namespace ft
 
 		/* Traversal Functions */
 	public:
+		inline void reset_traversal() const
+		{
+			this->_traverser.reset_traversal();
+		}
+
 		inline value_type get_next_key() const
 		{
 			node_ptr next_node = this->_traverser.get_next_node();
 			if (next_node == NULL)
 				throw end_of_tree_exception();
 			return next_node->get_key();
+		}
+
+		inline value_type get_last_key() const
+		{
+			node_ptr last_node = this->_traverser.get_last_node();
+			if (last_node == NULL)
+				throw end_of_tree_exception();
+			return last_node->get_key();
 		}
 
 		/* Modifiers Functions */

@@ -63,9 +63,53 @@ namespace ft
 			return next_node;
 		}
 
+		node_ptr get_last_node(bool reset = false) const
+		{
+			if (reset)
+				this->reset_traversal();
+
+			if (_last_visited_node() == NULL)
+				return NULL; // TODO: Better thing to return here
+			node_ptr last_node = _get_last_node(_last_visited_node());
+			if (this->_red_black_tree._is_nil_node(last_node))
+				return NULL; // TODO: Better thing to return here
+			_last_visited_node(last_node);
+			return last_node;
+		}
+
 
 		/* Private Member Functions */
 	private:
+		node_ptr _get_last_node(node_ptr last_visited_node) const
+		{
+
+			if (last_visited_node->has_left_child())
+			{
+				node_ptr left_child = last_visited_node->get_left_child();
+
+				if (left_child->has_right_child())
+				{
+					node_ptr right_child = left_child->get_right_child();
+					if (right_child->get_key() < last_visited_node->get_key())
+					{
+						return _get_right_most_child(right_child);
+					}
+				}
+
+				if (left_child->get_key() < last_visited_node->get_key())
+					return left_child;
+			}
+
+			node_ptr current_node = last_visited_node;
+			while (current_node)
+			{
+				if (current_node->get_key() < last_visited_node->get_key())
+					return current_node;
+				current_node = current_node->get_parent();
+			}
+			return NULL;
+		}
+
 		node_ptr &_last_visited_node(node_ptr set = NULL, bool reset = false) const
 		{
 			static node_ptr last_visited_node = NULL;
@@ -88,6 +132,14 @@ namespace ft
 		node_ptr _get_left_most_child() const
 		{
 			return _get_left_most_child(this->_root);
+		}
+
+		node_ptr _get_right_most_child(node_ptr node) const
+		{
+			node_ptr current_node = node;
+			while (current_node->get_right_child())
+				current_node = current_node->get_right_child();
+			return current_node;
 		}
 
 		bool _is_right_child(node_ptr node) const
