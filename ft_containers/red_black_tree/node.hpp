@@ -194,6 +194,9 @@ namespace ft
 			if (is_null(this))
 				return node_ptr();
 
+			if (this->_left_child == NULL)
+				return NULL;
+
 			return this->_left_child;
 		}
 
@@ -209,6 +212,9 @@ namespace ft
 		{
 			if (is_null(this))
 				return node_ptr();
+
+			if (this->_right_child == NULL)
+				return NULL;
 
 			return this->_right_child;
 		}
