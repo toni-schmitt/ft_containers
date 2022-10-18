@@ -355,6 +355,18 @@ namespace ft
 			if (is_null(this))
 				return;
 
+			if (this->has_left_child())
+				this->get_left_child()->reset_parent();
+			if (this->has_right_child())
+				this->get_right_child()->reset_parent();
+			if (this->has_parent())
+			{
+				node_ptr parent = this->get_parent();
+				if (parent->get_left_child() == this)
+					parent->reset_left_child();
+				else if (parent->get_right_child() == this)
+					parent->reset_right_child();
+			}
 			this->reset_left_child();
 			this->reset_right_child();
 			this->reset_parent();
