@@ -2,9 +2,12 @@
 
 #include <functional>
 #include <memory>
+#include "utility/make_pair.hpp"
 #include "utility/pair.hpp"
+#include "iterator/map_iterator.hpp"
 #include "iterator/reverse_iterator.hpp"
 #include "iterator/iterator_traits.hpp"
+#include "red_black_tree/red_black_tree.hpp"
 
 namespace ft
 {
