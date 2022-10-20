@@ -169,14 +169,35 @@ namespace ft
 	public:
 		/* Insert functions */
 		/* Insert Single Element */
-		pair<iterator, bool> insert(const value_type &val);
+		pair<iterator, bool> insert(const value_type &val)
+		{
+			iterator x = find(val.first);
+			if (x == this->end())
+				return ft::pair<iterator, bool>(x, false);
+			return ft::pair<iterator, bool>(iterator(this->_rbt.insert(val)), true);
+		}
 
 		/* Insert With Hint */
-		iterator insert(iterator position, const value_type &val);
+		iterator insert(iterator position, const value_type &val)
+		{
+			( void ) position; // we dont take hints here :D
+			iterator x = this->find(val.first());
+			if (x == this->end())
+				return x;
+			return iterator(this->_rbt.insert(val));
+		}
 
 		/* Insert Range */
 		template < class InputIterator >
-		void insert(InputIterator first, InputIterator last);
+		void insert(InputIterator first, InputIterator last)
+		{
+			for (InputIterator it = first; it != last; ++it)
+			{
+				iterator x = this->find((*it).first);
+				if (x == this->end())
+					this->_rbt.insert(*it);
+			}
+		}
 
 		/* Erase functions */
 		void erase(iterator position);
