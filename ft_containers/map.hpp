@@ -7,6 +7,8 @@
 #include "iterator/reverse_iterator.hpp"
 #include "iterator/iterator_traits.hpp"
 #include "red_black_tree/red_black_tree.hpp"
+#include "algorithm/equal.hpp"
+#include "algorithm/lexicographical_compare.hpp"
 
 namespace ft
 {
