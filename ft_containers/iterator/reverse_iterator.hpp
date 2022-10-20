@@ -43,9 +43,17 @@ namespace ft
 
 	public:
 		/* Dereference Operators */
-		reference operator*() { return *(--_base_iter); }
+		reference operator*()
+		{
+			iterator_type tmp = this->_base_iter;
+			return *(--tmp);
+		}
 
-		reference operator*() const { return *(--_base_iter); }
+		reference operator*() const
+		{
+			iterator_type tmp = this->_base_iter;
+			return *(--tmp);
+		}
 
 		pointer operator->() { return &(this->operator*()); }
 
