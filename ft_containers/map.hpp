@@ -22,11 +22,16 @@ namespace ft
 		typedef typename allocator_type::const_reference const_reference;
 		typedef typename allocator_type::pointer pointer;
 		typedef typename allocator_type::const_pointer const_pointer;
-		typedef ft::bidirectional_iterator<value_type, map> iterator;
-		typedef ft::bidirectional_iterator<const value_type, map> const_iterator;
+		/* Tree Types */
+		typedef ft::red_black_tree<value_type, map_type, value_compare, Alloc> tree_type;
+		typedef typename tree_type::iterator tree_iterator;
+		typedef typename tree_type::const_iterator tree_const_iterator;
+		/* Iterator Types */
+		typedef ft::bidirectional_iterator<value_type, map_type, tree_type> iterator;
+		typedef ft::bidirectional_iterator<const value_type, map_type, tree_type> const_iterator;
 		typedef ft::reverse_iterator<iterator> reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
-		typedef ft::iterator_traits<iterator>::difference_type difference_type;
+		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
 		typedef typename allocator_type::size_type size_type;
 
 		class value_compare
@@ -76,13 +81,13 @@ namespace ft
 
 		/* Iterator functions */
 	public:
-		iterator begin();
+		iterator begin() { return iterator(this->_rbt.begin()); }
 
-		const_iterator begin() const;
+		const_iterator begin() const { return const_iterator(this->begin()); }
 
-		iterator end();
+		iterator end() { return iterator(this->_rbt.end()); }
 
-		const_iterator end() const;
+		const_iterator end() const { return const_iterator(this->_rbt.end()); }
 
 		reverse_iterator rbegin() { return reverse_iterator(this->end()); }
 
