@@ -14,8 +14,15 @@ namespace ft
 	template < class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
 	class map
 	{
-		/* Member Types */
+		/* Forward Declarations */
 	public:
+		class value_compare;
+
+		/* Member Types */
+	private:
+		typedef map<Key, T, Compare, Alloc> map_type;
+	public:
+		/* Value Types */
 		typedef Key key_type;
 		typedef T mapped_type;
 		typedef ft::pair<const key_type, mapped_type> value_type;
