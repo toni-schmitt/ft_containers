@@ -118,7 +118,7 @@ namespace ft
 	public:
 		iterator begin() { return iterator(this->_rbt.begin()); }
 
-		const_iterator begin() const { return const_iterator(this->begin()); }
+		const_iterator begin() const { return const_iterator(this->_rbt.begin()); }
 
 		iterator end() { return iterator(this->_rbt.end()); }
 
@@ -294,7 +294,21 @@ namespace ft
 			return x;
 		}
 
-		const_iterator lower_bound(const key_type &k) const { return const_iterator(this->lower_bound(k)); }
+		const_iterator lower_bound(const key_type &k) const
+		{
+			const_iterator x = this->find(k);
+			if (x != this->end())
+				return x;
+			x = this->begin();
+			for (const_iterator it = x; it != this->end() && x->first < k;)
+			{
+				++it;
+				if (it->first > k)
+					return it;
+				x = it;
+			}
+			return x;
+		}
 
 		iterator upper_bound(const key_type &k)
 		{
@@ -308,7 +322,17 @@ namespace ft
 			return it;
 		}
 
-		const_iterator upper_bound(const key_type &k) const { return const_iterator(this->upper_bound(k)); }
+		const_iterator upper_bound(const key_type &k) const
+		{
+			const_iterator it = this->begin();
+			while (it != this->end())
+			{
+				if (it->first > k)
+					break;
+				++it;
+			}
+			return it;
+		}
 
 		pair<const_iterator, const_iterator> equal_range(const key_type &k) const
 		{
