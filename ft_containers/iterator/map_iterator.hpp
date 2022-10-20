@@ -65,7 +65,7 @@ namespace ft
 	public:
 		bidirectional_iterator &operator++()
 		{
-			this->_ptr++;
+			this->_base_iter++;
 			return *this;
 		}
 
@@ -80,7 +80,7 @@ namespace ft
 	public:
 		bidirectional_iterator &operator--()
 		{
-			this->_ptr--;
+			this->_base_iter--;
 			return *this;
 		}
 
