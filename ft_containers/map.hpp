@@ -3,7 +3,7 @@
 #include <functional>
 #include <memory>
 #include "utility/pair.hpp"
-#include "iterator/map_iterator.hpp"
+//#include "iterator/map_iterator.hpp"
 #include "iterator/reverse_iterator.hpp"
 #include "iterator/iterator_traits.hpp"
 #include "red_black_tree/red_black_tree.hpp"
@@ -71,6 +71,156 @@ namespace ft
 				return this->comp(x.first, y.first);
 			}
 		};
+
+	public:
+		typedef class map_iterator
+		{
+		public:
+			typedef bidirectional_iterator_tag iterator_category;
+			typedef typename tree_iterator::value_type value_type;
+			typedef typename tree_iterator::difference_type difference_type;
+			typedef typename tree_iterator::reference reference;
+			typedef typename tree_iterator::pointer pointer;
+
+		protected:
+			tree_iterator _tree_ite;
+
+		public:
+			map_iterator() : _tree_ite() { }
+
+			explicit map_iterator(const tree_iterator &tree_ite) : _tree_ite(tree_ite) { }
+
+			map_iterator(const map_iterator &other) : _tree_ite(other._tree_ite) { }
+
+			tree_iterator base() const { return _tree_ite; }
+
+			tree_iterator get_tree_ite() const { return (_tree_ite); }
+
+			map_iterator &operator=(const map_iterator &other)
+			{
+				_tree_ite = other._tree_ite;
+				return (*this);
+			}
+
+			reference operator*() const { return (*_tree_ite); }
+
+			pointer operator->() const { return (&(*_tree_ite)); }
+
+			map_iterator &operator++()
+			{
+				++_tree_ite;
+				return (*this);
+			}
+
+			map_iterator &operator--()
+			{
+				--_tree_ite;
+				return (*this);
+			}
+
+			map_iterator operator++(int)
+			{
+				tree_iterator tmp = _tree_ite;
+				++_tree_ite;
+				return map_iterator(tmp);
+			}
+
+			map_iterator operator--(int)
+			{
+				tree_iterator tmp = _tree_ite;
+				--_tree_ite;
+				return map_iterator(tmp);
+			}
+
+			friend bool operator==(const map_iterator &lhs, const map_iterator &rhs)
+			{
+				return (lhs.get_tree_ite() == rhs.get_tree_ite());
+			}
+
+			friend bool operator!=(const map_iterator &lhs, const map_iterator &rhs)
+			{
+				return (!(lhs == rhs));
+			}
+		} iterator;
+
+		typedef class map_const_iterator
+		{
+		public:
+			typedef bidirectional_iterator_tag iterator_category;
+			typedef typename tree_const_iterator::value_type value_type;
+			typedef typename tree_const_iterator::difference_type difference_type;
+			typedef typename tree_const_iterator::reference reference;
+			typedef typename tree_const_iterator::pointer pointer;
+
+		protected:
+			iterator _nc_ite;
+
+		public:
+			map_const_iterator() : _nc_ite() { }
+
+			map_const_iterator(const map_const_iterator &other) : _nc_ite(other._nc_ite) { }
+
+			explicit map_const_iterator(const tree_const_iterator &const_tree_ite) : _nc_ite(
+					iterator(const_tree_ite.get_base_ite())) { }
+
+			explicit map_const_iterator(const tree_iterator &tree_ite) : _nc_ite(iterator(tree_ite)) { }
+
+			map_const_iterator(const iterator &nc_ite) : _nc_ite(nc_ite) { }
+
+			tree_const_iterator get_tree_ite() const { return (_nc_ite.get_tree_ite()); }
+
+			map_const_iterator &operator=(const map_const_iterator &other)
+			{
+				_nc_ite = other._nc_ite;
+				return (*this);
+			}
+
+			reference operator*() const { return ((_nc_ite.get_tree_ite()).get_base_ptr()->value); }
+
+			pointer operator->() const { return (&(*_nc_ite)); }
+
+			map_const_iterator &operator++()
+			{
+				++_nc_ite;
+				return (*this);
+			}
+
+			map_const_iterator &operator--()
+			{
+				--_nc_ite;
+				return (*this);
+			}
+
+			map_const_iterator operator++(int)
+			{
+				iterator tmp = _nc_ite;
+				++_nc_ite;
+				return map_const_iterator(tmp);
+			}
+
+			map_const_iterator operator--(int)
+			{
+				iterator tmp = _nc_ite;
+				--_nc_ite;
+				return map_const_iterator(tmp);
+			}
+
+			friend bool operator==(const map_const_iterator &lhs, const map_const_iterator &rhs)
+			{
+				return (lhs.get_tree_ite() == rhs.get_tree_ite());
+			}
+
+			friend bool operator!=(const map_const_iterator &lhs, const map_const_iterator &rhs)
+			{
+				return (!(lhs == rhs));
+			}
+		} const_iterator;
+
+
+		/* Iterator Types */
+		typedef ft::reverse_iterator<iterator> reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
+		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
 
 		/* Private Member */
 	private:
