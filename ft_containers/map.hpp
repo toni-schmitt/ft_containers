@@ -82,18 +82,21 @@ namespace ft
 	public:
 		/* Default Constructor */
 		explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
-				: _compare(comp), _alloc(alloc) { }
+				: _compare(comp), _alloc(alloc), _rbt(tree_type()) { }
 
 		/* Range Constructor */
 		template < class InputIterator >
 		map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(),
-			const allocator_type &alloc = allocator_type()) : _compare(comp), _alloc(alloc)
+			const allocator_type &alloc = allocator_type()) : _compare(comp), _alloc(alloc), _rbt(tree_type())
 		{
 			this->insert(first, last);
 		}
 
 		/* Copy Constructor */
-		map(const map &x) : _compare(x._compare), _alloc(x._alloc), _rbt(x._rbt) { }
+		map(const map &x) : _compare(x._compare), _alloc(x._alloc), _rbt(x._rbt)
+		{
+			*this = x;
+		}
 
 		/* Destructors */
 	public:
@@ -109,6 +112,7 @@ namespace ft
 			if (&x == this)
 				return *this;
 
+			this->_rbt.clear();
 			this->_rbt = x._rbt;
 
 			return *this;
@@ -195,7 +199,7 @@ namespace ft
 			for (InputIterator it = first; it != last; ++it)
 			{
 				iterator x = this->find((*it).first);
-				if (x != this->end())
+				if (x == this->end())
 					this->_rbt.insert(*it);
 			}
 		}

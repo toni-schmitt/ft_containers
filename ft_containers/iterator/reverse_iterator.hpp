@@ -43,9 +43,9 @@ namespace ft
 
 	public:
 		/* Dereference Operators */
-		reference operator*() { return *(_base_iter - 1); }
+		reference operator*() { return *(--_base_iter); }
 
-		reference operator*() const { return *(_base_iter - 1); }
+		reference operator*() const { return *(--_base_iter); }
 
 		pointer operator->() { return &(this->operator*()); }
 

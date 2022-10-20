@@ -47,7 +47,7 @@ namespace ft
 			value_type value;
 			bool is_black;
 
-			explicit rbt_node(bool is_black = false) : parent(NULL), left(NULL), right(NULL), value(),
+			explicit rbt_node(bool is_black = false) : parent(NULL), left(NULL), right(NULL), value(value_type()),
 													   is_black(is_black) { }
 
 			explicit rbt_node(value_type val) : parent(nil_node), left(nil_node), right(nil_node), value(val),
@@ -91,7 +91,8 @@ namespace ft
 		/* Constructors */
 	public:
 
-		red_black_tree(const value_compare &comp = value_compare()) : _end_node(_new_node(false)), _size(0), _comp(comp)
+		red_black_tree(const value_compare &comp = value_compare()) : _end_node(_new_node(false)),
+																	  _root(node_pointer()), _size(0), _comp(comp)
 		{
 			_end_node->left = nil_node;
 			++_nb_trees;
@@ -106,7 +107,8 @@ namespace ft
 			++_nb_trees;
 		}
 
-		red_black_tree(const red_black_tree &other) : _end_node(_new_node(false)), _size(0), _comp(other._comp)
+		red_black_tree(const red_black_tree &other) : _end_node(_new_node(false)), _root(node_pointer()), _size(0),
+													  _comp(other._comp)
 		{
 			_end_node->left = nil_node;
 			++_nb_trees;
@@ -126,10 +128,10 @@ namespace ft
 
 		/* Public Member Functions */
 	public:
-		void print_tree() const
+		void print_tree(std::ostream &os = std::cout) const
 		{
-			_pretty_print("", _end_node->left, false, -1);
-			std::cout << std::endl;
+			_pretty_print("", _end_node->left, false, -1, os);
+			os << std::endl;
 		}
 
 		/* Iterator Functions */
@@ -244,10 +246,13 @@ namespace ft
 	public:
 		red_black_tree &operator=(const red_black_tree &other)
 		{
-			clear();
-			for (const_iterator it = other.begin(); it != other.end(); it++)
+			if (this == &other)
+				return *this;
+
+			this->clear();
+			for (const_iterator it = other.begin(); it != other.end(); ++it)
 			{
-				insert(*it);
+				this->insert(*it);
 			}
 			return *this;
 		}
