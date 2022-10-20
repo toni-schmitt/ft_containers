@@ -321,6 +321,6 @@ namespace ft
 
 		/* Allocator functions */
 	public:
-		allocator_type get_allocator() const;
+		allocator_type get_allocator() const { return this->_alloc; }
 	};
 } // namespace ft
