@@ -103,7 +103,15 @@ namespace ft
 
 		/* Public Member Functions */
 	public:
-		map &operator=(const map &x);
+		map &operator=(const map &x)
+		{
+			if (&x == this)
+				return *this;
+
+			this->_rbt = x._rbt;
+
+			return *this;
+		}
 
 		/* Iterator functions */
 	public:
