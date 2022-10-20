@@ -235,23 +235,89 @@ namespace ft
 
 		/* Operation functions */
 	public:
-		iterator find(const key_type &k);
+		/* Find */
+	private:
+		struct key_to_pair_equal
+		{
+			bool operator()(const key_type &key, const value_type &value) const
+			{
+				return key == value.first;
+			}
+		};
 
-		const_iterator find(const key_type &k) const;
+		struct key_to_pair_comp
+		{
+			bool operator()(const key_type &key, const value_type &value) const
+			{
+				return key_compare()(key, value.first);
+			}
+		};
 
-		size_type count(const key_type &k) const;
+	public:
+		iterator find(const key_type &k)
+		{
 
-		iterator lower_bound(const key_type &k);
+			if (this->empty())
+				return this->end();
+			return iterator(this->_rbt.search(k, key_to_pair_equal(), key_to_pair_comp()));
+		}
 
-		const_iterator lower_bound(const key_type &k) const;
+		const_iterator find(const key_type &k) const
+		{
+			if (this->empty())
+				return this->end();
+			return const_iterator(this->_rbt.search(k, key_to_pair_equal(), key_to_pair_comp()));
+		}
 
-		iterator upper_bound(const key_type &k);
+		size_type count(const key_type &k) const
+		{
+			const_iterator element = this->find(k);
+			if (element == this->end())
+				return 0;
+			return 1;
+		}
 
-		const_iterator upper_bound(const key_type &k) const;
+		iterator lower_bound(const key_type &k)
+		{
+			iterator x = this->find(k);
+			if (x != this->end())
+				return x;
+			x = this->begin();
+			for (iterator it = x; it != this->end() && x->first < k;)
+			{
+				++it;
+				if (it->first > k)
+					return it;
+				x = it;
+			}
+			return x;
+		}
 
-		pair<const_iterator, const_iterator> equal_range(const key_type &k) const;
+		const_iterator lower_bound(const key_type &k) const { return const_iterator(this->lower_bound(k)); }
 
-		pair<iterator, iterator> equal_range(const key_type &k);
+		iterator upper_bound(const key_type &k)
+		{
+			iterator it = this->begin();
+			while (it != this->end())
+			{
+				if (it->first > k)
+					break;
+				++it;
+			}
+			return it;
+		}
+
+		const_iterator upper_bound(const key_type &k) const { return const_iterator(this->upper_bound(k)); }
+
+		pair<const_iterator, const_iterator> equal_range(const key_type &k) const
+		{
+			return ft::pair<const_iterator, const_iterator>(this->lower_bound(k), this->upper_bound(k));
+		}
+
+		pair<iterator, iterator> equal_range(const key_type &k)
+		{
+			return ft::pair<iterator, iterator>(this->lower_bound(k), this->upper_bound(k));
+		}
 
 		/* Allocator functions */
 	public:
