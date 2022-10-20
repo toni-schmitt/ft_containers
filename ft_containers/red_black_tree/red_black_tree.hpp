@@ -96,8 +96,9 @@ namespace ft
 			++_nb_trees;
 		}
 
-		explicit red_black_tree(const Compare &c, const Allocator &alloc = Allocator()) : _root(nil_node), _size(0),
-																						  _comp(c)
+		explicit red_black_tree(
+				const Compare &c, const Allocator &alloc = Allocator()
+		) : _root(nil_node), _size(0), _comp(c)
 		{
 			value_allocator = alloc;
 			_end_node->left = nil_node;
@@ -366,12 +367,7 @@ namespace ft
 			}
 		}
 
-		bool _tree_compare(value_type &val_1, value_type &val_2) const
-		{
-			if (_comp(val_1, val_2))
-				return true;
-			return false;
-		}
+		bool _tree_compare(value_type &val_1, value_type &val_2) const { return _comp(val_1, val_2); }
 
 		/**
 		 * Searches for a node containing 'value' in a (sub-)tree rooted at 'tree'
