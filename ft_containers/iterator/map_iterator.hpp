@@ -27,7 +27,8 @@ namespace ft
 	public:
 		bidirectional_iterator() : _base_iter(tree_iterator(NULL)) { }
 
-		bidirectional_iterator(const bidirectional_iterator &cpy) : _base_iter(cpy.base()) { }
+		bidirectional_iterator(const bidirectional_iterator<typename Container::value_type, Container, Tree> &cpy)
+				: _base_iter(cpy.base()) { }
 
 		explicit bidirectional_iterator(tree_const_iterator const_tree_iter) : _base_iter(
 				tree_iterator(const_tree_iter.get_base_ptr())) { }
