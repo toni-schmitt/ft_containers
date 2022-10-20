@@ -141,7 +141,29 @@ namespace ft
 
 		/* Element access functions */
 	public:
-		mapped_type &operator[](const key_type &k);
+		mapped_type &operator[](const key_type &k)
+		{
+			iterator it = this->find(k);
+			if (it == this->end())
+				return insert(ft::pair<key_type, mapped_type>(k, mapped_type())).first->second;
+			return it->second;
+		}
+
+		mapped_type &at(const key_type &k)
+		{
+			iterator it = this->find(k);
+			if (it == this->end())
+				throw std::out_of_range("Out of range");
+			return it->second;
+		}
+
+		const mapped_type &at(const key_type &k) const
+		{
+			const_iterator it = this->find(k);
+			if (it == this->end())
+				throw std::out_of_range("Out of range");
+			return it->second;
+		}
 
 		/* Modifiers functions */
 	public:
