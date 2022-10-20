@@ -58,7 +58,10 @@ namespace ft
 		protected:
 			Compare comp;
 
-			value_compare(Compare c) : comp(c) { }
+		public:
+			value_compare() : comp() { }
+
+			explicit value_compare(Compare c) : comp(c) { }
 
 			/* Public Member functions */
 		public:
