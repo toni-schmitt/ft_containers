@@ -90,7 +90,7 @@ namespace ft
 		/* Constructors */
 	public:
 
-		red_black_tree() : _end_node(_new_node(false)), _size(0)
+		red_black_tree(const value_compare &comp = value_compare()) : _end_node(_new_node(false)), _size(0), _comp(comp)
 		{
 			_end_node->left = nil_node;
 			++_nb_trees;
