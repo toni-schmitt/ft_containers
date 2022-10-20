@@ -71,22 +71,35 @@ namespace ft
 			}
 		};
 
+		/* Private Member */
+	private:
+		value_compare _compare;
+		allocator_type _alloc;
+		tree_type _rbt;
+
 		/* Constructors */
 	public:
 		/* Default Constructor */
-		explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type());
+		explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
+				: _compare(comp), _alloc(alloc) { }
 
 		/* Range Constructor */
 		template < class InputIterator >
 		map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(),
-			const allocator_type &alloc = allocator_type());
+			const allocator_type &alloc = allocator_type()) : _compare(comp), _alloc(alloc)
+		{
+			this->insert(first, last);
+		}
 
 		/* Copy Constructor */
-		map(const map &x);
+		map(const map &x) : _compare(x._compare), _alloc(x._alloc), _rbt(x._rbt) { }
 
 		/* Destructors */
 	public:
-		~map();
+		~map()
+		{
+			this->_rbt.clear();
+		}
 
 		/* Public Member Functions */
 	public:
