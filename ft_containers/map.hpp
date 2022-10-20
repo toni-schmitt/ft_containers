@@ -229,9 +229,9 @@ namespace ft
 
 		/* Observer functions */
 	public:
-		key_compare key_comp() const;
+		key_compare key_comp() const { return this->_compare.comp; }
 
-		value_compare value_comp() const;
+		value_compare value_comp() const { return this->_compare; }
 
 		/* Operation functions */
 	public:
