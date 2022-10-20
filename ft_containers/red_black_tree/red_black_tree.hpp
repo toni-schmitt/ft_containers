@@ -666,44 +666,44 @@ namespace ft
 		}
 
 		/* Recursive core of print_tree() */
-		void _pretty_print(const std::string &prefix, node_pointer x, bool is_left, int iter) const
+		void _pretty_print(const std::string &prefix, node_pointer x, bool is_left, int iter, std::ostream &os) const
 		{
 			++iter;
 			if (x && x == nil_node)
 			{
-				std::cout << "\033[0;34m";
-				std::cout << prefix;
-				std::cout << (is_left ? "├──" : "└──");
-				std::cout << iter;
-				std::cout << (is_left ? "L " : "R ");
-				std::cout << "\033[0m";
-				std::cout << "⁙";
-				std::cout << "\033[0;34m" << " " << x << "\033[0m";
-				std::cout << std::endl;
+				os << "\033[0;34m";
+				os << prefix;
+				os << (is_left ? "├──" : "└──");
+				os << iter;
+				os << (is_left ? "L " : "R ");
+				os << "\033[0m";
+				os << "⁙";
+				os << "\033[0;34m" << " " << x << "\033[0m";
+				os << std::endl;
 			}
 			if (x && x != nil_node)
 			{
-				std::cout << "\033[0;34m";
-				std::cout << prefix;
+				os << "\033[0;34m";
+				os << prefix;
 				if (x == _root)
 				{
-					std::cout << "└──";
-					std::cout << iter << "* ";
+					os << "└──";
+					os << iter << "* ";
 				}
 				else
 				{
-					std::cout << (is_left ? "├──" : "└──");
-					std::cout << iter;
-					std::cout << (is_left ? "L " : "R ");
+					os << (is_left ? "├──" : "└──");
+					os << iter;
+					os << (is_left ? "L " : "R ");
 				}
-				std::cout << "\033[0m";
+				os << "\033[0m";
 				if (x->is_black == false)
-					std::cout << "\033[0;31m";
-				std::cout << x->value << " " << "\033[0;34m" << x;
-				// std::cout << x; // if no << overload
-				std::cout << "\033[0m" << std::endl;
-				_pretty_print(prefix + (is_left ? "│     " : "      "), x->left, true, iter);
-				_pretty_print(prefix + (is_left ? "│     " : "      "), x->right, false, iter);
+					os << "\033[0;31m";
+				os << x->value << " " << "\033[0;34m" << x;
+				// os << x; // if no << overload
+				os << "\033[0m" << std::endl;
+				_pretty_print(prefix + (is_left ? "│     " : "      "), x->left, true, iter, os);
+				_pretty_print(prefix + (is_left ? "│     " : "      "), x->right, false, iter, os);
 			}
 		}
 
