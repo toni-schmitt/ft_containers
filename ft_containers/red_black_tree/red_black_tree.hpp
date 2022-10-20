@@ -1,28 +1,24 @@
 
 #pragma once
 
+#include "../iterator/rbt_iterator.hpp"
 #include "../iterator/iterator_traits.hpp"
 
 namespace ft
 {
 
-	template < class T, class Compare = std::less<T>, class Allocator = std::allocator<T> >
+	template < class T, class Container, class Compare = std::less<T>, class Allocator = std::allocator<T> >
 	class red_black_tree
 	{
 
 		/* Forward Declarations (for member Types) */
 	private:
 		struct rbt_node;
-	public:
-		class rbt_iterator;
-
-		class rbt_const_iterator;
-
-		friend class rbt_iterator;
 
 		/* Member Types */
 	public:
 		typedef T value_type;
+		typedef Container container_type;
 		typedef Compare value_compare;
 		typedef Allocator value_allocator_type;
 		typedef typename value_allocator_type::pointer pointer;
@@ -35,10 +31,10 @@ namespace ft
 		typedef typename node_allocator_type::const_reference const_node_reference;
 		typedef typename node_allocator_type::size_type size_type;
 		typedef typename node_allocator_type::difference_type difference_type;
-		typedef rbt_iterator iterator;
-		typedef rbt_const_iterator const_iterator;
-		typedef ft::reverse_iterator<rbt_iterator> reverse_iterator;
-		typedef ft::reverse_iterator<rbt_const_iterator> const_reverse_iterator;
+		typedef ft::rbt_iterator<value_type, container_type, red_black_tree> iterator;
+		typedef ft::rbt_iterator<const value_type, container_type, red_black_tree> const_iterator;
+		typedef ft::reverse_iterator<iterator> reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 		/* Private Local Classes */
 	private:
@@ -70,154 +66,6 @@ namespace ft
 				red_black_tree::node_allocator.destroy(node);
 				red_black_tree::node_allocator.deallocate(node, 1);
 				node = NULL;
-			}
-		};
-
-		/* Public Local Classes */
-	public:
-		/* Iterator */
-		class rbt_iterator
-		{
-		public:
-			typedef bidirectional_iterator_tag iterator_category;
-			typedef typename red_black_tree::value_type value_type;
-			typedef typename red_black_tree::difference_type difference_type;
-			typedef typename red_black_tree::reference reference;
-			typedef typename red_black_tree::pointer pointer;
-		protected:
-			node_pointer base_ptr;
-		public:
-			rbt_iterator() : base_ptr(nil_node) { }
-
-			explicit rbt_iterator(const node_pointer &x) : base_ptr(x) { }
-
-			rbt_iterator(const rbt_iterator &other) : base_ptr(other.base_ptr) { }
-
-			node_pointer get_base_ptr() const { return base_ptr; }
-
-			reference operator*() const { return base_ptr->value; }
-
-			pointer operator->() const { return &(operator*()); }
-
-			rbt_iterator &operator++()
-			{
-				if (base_ptr != nil_node && base_ptr && base_ptr->right && base_ptr->right != nil_node)
-					base_ptr = rb_min(base_ptr->right);
-				else
-				{
-					node_pointer y = base_ptr->parent;
-					while (y != nil_node && y->parent != NULL && base_ptr == y->right)
-					{
-						base_ptr = y;
-						y = y->parent;
-					}
-					base_ptr = y;
-				}
-				return *this;
-			}
-
-			rbt_iterator &operator--()
-			{
-				if (base_ptr != nil_node && base_ptr && base_ptr->left && base_ptr->left != nil_node)
-					base_ptr = rb_max(base_ptr->left);
-				else
-				{
-
-					node_pointer y = base_ptr->parent;
-					while (y != nil_node && y->parent != NULL && y->parent != nil_node && base_ptr == y->left)
-					{
-						base_ptr = y;
-						y = y->parent;
-					}
-					base_ptr = y;
-				}
-				return *this;
-			}
-
-			rbt_iterator operator++(int)
-			{
-				node_pointer old = base_ptr;
-				++*this;
-				return rbt_iterator(old);
-			}
-
-			rbt_iterator operator--(int)
-			{
-				node_pointer old = base_ptr;
-				--*this;
-				return rbt_iterator(old);
-			}
-
-			friend bool operator==(const rbt_iterator &lhs, const rbt_iterator &rhs)
-			{
-				return lhs.get_base_ptr() == rhs.get_base_ptr();
-			}
-
-			friend bool operator!=(const rbt_iterator &lhs, const rbt_iterator &rhs) { return !(lhs == rhs); }
-		};
-
-		/* Const Iterator */
-		class rbt_const_iterator
-		{
-		public:
-			typedef bidirectional_iterator_tag iterator_category;
-			typedef typename red_black_tree::value_type value_type;
-			typedef typename red_black_tree::difference_type difference_type;
-			typedef typename red_black_tree::const_reference reference;
-			typedef typename red_black_tree::const_pointer pointer;
-		protected:
-			rbt_iterator base_ite;
-		public:
-			rbt_const_iterator() : rbt_iterator() { }
-
-			explicit rbt_const_iterator(const node_pointer &x) : base_ite(rbt_iterator(x)) { }
-
-			explicit rbt_const_iterator(const rbt_iterator &nc_it) : base_ite(nc_it) { }
-
-			rbt_const_iterator(const rbt_const_iterator &other) : base_ite(other.get_base_ite()) { }
-
-			rbt_iterator get_base_ite() const { return base_ite; }
-
-			node_pointer get_base_ptr() const { return base_ite.get_base_ptr(); }
-
-			reference operator*() const { return get_base_ptr()->value; }
-
-			pointer operator->() const { return &(operator*()); }
-
-			rbt_const_iterator &operator++()
-			{
-				++base_ite;
-				return *this;
-			}
-
-			rbt_const_iterator &operator--()
-			{
-				--base_ite;
-				return *this;
-			}
-
-			rbt_const_iterator operator++(int)
-			{
-				node_pointer old = base_ite.get_base_ptr();
-				++*this;
-				return rbt_const_iterator(old);
-			}
-
-			rbt_const_iterator operator--(int)
-			{
-				node_pointer old = base_ite.get_base_ptr();
-				--*this;
-				return rbt_const_iterator(old);
-			}
-
-			friend bool operator==(const rbt_const_iterator &lhs, const rbt_const_iterator &rhs)
-			{
-				return lhs.get_base_ptr() == rhs.get_base_ptr();
-			}
-
-			friend bool operator!=(const rbt_const_iterator &lhs, const rbt_const_iterator &rhs)
-			{
-				return !(lhs == rhs);
 			}
 		};
 
