@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 namespace ft
 {
 	template < class T1, class T2 >
@@ -42,6 +44,13 @@ namespace ft
 	};
 
 	/* Non-member function overloads */
+
+	template < class T1, class T2 >
+	std::ostream &operator<<(std::ostream &os, const ft::pair<T1, T2> &pair)
+	{
+		os << pair.first << " " << pair.second;
+		return os;
+	}
 
 	/* Relational Operators */
 	template < class T1, class T2 >
