@@ -222,10 +222,10 @@ namespace ft
 		}
 
 		/* Swap function */
-		void swap(map &x);
+		void swap(map &x) { this->_rbt.swap(x._rbt); }
 
 		/* Clear function */
-		void clear();
+		void clear() { this->_rbt.clear(); }
 
 		/* Observer functions */
 	public:
