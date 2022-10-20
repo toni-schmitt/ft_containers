@@ -200,11 +200,26 @@ namespace ft
 		}
 
 		/* Erase functions */
-		void erase(iterator position);
+		void erase(iterator position)
+		{
+			if (position == this->end())
+				return;
+			this->_rbt.erase(position.base());
+		}
 
-		size_type erase(const key_type &k);
+		size_type erase(const key_type &k)
+		{
+			iterator it = this->find(k);
+			if (it == this->end())
+				return 0;
+			this->_rbt.erase(it.base());
+			return 1;
+		}
 
-		void erase(iterator first, iterator last);
+		void erase(iterator first, iterator last)
+		{
+			this->_rbt.erase(first.base(), last.base());
+		}
 
 		/* Swap function */
 		void swap(map &x);
