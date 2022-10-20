@@ -704,15 +704,15 @@ namespace ft
 	};
 
 	/* Static Member Initialization */
-	template < class T, class Compare, class Allocator >
-	typename red_black_tree<T, Compare, Allocator>::node_allocator_type red_black_tree<T, Compare, Allocator>::node_allocator = typename red_black_tree<T, Compare, Allocator>::node_allocator_type();
+	template < class T, class Container, class Compare, class Allocator >
+	typename red_black_tree<T, Container, Compare, Allocator>::node_allocator_type red_black_tree<T, Container, Compare, Allocator>::node_allocator = typename red_black_tree<T, Container, Compare, Allocator>::node_allocator_type();
 
-	template < class T, class Compare, class Allocator >
-	typename red_black_tree<T, Compare, Allocator>::value_allocator_type red_black_tree<T, Compare, Allocator>::value_allocator = typename red_black_tree<T, Compare, Allocator>::value_allocator_type();
+	template < class T, class Container, class Compare, class Allocator >
+	typename red_black_tree<T, Container, Compare, Allocator>::value_allocator_type red_black_tree<T, Container, Compare, Allocator>::value_allocator = typename red_black_tree<T, Container, Compare, Allocator>::value_allocator_type();
 
-	template < class T, class Compare, class Allocator >
-	typename red_black_tree<T, Compare, Allocator>::node_pointer red_black_tree<T, Compare, Allocator>::nil_node = typename red_black_tree<T, Compare, Allocator>::node_pointer();
+	template < class T, class Container, class Compare, class Allocator >
+	typename red_black_tree<T, Container, Compare, Allocator>::node_pointer red_black_tree<T, Container, Compare, Allocator>::nil_node = typename red_black_tree<T, Container, Compare, Allocator>::node_pointer();
 
-	template < class T, class Compare, class Allocator >
-	typename red_black_tree<T, Compare, Allocator>::size_type red_black_tree<T, Compare, Allocator>::_nb_trees = typename red_black_tree<T, Compare, Allocator>::size_type();
+	template < class T, class Container, class Compare, class Allocator >
+	typename red_black_tree<T, Container, Compare, Allocator>::size_type red_black_tree<T, Container, Compare, Allocator>::_nb_trees = typename red_black_tree<T, Container, Compare, Allocator>::size_type();
 }
