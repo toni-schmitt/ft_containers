@@ -169,19 +169,84 @@ namespace ft
 
 		/* Operations */
 	public:
-		iterator find(const value_type &val) const;
+		iterator find(const value_type &val)
+		{
+			if (this->empty())
+				return this->end();
+			return iterator(this->_rbt.search(val));
+		}
 
-		size_type count(const value_type &val) const;
+		const_iterator find(const value_type &val) const
+		{
+			if (this->empty())
+				return this->end();
+			return const_iterator(this->_rbt.search(val));
+		}
 
-		iterator lower_bound(const value_type &val) const;
+		size_type count(const value_type &val) const
+		{
+			if (this->find(val) != this->end())
+				return 1;
+			return 0;
+		}
 
-		iterator upper_bound(const value_type &val) const;
+		iterator lower_bound(const value_type &val)
+		{
+			iterator it = this->find(val);
+			if (it != this->end())
+				return it;
+			it = this->begin();
+			for (iterator iter = it; iter != this->end() && *it < val;)
+			{
+				++iter;
+				if (*iter > val)
+					return iter;
+				it = iter;
+			}
+			return it;
+		}
 
-		ft::pair<iterator, iterator> equal_range(const value_type &val) const;
+		const_iterator lower_bound(const value_type &val) const
+		{
+			if (this->find(val) != this->end())
+				return this->find(val);
+
+			const_iterator iter = this->begin();
+			for (iterator i = iter; i != this->end() && *iter < val;)
+			{
+				++i;
+				if (*i > val)
+					return i;
+				iter = i;
+			}
+			return iter;
+		}
+
+		iterator upper_bound(const value_type &val) const
+		{
+			iterator it = this->begin();
+			while (it != this->end())
+			{
+				if (*it > val)
+					break;
+				++it;
+			}
+			return it;
+		}
+
+		ft::pair<iterator, iterator> equal_range(const value_type &val)
+		{
+			return ft::pair<iterator, iterator>(this->lower_bound(val), this->upper_bound(val));
+		}
+
+		ft::pair<const_iterator, const_iterator> equal_range(const value_type &val) const
+		{
+			return ft::pair<const_iterator, const_iterator>(this->lower_bound(val), this->upper_bound(val));
+		}
 
 		/* Allocator Functions */
 	public:
-		allocator_type get_allocator() const;
+		allocator_type get_allocator() const { return this->_alloc; }
 
 	};
 };
