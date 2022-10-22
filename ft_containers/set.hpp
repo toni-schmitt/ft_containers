@@ -249,4 +249,40 @@ namespace ft
 		allocator_type get_allocator() const { return this->_alloc; }
 
 	};
+
+	/* Relational Operators Overload */
+	template < class Key, class Compare, class Alloc >
+	bool operator==(const ft::set<Key, Compare, Alloc> &lhs,
+					const ft::set<Key, Compare, Alloc> &rhs)
+	{
+		return ((lhs.size() == rhs.size()) && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	}
+
+	template < class Key, class Compare, class Alloc >
+	bool operator!=(const ft::set<Key, Compare, Alloc> &lhs,
+					const ft::set<Key, Compare, Alloc> &rhs) { return (!(lhs == rhs)); }
+
+	template < class Key, class Compare, class Alloc >
+	bool operator<(const ft::set<Key, Compare, Alloc> &lhs,
+				   const ft::set<Key, Compare, Alloc> &rhs)
+	{
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+
+	template < class Key, class Compare, class Alloc >
+	bool operator<=(const ft::set<Key, Compare, Alloc> &lhs,
+					const ft::set<Key, Compare, Alloc> &rhs) { return (!(rhs < lhs)); }
+
+	template < class Key, class Compare, class Alloc >
+	bool operator>(const ft::set<Key, Compare, Alloc> &lhs,
+				   const ft::set<Key, Compare, Alloc> &rhs) { return (rhs < lhs); }
+
+	template < class Key, class Compare, class Alloc >
+	bool operator>=(const ft::set<Key, Compare, Alloc> &lhs,
+					const ft::set<Key, Compare, Alloc> &rhs) { return (!(lhs < rhs)); }
+
+
+	/* Swap */
+	template < class T, class Compare, class Alloc >
+	void swap(set<T, Compare, Alloc> &x, set<T, Compare, Alloc> &y) { x.swap(y); }
 };
