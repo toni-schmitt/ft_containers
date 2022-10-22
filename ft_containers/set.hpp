@@ -102,22 +102,64 @@ namespace ft
 
 		/* Modifiers */
 	public:
-		ft::pair<iterator, bool> insert(const value_type &val);
+		ft::pair<iterator, bool> insert(const value_type &val)
+		{
+			iterator it = this->find(val);
+			if (it != this->end())
+				return ft::pair<iterator, bool>(it, false);
+			return ft::pair<iterator, bool>(iterator(this->_rbt.insert(val)), true);
+		}
 
-		iterator insert(iterator position, const value_type &val);
+		iterator insert(iterator position, const value_type &val)
+		{
+			( void ) position;
+			iterator it = this->find(val);
+			if (it != this->end())
+				return it;
+			return iterator(this->_rbt.insert(val));
+		}
 
 		template < class InputIterator >
-		void insert(InputIterator first, InputIterator last);
+		void insert(InputIterator first, InputIterator last)
+		{
+			for (InputIterator it = first; it != last; ++it)
+			{
+				if (this->find(*it) == this->end())
+					this->_rbt.insert(*it);
+			}
+		}
 
-		void erase(iterator position);
+		void erase(iterator position)
+		{
+			if (position == this->end())
+				return;
 
-		size_type erase(const value_type &val);
+			this->_rbt.erase(position.get_base_ptr());
+		}
 
-		void erase(iterator first, iterator last);
+		size_type erase(const value_type &val)
+		{
+			iterator it = this->find(val);
+			if (it == this->end())
+				return 0;
+			this->_rbt.erase(it.get_base_ptr());
+			return 1;
+		}
 
-		void swap(set &x);
+		void erase(iterator first, iterator last)
+		{
+			while (first != last)
+				this->erase(first++);
+		}
 
-		void clear();
+		void swap(set &x) { this->_rbt.swap(x._rbt); }
+
+		void clear()
+		{
+			if (this->empty())
+				return;
+			this->_rbt.clear();
+		}
 
 		/* Observers */
 	public:
