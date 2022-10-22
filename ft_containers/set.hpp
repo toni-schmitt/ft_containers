@@ -94,11 +94,11 @@ namespace ft
 
 		/* Capacity Functions */
 	public:
-		bool empty() const;
+		bool empty() const { return this->_rbt.empty(); }
 
-		size_type size() const;
+		size_type size() const { return this->_rbt.size(); }
 
-		size_type max_size() const;
+		size_type max_size() const { return this->_rbt.get_node_allocator().max_size(); }
 
 		/* Modifiers */
 	public:
