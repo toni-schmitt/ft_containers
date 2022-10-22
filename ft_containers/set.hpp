@@ -163,9 +163,9 @@ namespace ft
 
 		/* Observers */
 	public:
-		key_compare key_comp() const;
+		key_compare key_comp() const { return this->_comp; }
 
-		value_compare value_comp() const;
+		value_compare value_comp() const { return this->_comp; }
 
 		/* Operations */
 	public:
