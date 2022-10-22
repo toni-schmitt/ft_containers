@@ -4,6 +4,9 @@
 #include "iterator/iterator_traits.hpp"
 #include "iterator/reverse_iterator.hpp"
 #include "utility/pair.hpp"
+#include "red_black_tree/red_black_tree.hpp"
+#include "algorithm/equal.hpp"
+#include "algorithm/lexicographical_compare.hpp"
 
 namespace ft
 {
@@ -21,8 +24,13 @@ namespace ft
 		typedef typename allocator_type::const_reference const_reference;
 		typedef typename allocator_type::pointer pointer;
 		typedef typename allocator_type::const_pointer const_pointer;
-		typedef ft::bidirectional_iterator<value_type, set> iterator;
-		typedef ft::bidirectional_iterator<const value_type, set> const_iterator;
+	private:
+		typedef ft::red_black_tree<const value_type, value_compare, allocator_type> tree_type;
+		typedef typename tree_type::iterator tree_iterator;
+		typedef typename tree_type::const_iterator tree_const_iterator;
+	public:
+		typedef tree_const_iterator iterator;
+		typedef tree_const_iterator const_iterator;
 		typedef ft::reverse_iterator<iterator> reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
@@ -51,21 +59,21 @@ namespace ft
 
 		/* Iterator Functions */
 	public:
-		iterator begin();
+		iterator begin() { return iterator(this->_rbt.begin()); }
 
-		const_iterator begin() const;
+		const_iterator begin() const { return const_iterator(this->_rbt.begin()); }
 
-		iterator end();
+		iterator end() { return iterator(this->_rbt.end()); }
 
-		const_iterator end() const;
+		const_iterator end() const { return const_iterator(this->_rbt.end()); }
 
-		reverse_iterator rbegin();
+		reverse_iterator rbegin() { return reverse_iterator(this->_rbt.rbegin()); }
 
-		const_reverse_iterator rbegin() const;
+		const_reverse_iterator rbegin() const { return const_reverse_iterator(this->_rbt.rbegin()); }
 
-		reverse_iterator rend();
+		reverse_iterator rend() { return reverse_iterator(this->_rbt.rend()); }
 
-		const_reverse_iterator rend() const;
+		const_reverse_iterator rend() const { return const_reverse_iterator(this->_rbt.rend()); }
 
 		/* Capacity Functions */
 	public:
