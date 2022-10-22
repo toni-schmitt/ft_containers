@@ -62,7 +62,17 @@ namespace ft
 
 		/* Public Member Functions */
 	public:
-		set &operator=(const set &x) { }
+		set &operator=(const set &x)
+		{
+			if (this == &x)
+				return *this;
+
+			this->_rbt = x._rbt;
+			this->_comp = x._comp;
+			this->_alloc = x._alloc;
+
+			return *this;
+		}
 
 		/* Iterator Functions */
 	public:
