@@ -36,22 +36,29 @@ namespace ft
 		typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
 		typedef size_t size_type;
 
+		/* Private Members */
+	private:
+		value_compare _comp;
+		allocator_type _alloc;
+		tree_type _rbt;
+
 		/* Constructor */
 	public:
-		explicit set(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type()) { }
+		explicit set(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type()) : _comp(
+				comp), _alloc(alloc) { }
 
 		template < class InputIterator >
 		set(InputIterator first, InputIterator last, const key_compare &comp = key_compare(),
-			const allocator_type &alloc = allocator_type())
+			const allocator_type &alloc = allocator_type()) : _comp(comp), _alloc(alloc)
 		{
-
+			this->insert(first, last);
 		}
 
-		set(const set &x) { }
+		set(const set &x) : _comp(x._comp), _alloc(x._alloc), _rbt(x._rbt) { }
 
 		/* Destructor */
 	public:
-		~set() { }
+		~set() { this->clear(); }
 
 		/* Public Member Functions */
 	public:
