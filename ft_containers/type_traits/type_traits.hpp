@@ -2,62 +2,98 @@
 
 namespace ft
 {
-	template < bool Cond, class T = void >
+	template < bool B, typename T = void >
 	struct enable_if
 	{
 	};
-	template < class T >
+
+	template < typename T >
 	struct enable_if<true, T>
 	{
 		typedef T type;
 	};
 
-	template < bool is_integral, typename T >
-	struct is_integral_res
+	struct true_type
+	{
+		static const bool value = true;
+		typedef true_type type;
+	};
+
+	struct false_type
+	{
+		static const bool value = false;
+		typedef false_type type;
+	};
+
+	template < typename T >
+	struct remove_const
 	{
 		typedef T type;
-		static const bool value = is_integral;
+	};
+
+	template < typename T >
+	struct remove_const<const T>
+	{
+		typedef T type;
+	};
+
+	template < typename T >
+	struct remove_volatile
+	{
+		typedef T type;
+	};
+
+	template < typename T >
+	struct remove_volatile<volatile T>
+	{
+		typedef T type;
+	};
+
+	template < typename T >
+	struct remove_cv
+	{
+		typedef typename remove_volatile<typename remove_const<T>::type>::type type;
 	};
 
 	template < typename >
-	struct is_integral_type : public is_integral_res<false, bool> { };
+	struct is_integral_base : public false_type { };
 
 	template < >
-	struct is_integral_type<bool> : public is_integral_res<true, bool> { };
+	struct is_integral_base<bool> : public true_type { };
 
 	template < >
-	struct is_integral_type<char> : public is_integral_res<true, char> { };
+	struct is_integral_base<char> : public true_type { };
 
 	template < >
-	struct is_integral_type<signed char> : public is_integral_res<true, signed char> { };
+	struct is_integral_base<signed char> : public true_type { };
 
 	template < >
-	struct is_integral_type<short int> : public is_integral_res<true, short int> { };
+	struct is_integral_base<short int> : public true_type { };
 
 	template < >
-	struct is_integral_type<int> : public is_integral_res<true, int> { };
+	struct is_integral_base<int> : public true_type { };
 
 	template < >
-	struct is_integral_type<long int> : public is_integral_res<true, long int> { };
+	struct is_integral_base<long int> : public true_type { };
 
 	template < >
-	struct is_integral_type<long long int> : public is_integral_res<true, long long int> { };
+	struct is_integral_base<unsigned char> : public true_type { };
 
 	template < >
-	struct is_integral_type<unsigned char> : public is_integral_res<true, unsigned char> { };
+	struct is_integral_base<unsigned short int> : public true_type { };
 
 	template < >
-	struct is_integral_type<unsigned short int> : public is_integral_res<true, unsigned short int> { };
+	struct is_integral_base<unsigned int> : public true_type { };
 
 	template < >
-	struct is_integral_type<unsigned int> : public is_integral_res<true, unsigned int> { };
-
-	template < >
-	struct is_integral_type<unsigned long int> : public is_integral_res<true, unsigned long int> { };
-
-	template < >
-	struct is_integral_type<unsigned long long int> : public is_integral_res<true, unsigned long long int> { };
+	struct is_integral_base<unsigned long int> : public true_type { };
 
 	template < typename T >
-	struct is_integral : public is_integral_type<T> { };
+	struct is_integral : is_integral_base<typename remove_cv<T>::type> { };
+
+	template < typename T, typename U >
+	struct is_same : public false_type { };
+
+	template < typename T >
+	struct is_same<T, T> : public true_type { };
 } // namespace ft
