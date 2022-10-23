@@ -1,29 +1,16 @@
 #pragma once
 
 
+// Defines ft/std Namespace (and file postfix)
 #if defined(STD) && STD == 1
 
 #define FILE_NAME_POSTFIX "_std.log"
 #define NAMESPACE std
 
-#include <vector>
-#include <map>
-#include <set>
-#include <stack>
-
-#undef STD
-
 #elif defined(FT) && FT == 1
 
 #define NAMESPACE ft
 #define FILE_NAME_POSTFIX "_ft.log"
-
-#include "vector.hpp"
-#include "map.hpp"
-#include "set.hpp"
-#include "stack.hpp"
-
-#undef FT
 
 #else
 #error "No Namespace Defined"
@@ -34,6 +21,30 @@
 
 #if !defined(TYPE)
 #error "Must specify a Type for the Containers"
+#endif
+
+
+// Includes ft/std Containers
+#if defined(STD) && STD == 1
+
+#include <vector>
+#include <map>
+#include <set>
+#include <stack>
+
+#undef STD
+
+#elif defined(FT) && FT == 1
+
+#include "vector.hpp"
+#include "map.hpp"
+#include "set.hpp"
+#include "stack.hpp"
+
+#undef FT
+
+#else
+#error "No Namespace Defined"
 #endif
 
 template < class T1, class T2 >
