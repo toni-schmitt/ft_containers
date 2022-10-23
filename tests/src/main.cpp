@@ -13,4 +13,6 @@ static void run_generic_tests()
 int main()
 {
 	run_generic_tests<NAMESPACE::vector<TYPE> >();
+	run_generic_tests<NAMESPACE::map<TYPE, TYPE> >();
+	run_generic_tests<NAMESPACE::set<TYPE> >();
 }
