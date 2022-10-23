@@ -1,6 +1,6 @@
 
 #include "tests.hpp"
-#include "generic/test.hpp"
+#include "generic/run_test.hpp"
 
 int main()
 {
