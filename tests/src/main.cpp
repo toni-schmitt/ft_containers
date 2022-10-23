@@ -4,7 +4,6 @@
 
 int main()
 {
-	generic::construction::run_test<NAMESPACE::vector<TYPE> >();
-	generic::construction::run_test<NAMESPACE::map<TYPE, TYPE> >();
-	generic::construction::run_test<NAMESPACE::set<TYPE> >();
+	generic::run_test<generic::construction::construction_test<NAMESPACE::vector<TYPE> > >("construction_test");
+
 }
