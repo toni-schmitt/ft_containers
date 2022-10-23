@@ -35,6 +35,10 @@ namespace generic
 				container_type copy = container_type(range);
 				write::container::to_file(copy, this->ofs);
 				write::container::to_file(range, this->ofs);
+				copy = this->container;
+				write::container::to_file(copy, this->ofs);
+				write::container::to_file(range, this->ofs);
+
 
 				this->ofs << "Testing Destruction" << std::endl;
 				{
