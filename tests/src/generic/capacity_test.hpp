@@ -53,7 +53,7 @@ namespace generic
 
 				try
 				{
-					this->_test();
+					this->test();
 				}
 				catch (...)
 				{
