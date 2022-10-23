@@ -5,7 +5,7 @@
 namespace generic
 {
 	template < class Container >
-	class i_generic
+	class i_base_test
 	{
 	protected:
 		typedef Container container_type;
@@ -15,7 +15,7 @@ namespace generic
 		std::string test_name;
 		container_type container;
 
-		explicit i_generic(std::ofstream &ofs, std::string test_name) : ofs(ofs), test_name(test_name) { }
+		explicit i_base_test(std::ofstream &ofs, std::string test_name) : ofs(ofs), test_name(test_name) { }
 
 		virtual void test() = 0;
 

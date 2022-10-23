@@ -1,6 +1,6 @@
 #pragma once
 
-#include "i_generic.hpp"
+#include "../i_base_test.hpp"
 #include "../test_cases.hpp"
 
 namespace generic
@@ -8,10 +8,10 @@ namespace generic
 	namespace capacity
 	{
 		template < class Container >
-		class capacity_test : public i_generic<Container>
+		class capacity_test : public i_base_test<Container>
 		{
-			typedef typename i_generic<Container>::container_type container_type;
-			typedef typename i_generic<Container>::value_type value_type;
+			typedef typename i_base_test<Container>::container_type container_type;
+			typedef typename i_base_test<Container>::value_type value_type;
 
 			void test()
 			{
@@ -46,7 +46,7 @@ namespace generic
 			explicit capacity_test(
 					std::ofstream &ofs,
 					bool run_test_in_constructor = true
-			) : i_generic<Container>(ofs, "Capacity")
+			) : i_base_test<Container>(ofs, "Capacity")
 			{
 				if (!run_test_in_constructor)
 					return;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "i_generic.hpp"
+#include "../i_base_test.hpp"
 #include "../test_cases.hpp"
 #include "../write.hpp"
 
@@ -9,10 +9,10 @@ namespace generic
 	namespace iterator
 	{
 		template < class Container >
-		class iterator_test : public i_generic<Container>
+		class iterator_test : public i_base_test<Container>
 		{
-			typedef typename i_generic<Container>::container_type container_type;
-			typedef typename i_generic<Container>::value_type value_type;
+			typedef typename i_base_test<Container>::container_type container_type;
+			typedef typename i_base_test<Container>::value_type value_type;
 
 			void test()
 			{
@@ -85,7 +85,7 @@ namespace generic
 			explicit iterator_test(
 					std::ofstream &ofs,
 					bool run_test_in_constructor = true
-			) : i_generic<Container>(ofs, "iterator_test")
+			) : i_base_test<Container>(ofs, "iterator_test")
 			{
 				if (!run_test_in_constructor)
 					return;
