@@ -45,13 +45,6 @@ namespace ft
 
 	/* Non-member function overloads */
 
-	template < class T1, class T2 >
-	std::ostream &operator<<(std::ostream &os, const ft::pair<T1, T2> &pair)
-	{
-		os << pair.first << " " << pair.second;
-		return os;
-	}
-
 	/* Relational Operators */
 	template < class T1, class T2 >
 	bool operator==(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs)
