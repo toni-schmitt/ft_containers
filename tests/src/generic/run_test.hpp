@@ -6,14 +6,15 @@
 
 namespace generic
 {
-	static const std::string file_name_prefix = "generic_";
-	static const std::string file_name_postfix = FILE_NAME_POSTFIX;
+	static const std::string file_name_prefix = "/tmp/generic_";
+	std::string file_name_postfix;
+	std::string test_file_name = "nan";
 
 	template < class TestCase >
 	static void run_test(const std::string &test_case_name)
 	{
-		static const std::string file_name = file_name_prefix + test_case_name + file_name_postfix;
-		std::ofstream ofs(file_name.c_str());
+		test_file_name = file_name_prefix + test_case_name + file_name_postfix;
+		std::ofstream ofs(test_file_name.c_str());
 		try
 		{
 			TestCase(ofs, true);
