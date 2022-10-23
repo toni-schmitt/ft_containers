@@ -69,32 +69,49 @@ struct test_cases
 		return test_case;
 	}
 
-	static NAMESPACE::pair<const int, int> *get_test_case(NAMESPACE::pair<const int, int> int_pair_test_case)
+	static std::pair<const int, int> *get_test_case(std::pair<const int, int> int_pair_test_case)
 	{
 		( void ) int_pair_test_case;
-		typedef NAMESPACE::pair<const int, int>::first_type first_type;
-		typedef NAMESPACE::pair<const int, int>::second_type second_type;
-		return _get_pair_test_case<const int, int>(first_type(), second_type());
+		typedef std::pair<const int, int>::first_type first_type;
+		typedef std::pair<const int, int>::second_type second_type;
+		return _get_pair_test_case_std<const int, int>(first_type(), second_type());
 	}
 
-	static NAMESPACE::pair<const std::string, std::string> *
-	get_test_case(NAMESPACE::pair<const std::string, std::string> string_pair_test_case)
+	static std::pair<const std::string, std::string> *
+	get_test_case(std::pair<const std::string, std::string> string_pair_test_case)
 	{
 		( void ) string_pair_test_case;
-		typedef NAMESPACE::pair<const std::string, std::string>::first_type first_type;
-		typedef NAMESPACE::pair<const std::string, std::string>::second_type second_type;
-		return _get_pair_test_case<const std::string, std::string>(first_type(), second_type());
+		typedef std::pair<const std::string, std::string>::first_type first_type;
+		typedef std::pair<const std::string, std::string>::second_type second_type;
+		return _get_pair_test_case_std<const std::string, std::string>(first_type(), second_type());
+	}
+
+	static ft::pair<const int, int> *get_test_case(ft::pair<const int, int> int_pair_test_case)
+	{
+		( void ) int_pair_test_case;
+		typedef ft::pair<const int, int>::first_type first_type;
+		typedef ft::pair<const int, int>::second_type second_type;
+		return _get_pair_test_case_ft<const int, int>(first_type(), second_type());
+	}
+
+	static ft::pair<const std::string, std::string> *
+	get_test_case(ft::pair<const std::string, std::string> string_pair_test_case)
+	{
+		( void ) string_pair_test_case;
+		typedef ft::pair<const std::string, std::string>::first_type first_type;
+		typedef ft::pair<const std::string, std::string>::second_type second_type;
+		return _get_pair_test_case_ft<const std::string, std::string>(first_type(), second_type());
 	}
 
 private:
 	template < class T1, class T2 >
-	static NAMESPACE::pair<T1, T2> *_get_pair_test_case(T1 pair_value, T2 pair_key)
+	static std::pair<T1, T2> *_get_pair_test_case_std(T1 pair_value, T2 pair_key)
 	{
 		std::srand(get_test_case(int())[ 0 ]);
 
-		typedef typename NAMESPACE::pair<T1, T2> make_pair;
+		typedef typename std::pair<T1, T2> make_pair;
 
-		static NAMESPACE::pair<T1, T2> test_case[size] = {
+		static std::pair<T1, T2> test_case[size] = {
 				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
 				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
 				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
@@ -198,4 +215,117 @@ private:
 		};
 		return test_case;
 	}
+
+	template < class T1, class T2 >
+	static ft::pair<T1, T2> *_get_pair_test_case_ft(T1 pair_value, T2 pair_key)
+	{
+		std::srand(get_test_case(int())[ 0 ]);
+
+		typedef typename ft::pair<T1, T2> make_pair;
+
+		static ft::pair<T1, T2> test_case[size] = {
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+				make_pair(get_test_case(pair_value)[ std::rand() % 100 ], get_test_case(pair_key)[ std::rand() % 100 ]),
+		};
+		return test_case;
+	}
+
 };
