@@ -49,45 +49,45 @@ namespace generic
 				{
 					// Incrementing
 					this->ofs << "Testing \'.operator++()\' on empty Container" << std::endl;
-					this->ofs << "\'.begin\'" << std::endl;
-					this->ofs << *(this->container.begin.operator++()) << std::endl;
-					this->ofs << "\'.end\'" << std::endl;
-					this->ofs << *(this->container.end.operator++()) << std::endl;
-					this->ofs << "\'.rbegin\'" << std::endl;
-					this->ofs << *(this->container.rbegin.operator++()) << std::endl;
-					this->ofs << "\'.rend\'" << std::endl;
-					this->ofs << *(this->container.rend.operator++()) << std::endl;
+					this->ofs << "\'.begin()\'" << std::endl;
+					this->ofs << *(this->container.begin().operator++()) << std::endl;
+					this->ofs << "\'.end()\'" << std::endl;
+					this->ofs << *(this->container.end().operator++()) << std::endl;
+					this->ofs << "\'.rbegin()\'" << std::endl;
+					this->ofs << *(this->container.rbegin().operator++()) << std::endl;
+					this->ofs << "\'.rend()\'" << std::endl;
+					this->ofs << *(this->container.rend().operator++()) << std::endl;
 
 					this->ofs << "Testing \'.operator++()\' on Container with a size of " << range.size() << std::endl;
-					this->ofs << "\'.begin\'" << std::endl;
-					this->ofs << *(range.begin.operator++()) << std::endl;
-					this->ofs << "\'.end\'" << std::endl;
-					this->ofs << *(range.end.operator++()) << std::endl;
-					this->ofs << "\'.rbegin\'" << std::endl;
-					this->ofs << *(range.rbegin.operator++()) << std::endl;
-					this->ofs << "\'.rend\'" << std::endl;
-					this->ofs << *(range.rend.operator++()) << std::endl;
+					this->ofs << "\'.begin()\'" << std::endl;
+					this->ofs << *(range.begin().operator++()) << std::endl;
+					this->ofs << "\'.end()\'" << std::endl;
+					this->ofs << *(range.end().operator++()) << std::endl;
+					this->ofs << "\'.rbegin()\'" << std::endl;
+					this->ofs << *(range.rbegin().operator++()) << std::endl;
+					this->ofs << "\'.rend()\'" << std::endl;
+					this->ofs << *(range.rend().operator++()) << std::endl;
 
 					// Decrementing
 					this->ofs << "Testing \'.operator--()\' on empty Container" << std::endl;
-					this->ofs << "\'.begin\'" << std::endl;
-					this->ofs << *(this->container.begin.operator--()) << std::endl;
-					this->ofs << "\'.end\'" << std::endl;
-					this->ofs << *(this->container.end.operator--()) << std::endl;
-					this->ofs << "\'.rbegin\'" << std::endl;
-					this->ofs << *(this->container.rbegin.operator--()) << std::endl;
-					this->ofs << "\'.rend\'" << std::endl;
-					this->ofs << *(this->container.rend.operator--()) << std::endl;
+					this->ofs << "\'.begin()\'" << std::endl;
+					this->ofs << *(this->container.begin().operator--()) << std::endl;
+					this->ofs << "\'.end()\'" << std::endl;
+					this->ofs << *(this->container.end().operator--()) << std::endl;
+					this->ofs << "\'.rbegin()\'" << std::endl;
+					this->ofs << *(this->container.rbegin().operator--()) << std::endl;
+					this->ofs << "\'.rend()\'" << std::endl;
+					this->ofs << *(this->container.rend().operator--()) << std::endl;
 
 					this->ofs << "Testing \'.operator--()\' on Container with a size of " << range.size() << std::endl;
-					this->ofs << "\'.begin\'" << std::endl;
-					this->ofs << *(range.begin.operator--()) << std::endl;
-					this->ofs << "\'.end\'" << std::endl;
-					this->ofs << *(range.end.operator--()) << std::endl;
-					this->ofs << "\'.rbegin\'" << std::endl;
-					this->ofs << *(range.rbegin.operator--()) << std::endl;
-					this->ofs << "\'.rend\'" << std::endl;
-					this->ofs << *(range.rend.operator--()) << std::endl;
+					this->ofs << "\'.begin()\'" << std::endl;
+					this->ofs << *(range.begin().operator--()) << std::endl;
+					this->ofs << "\'.end()\'" << std::endl;
+					this->ofs << *(range.end().operator--()) << std::endl;
+					this->ofs << "\'.rbegin()\'" << std::endl;
+					this->ofs << *(range.rbegin().operator--()) << std::endl;
+					this->ofs << "\'.rend()\'" << std::endl;
+					this->ofs << *(range.rend().operator--()) << std::endl;
 				}
 				catch (std::exception &e)
 				{
