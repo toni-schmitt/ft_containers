@@ -27,6 +27,7 @@ $(FT_BIN): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $< -o $@
 
 $(STD_BIN): NAMESPACE=-DSTD=1
+$(STD_BIN): TYPE=-DTYPE=int
 $(STD_BIN): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $< -o $@
 
