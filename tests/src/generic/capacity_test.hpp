@@ -37,7 +37,7 @@ namespace generic
 				this->ofs << "Checking max_size of \'range\'" << std::endl;
 				this->ofs << range.max_size() << std::endl;
 				this->ofs << "Comparing max_size of \'this->container\' and \'range\'" << std::endl;
-				this->ofs << this->container.max_size() == range.max_size() << std::endl;
+				this->ofs << (this->container.max_size() == range.max_size()) << std::endl;
 
 				this->print_test_end();
 			}
