@@ -18,9 +18,14 @@ namespace generic
 		{
 			TestCase(ofs, true);
 		}
+		catch (std::exception &e)
+		{
+			ofs << "Failure, Exception: " << e.what() << std::endl;
+			ofs.close();
+		}
 		catch (...)
 		{
-			ofs << "Failure" << std::endl;
+			ofs << "Failure, Unknown Exception" << std::endl;
 			ofs.close();
 		}
 		ofs << "Success" << std::endl;
