@@ -31,4 +31,9 @@ fclean: clean
 
 re: fclean all
 
+run: all
+	$(BIN)
+
+test: re run
+
 .PHONY: all clean fclean re
