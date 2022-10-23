@@ -23,41 +23,31 @@ namespace generic
 
 				// Begin
 				this->ofs << "Testing \'.begin()\' on empty Container" << std::endl;
-				this->ofs << *this->container.begin() << std::endl;
+				write::iterator::to_file(this->container.begin(), this->container.end(), this->ofs);
 				this->ofs << "Testing \'.begin()\' on Container with a size of " << range.size() << std::endl;
-				this->ofs << *range.begin() << std::endl;
+				write::iterator::to_file(range.begin(), range.end(), this->ofs);
 
 				// End
 				this->ofs << "Testing \'.end()\' on empty Container" << std::endl;
-				this->ofs << *this->container.end() << std::endl;
+				write::iterator::to_file(this->container.end(), this->container.end(), this->ofs);
 				this->ofs << "Testing \'.end()\' on Container with a size of " << range.size() << std::endl;
-				this->ofs << *range.end() << std::endl;
+				write::iterator::to_file(range.end(), range.end(), this->ofs);
 
 				// RBegin
 				this->ofs << "Testing \'.rbegin()\' on empty Container" << std::endl;
-				this->ofs << *this->container.rbegin() << std::endl;
+				write::iterator::to_file(this->container.rbegin(), this->container.rend(), this->ofs);
 				this->ofs << "Testing \'.rbegin()\' on Container with a size of " << range.size() << std::endl;
-				this->ofs << *range.rbegin() << std::endl;
+				write::iterator::to_file(range.rbegin(), range.rend(), this->ofs);
 
 				// REnd
 				this->ofs << "Testing \'.rend()\' on empty Container" << std::endl;
-				this->ofs << *this->container.rend() << std::endl;
+				write::iterator::to_file(this->container.rend(), this->container.rend(), this->ofs);
 				this->ofs << "Testing \'.rend()\' on Container with a size of " << range.size() << std::endl;
-				this->ofs << *range.rend() << std::endl;
+				write::iterator::to_file(range.rend(), range.rend(), this->ofs);
 
 				try
 				{
 					// Incrementing
-					this->ofs << "Testing \'.operator++()\' on empty Container" << std::endl;
-					this->ofs << "\'.begin()\'" << std::endl;
-					this->ofs << *(this->container.begin().operator++()) << std::endl;
-					this->ofs << "\'.end()\'" << std::endl;
-					this->ofs << *(this->container.end().operator++()) << std::endl;
-					this->ofs << "\'.rbegin()\'" << std::endl;
-					this->ofs << *(this->container.rbegin().operator++()) << std::endl;
-					this->ofs << "\'.rend()\'" << std::endl;
-					this->ofs << *(this->container.rend().operator++()) << std::endl;
-
 					this->ofs << "Testing \'.operator++()\' on Container with a size of " << range.size() << std::endl;
 					this->ofs << "\'.begin()\'" << std::endl;
 					this->ofs << *(range.begin().operator++()) << std::endl;
@@ -69,16 +59,6 @@ namespace generic
 					this->ofs << *(range.rend().operator++()) << std::endl;
 
 					// Decrementing
-					this->ofs << "Testing \'.operator--()\' on empty Container" << std::endl;
-					this->ofs << "\'.begin()\'" << std::endl;
-					this->ofs << *(this->container.begin().operator--()) << std::endl;
-					this->ofs << "\'.end()\'" << std::endl;
-					this->ofs << *(this->container.end().operator--()) << std::endl;
-					this->ofs << "\'.rbegin()\'" << std::endl;
-					this->ofs << *(this->container.rbegin().operator--()) << std::endl;
-					this->ofs << "\'.rend()\'" << std::endl;
-					this->ofs << *(this->container.rend().operator--()) << std::endl;
-
 					this->ofs << "Testing \'.operator--()\' on Container with a size of " << range.size() << std::endl;
 					this->ofs << "\'.begin()\'" << std::endl;
 					this->ofs << *(range.begin().operator--()) << std::endl;

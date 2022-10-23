@@ -5,7 +5,7 @@
 
 namespace write
 {
-	struct container
+	namespace container
 	{
 		template < class Container >
 		static void to_file(Container container, std::ofstream &out_file_stream)
@@ -28,5 +28,26 @@ namespace write
 			}
 			out_stream << std::endl;
 		}
-	};
+	}
+
+	namespace iterator
+	{
+		template < class Iterator >
+		static void to_file(Iterator iterator, Iterator end, std::ofstream &out_file_stream)
+		{
+			if (iterator == end)
+				return;
+
+			out_file_stream << '<' << *iterator << '>' << std::endl;
+		}
+
+		template < class Iterator >
+		static void to_out(Iterator iterator, Iterator end, std::ostream &out_stream)
+		{
+			if (iterator == end)
+				return;
+
+			out_stream << '<' << *iterator << '>' << std::endl;
+		}
+	}
 }
