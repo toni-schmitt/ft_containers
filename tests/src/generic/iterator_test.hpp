@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../i_base_test.hpp"
-#include "../test_cases.hpp"
-#include "../write.hpp"
+#include "../utility/test_cases.hpp"
+#include "../utility/write.hpp"
 
 namespace generic
 {

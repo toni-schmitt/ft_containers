@@ -13,10 +13,10 @@
 #include <map>
 #include <set>
 #include <stack>
-#include "vector.hpp"
-#include "map.hpp"
-#include "set.hpp"
-#include "stack.hpp"
+#include "../../../ft_containers/vector.hpp"
+#include "../../../ft_containers/map.hpp"
+#include "../../../ft_containers/set.hpp"
+#include "../../../ft_containers/stack.hpp"
 
 
 template < class T1, class T2 >
