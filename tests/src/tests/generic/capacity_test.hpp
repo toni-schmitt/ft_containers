@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../i_base_test.hpp"
+#include "../i_base_test.hpp"
 #include "../../utility/test_cases.hpp"
 
 namespace generic

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../i_base_test.hpp"
+#include "../i_base_test.hpp"
 #include "../../utility/write.hpp"
 #include "../../utility/test_cases.hpp"
 #include <fstream>
