@@ -1,9 +1,9 @@
 
 #include "utility/tests.hpp"
 #include "run_test.hpp"
-#include "generic/construction_test.hpp"
-#include "generic/iterator_test.hpp"
-#include "generic/capacity_test.hpp"
+#include "tests/generic/construction_test.hpp"
+#include "tests/generic/iterator_test.hpp"
+#include "tests/generic/capacity_test.hpp"
 
 #include <ostream>
 
