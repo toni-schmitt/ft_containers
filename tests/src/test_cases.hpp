@@ -1,5 +1,6 @@
 #pragma once
 
+#include "tests.hpp"
 #include <string>
 
 struct test_cases

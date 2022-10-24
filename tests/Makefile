@@ -7,7 +7,7 @@ BIN = ./containers_tester
 SRC_DIR = ./src
 OBJ_DIR = ./obj
 
-SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
+SOURCES = $(shell find $(SRC_DIR) -type f -name '*.cpp')
 OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
 
 all: $(BIN)

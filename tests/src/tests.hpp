@@ -9,14 +9,10 @@
 
 
 // Includes ft/std Containers
-
 #include <vector>
 #include <map>
 #include <set>
 #include <stack>
-
-#undef STD
-
 #include "vector.hpp"
 #include "map.hpp"
 #include "set.hpp"
@@ -74,4 +70,26 @@ namespace ft_namespace
 		typedef ft::stack<TYPE> stack;
 		typedef ft::pair<TYPE, TYPE> pair;
 	};
+}
+
+#include <string>
+#include <algorithm>
+
+bool compare_files(const std::string &file_1, const std::string &file_2)
+{
+	std::ifstream file_stream_1(file_1, std::ifstream::binary | std::ifstream::ate);
+	std::ifstream file_stream_2(file_2, std::ifstream::binary | std::ifstream::ate);
+
+	if (file_stream_1.fail() || file_stream_2.fail())
+		return false; //file problem
+
+	if (file_stream_1.tellg() != file_stream_2.tellg())
+		return false; //size mismatch
+
+	//seek back to beginning and use std::equal to compare contents
+	file_stream_1.seekg(0, std::ifstream::beg);
+	file_stream_2.seekg(0, std::ifstream::beg);
+	return std::equal(std::istreambuf_iterator<char>(file_stream_1.rdbuf()),
+					  std::istreambuf_iterator<char>(),
+					  std::istreambuf_iterator<char>(file_stream_2.rdbuf()));
 }
