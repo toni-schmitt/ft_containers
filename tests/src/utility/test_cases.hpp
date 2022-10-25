@@ -3,6 +3,10 @@
 #include "tests.hpp"
 #include <string>
 
+#define GET_TEST_CASE test_cases::get_test_case(value_type());
+#define FILL_CONTAINER_WITH_TEST_CASE container_type(test_cases::get_test_case(value_type()), test_cases::get_test_case(value_type()) + test_cases::size);
+#define TRY_CATCH_WRITE(x) try { (x); } catch (std::exception &e) { (*this->ofs) << e.what() << std::endl; }
+
 struct test_cases
 {
 	static const int size = 100;
