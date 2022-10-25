@@ -177,11 +177,11 @@ namespace tester
 		{
 			static const int vector_size = 6;
 			static std::string vector[vector_size];
-			static const int map_size = 1000;
+			static const int map_size = 6;
 			static std::string map[map_size];
-			static const int set_size = 1000;
+			static const int set_size = 0;
 			static std::string set[set_size];
-			static const int stack_size = 1000;
+			static const int stack_size = 0;
 			static std::string stack[stack_size];
 		};
 	};
