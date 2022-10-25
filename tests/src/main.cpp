@@ -7,57 +7,25 @@
 
 #include <ostream>
 
-template < class ContainerSTD, class ContainerFT >
-static bool run_generic_construction_test()
+
+int main(int argc, char *argv[])
 {
-	static const std::string test_case_name = "construction";
+	switch (argc)
+	{
+		case 1: // Run all Tests
+			break;
+		case 2: // Run single Container / Run single Test (for all Containers)
+			break;
+		case 3: // Run single Test for Container
+			break;
+		default:
+			std::cerr << argv[ 0 ] << " cannot have more than 3 Arguments" << std::endl;
+			return EXIT_FAILURE;
+	}
 
-	std::string std_log = tester::run_test<generic::construction::construction_test<ContainerSTD> >(
-			test_case_name + "std.log");
-	std::string ft_log = tester::run_test<generic::construction::construction_test<ContainerFT> >(
-			test_case_name + "ft.log");
-	return compare_files(std_log, ft_log);
-}
-
-template < class ContainerSTD, class ContainerFT >
-static bool run_generic_capacity_test()
-{
-	static const std::string test_case_name = "capacity";
-
-	std::string std_log = tester::run_test<generic::capacity::capacity_test<ContainerSTD> >(test_case_name + "std.log");
-	std::string ft_log = tester::run_test<generic::capacity::capacity_test<ContainerFT> >(test_case_name + "ft.log");
-	return compare_files(std_log, ft_log);
-}
-
-template < class ContainerSTD, class ContainerFT >
-static bool run_generic_iterator_test()
-{
-	static const std::string test_case_name = "iterator";
-
-	std::string std_log = tester::run_test<generic::iterator::iterator_test<ContainerSTD> >(test_case_name + "std.log");
-	std::string ft_log = tester::run_test<generic::iterator::iterator_test<ContainerFT> >(test_case_name + "ft.log");
-	return compare_files(std_log, ft_log);
-}
-
-
-static void run_generic_tests()
-{
-	typedef ft_namespace::namespace_chooser ft_chooser;
-	typedef std_namespace::namespace_chooser std_chooser;
-
-	std::cout << "Running Generic Construction Test:" << std::endl;
-	std::cout << "Success: " << std::boolalpha
-			  << run_generic_construction_test<std_chooser::vector, ft_chooser::vector>()
-			  << std::endl;
-	std::cout << "Running Generic Capacity Test:" << std::endl;
-	std::cout << "Success: " << std::boolalpha << run_generic_capacity_test<std_chooser::vector, ft_chooser::vector>()
-			  << std::endl;
-	std::cout << "Running Generic Iterator Test:" << std::endl;
-	std::cout << "Success: " << std::boolalpha << run_generic_iterator_test<std_chooser::vector, ft_chooser::vector>()
-			  << std::endl;
-}
-
-int main()
-{
-	run_generic_tests();
+	tester::test::run("vector", "all");
+//	tester::test::run("map", "all");
+//	tester::test::run("set", "all");
+//	tester::test::run("stack", "all");
+//	run_generic_tests();
 }
