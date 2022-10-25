@@ -47,6 +47,33 @@ std::ofstream &operator<<(std::ofstream &ofs, std::pair<T1, T2> pair)
 	return ofs;
 }
 
+template < class Container, class T2 >
+std::ofstream &operator<<(std::ofstream &ofs, std::pair<typename Container::iterator, T2> pair)
+{
+	ofs << *pair.first << ':' << pair.second;
+	return ofs;
+}
+
+template < class Container, class T2 >
+std::ofstream &operator<<(std::ofstream &ofs, ft::pair<typename Container::iterator, T2> pair)
+{
+	ofs << *pair.first << ':' << pair.second;
+	return ofs;
+}
+
+template < class T1, class Container >
+std::ofstream &operator<<(std::ofstream &ofs, std::pair<T1, typename Container::iterator> pair)
+{
+	ofs << *pair.first << ':' << pair.second;
+	return ofs;
+}
+
+template < class T1, class Container >
+std::ofstream &operator<<(std::ofstream &ofs, ft::pair<T1, typename Container::iterator> pair)
+{
+	ofs << *pair.first << ':' << pair.second;
+	return ofs;
+}
 
 namespace std_namespace
 {
