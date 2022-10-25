@@ -43,7 +43,7 @@ namespace map
 				do
 				{
 					index = std::rand() % 10;
-				} while (index < container.size());
+				} while (index >= container.size());
 				TRY_CATCH_WRITE((*this->ofs) << container[ index ] << ',');
 				TRY_CATCH_WRITE((*this->ofs) << (container[ index ] = test_case[ i ].first) << ',');
 			}
