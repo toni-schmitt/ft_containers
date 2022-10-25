@@ -86,7 +86,6 @@ namespace map
 			for (size_t i = 0; i < container.size() / 10; ++i)
 			{
 				TRY_CATCH_WRITE(container.erase(container.begin()))
-				TRY_CATCH_WRITE(container.erase(container.end()))
 			}
 			write::container::to_file(container, *this->ofs);
 
