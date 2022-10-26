@@ -17,20 +17,22 @@ namespace map
 
 	template < class ContainerSTD, class ContainerFT >
 	i_base_test<ContainerSTD> *test_objects<ContainerSTD, ContainerFT>::std[] = {
-			generic::test_objects<ContainerSTD, ContainerFT>::std[ 0 ],
-			generic::test_objects<ContainerSTD, ContainerFT>::std[ 1 ],
-			generic::test_objects<ContainerSTD, ContainerFT>::std[ 2 ],
+			new generic::construction_test<ContainerSTD>(false),
+			new generic::capacity_test<ContainerSTD>(false),
+			new generic::iterator_test<ContainerSTD>(false),
 			new map::element_access_test<ContainerSTD>(false),
 			new map::modifiers_test<ContainerSTD>(false),
-			new map::operations_test<ContainerSTD>(false)
+			new map::operations_test<ContainerSTD>(false),
+			NULL
 	};
 	template < class ContainerSTD, class ContainerFT >
 	i_base_test<ContainerFT> *test_objects<ContainerSTD, ContainerFT>::ft[] = {
-			generic::test_objects<ContainerSTD, ContainerFT>::ft[ 0 ],
-			generic::test_objects<ContainerSTD, ContainerFT>::ft[ 1 ],
-			generic::test_objects<ContainerSTD, ContainerFT>::ft[ 2 ],
+			new generic::construction_test<ContainerFT>(false),
+			new generic::capacity_test<ContainerFT>(false),
+			new generic::iterator_test<ContainerFT>(false),
 			new map::element_access_test<ContainerFT>(false),
 			new map::modifiers_test<ContainerFT>(false),
-			new map::operations_test<ContainerFT>(false)
+			new map::operations_test<ContainerFT>(false),
+			NULL
 	};
 }

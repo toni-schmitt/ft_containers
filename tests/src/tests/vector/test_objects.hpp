@@ -25,6 +25,7 @@ namespace vector
 			new vector::capacity_test<ContainerSTD>(false),
 			new vector::element_access_test<ContainerSTD>(false),
 			new vector::modifiers_test<ContainerSTD>(false),
+			NULL
 	};
 	template < class ContainerSTD, class ContainerFT >
 	i_base_test<ContainerFT> *test_objects<ContainerSTD, ContainerFT>::ft[] = {
@@ -34,5 +35,6 @@ namespace vector
 			new vector::capacity_test<ContainerFT>(false),
 			new vector::element_access_test<ContainerFT>(false),
 			new vector::modifiers_test<ContainerFT>(false),
+			NULL
 	};
 }

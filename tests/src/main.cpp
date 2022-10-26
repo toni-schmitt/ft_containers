@@ -10,6 +10,7 @@
 
 int main(int argc, char *argv[])
 {
+	atexit(delete_test_objects);
 	switch (argc)
 	{
 		case 1: // Run all Tests
