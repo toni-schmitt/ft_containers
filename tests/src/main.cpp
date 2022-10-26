@@ -1,15 +1,13 @@
 
 #include "utility/tests.hpp"
 #include "run_test.hpp"
-#include "tests/generic/construction_test.hpp"
-#include "tests/generic/iterator_test.hpp"
-#include "tests/generic/capacity_test.hpp"
 
 #include <ostream>
 
 
 int main(int argc, char *argv[])
 {
+	system("rm -rf ./logs; mkdir ./logs");
 	atexit(delete_test_objects);
 	switch (argc)
 	{

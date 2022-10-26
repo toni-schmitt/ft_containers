@@ -11,8 +11,6 @@ SOURCES = $(shell find $(SRC_DIR) -type f -name '*.cpp')
 OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
 
 all: $(BIN)
-	$(RM) -rf ./logs
-	mkdir ./logs
 
 
 $(BIN): TYPE=-DTYPE=int
