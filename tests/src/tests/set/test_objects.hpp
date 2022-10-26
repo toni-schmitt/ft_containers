@@ -3,7 +3,6 @@
 
 #include "../generic/test_objects.hpp"
 #include "modifiers_test.hpp"
-#include "observers_test.hpp"
 #include "operations_test.hpp"
 #include "../i_base_test.hpp"
 
@@ -22,7 +21,6 @@ namespace set
 			new generic::construction_test<ContainerSTD>(false),
 			new generic::iterator_test<ContainerSTD>(false),
 			new set::modifiers_test<ContainerSTD>(false),
-			new set::observers_test<ContainerSTD>(false),
 			new set::operations_test<ContainerSTD>(false),
 			NULL
 	};
@@ -32,7 +30,6 @@ namespace set
 			new generic::construction_test<ContainerFT>(false),
 			new generic::iterator_test<ContainerFT>(false),
 			new set::modifiers_test<ContainerFT>(false),
-			new set::observers_test<ContainerFT>(false),
 			new set::operations_test<ContainerFT>(false),
 			NULL
 	};
