@@ -20,7 +20,7 @@ $(BIN): $(OBJECTS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) $(TYPE) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) $(BENCH) $(TYPE) -c $< -o $@
 
 clean:
 	$(RM) $(OBJECTS)
@@ -39,11 +39,10 @@ test: all
 	$(BIN) $(C) $(CONTAINER) $(T) $(TEST)
 
 help:
-	@echo "Usage:"
-	@echo "Run all Tests: make test"
-	@echo "Run Test for specific Container: make test C=[Container]"
-	@echo "Run specific Test for specific Container: make test C=[Container] T=[Test]"
-	@echo "Run specific Test for all Containers: make test T=[Test]"
+	@printf "Usage:\n"
+	@printf "\t'make test':\t\t\tRun all Tests\n"
+	@printf "\t'make test C=[Container]':\tRun Test for specific Container\n"
+	@printf "\t'make no_bench':\t\tRun all Tests without Benchmark\n"
 
 vector: C=vector
 vector: test
@@ -57,4 +56,7 @@ set: test
 stack: C=stack
 stack: test
 
-.PHONY: all clean fclean re test help vector map set stack
+no_bench: BENCH=-DNO_BENCH
+no_bench: re test
+
+.PHONY: all clean fclean re test help vector map set stack no_bench

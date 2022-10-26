@@ -56,7 +56,7 @@ namespace set
 
 			value_type *test_case = GET_TEST_CASE;
 
-			for (size_t i = 0; i < 10 && i < container.size(); ++i)
+			for (size_t i = 0; i < 20 && i < container.size(); ++i)
 			{
 				TRY_CATCH_WRITE(
 						(*this->ofs) << container.count(test_case[ i ]) << ','
@@ -73,7 +73,7 @@ namespace set
 
 			value_type *test_case = GET_TEST_CASE;
 
-			for (size_t i = 0; i < 10 && i < container.size(); ++i)
+			for (size_t i = 0; i < 20 && i < container.size(); ++i)
 			{
 				TRY_CATCH_WRITE(
 						(*this->ofs) << *container.lower_bound(test_case[ i ]) << ','
@@ -90,7 +90,7 @@ namespace set
 
 			value_type *test_case = GET_TEST_CASE;
 
-			for (size_t i = 0; i < 20 && i < container.size(); ++i)
+			for (size_t i = 0; i < 10 && i < container.size(); ++i)
 			{
 				TRY_CATCH_WRITE(
 						(*this->ofs) << *container.upper_bound(test_case[ i ]) << ','
@@ -107,7 +107,7 @@ namespace set
 
 			value_type *test_case = GET_TEST_CASE;
 
-			for (size_t i = 0; i < 20 && i < container.size(); ++i)
+			for (size_t i = 0; i < 10 && i < container.size(); ++i)
 			{
 
 				TRY_CATCH_WRITE(

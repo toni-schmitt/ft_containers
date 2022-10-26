@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[])
 {
-	system("rm -rf ./logs; mkdir ./logs");
+	system("rm -rf ./logs; rm -rf ./diffs; mkdir ./logs");
 	atexit(delete_test_objects);
 	switch (argc)
 	{

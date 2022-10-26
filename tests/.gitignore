@@ -12,6 +12,7 @@
 
 # Ignore Log Directory
 logs
+diffs
 
 # Prerequisites
 *.d

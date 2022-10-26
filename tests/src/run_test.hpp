@@ -7,8 +7,17 @@
 #include "tests/test_objects.hpp"
 #include <exception>
 
+#define BENCH
+#ifdef NO_BENCH
+#undef BENCH
+#endif
+
 #define TIME(x) clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &(x));
 #define TIME_DIFF(start, end) (1000.0 * (end).tv_sec + 1e-6 * (end).tv_nsec - (1000.0 * (start).tv_sec + 1e-6 * (start).tv_nsec));
+
+#define TEST_HEADER(x) (std::cout << std::endl << write::color::fg::blue << (x) << write::color::fg::reset << std::endl);
+#define TEST_SUCCESS (std::cout << write::color::bg::green << write::color::fg::black << "Success" << write::color::bg::reset << write::color::fg::reset << std::endl)
+#define TEST_FAILURE (std::cout << write::color::bg::red << write::color::fg::black << "Failure" << write::color::bg::reset << write::color::fg::reset << std::endl)
 
 namespace tester
 {
@@ -30,7 +39,7 @@ namespace tester
 		{
 			if (container == "vector")
 			{
-				std::cout << "Testing Vector" << std::endl;
+				TEST_HEADER("VECTOR")
 				typedef vector::test_objects<std_vector, ft_vector> vector_test_objects;
 				_run<std_vector, ft_vector>(test, container, available_tests::vector, available_tests::vector_size,
 											vector_test_objects::std,
@@ -39,6 +48,7 @@ namespace tester
 			}
 			if (container == "map")
 			{
+				TEST_HEADER("MAP")
 				std::cout << "Testing Map" << std::endl;
 				typedef map::test_objects<std_map, ft_map> map_test_objects;
 				_run<std_map, ft_map>(test, container, available_tests::map, available_tests::map_size,
@@ -48,7 +58,7 @@ namespace tester
 			}
 			if (container == "set")
 			{
-				std::cout << "Testing Set" << std::endl;
+				TEST_HEADER("SET")
 				typedef set::test_objects<std_set, ft_set> set_test_objects;
 				_run<std_set, ft_set>(test, container, available_tests::set, available_tests::set_size,
 									  set_test_objects::std,
@@ -57,7 +67,7 @@ namespace tester
 			}
 			if (container == "stack")
 			{
-				std::cout << "Testing Stack" << std::endl;
+				TEST_HEADER("STACK")
 				typedef stack::test_objects<std_stack, ft_stack> stack_test_objects;
 				_run<std_stack, ft_stack>(test, container, available_tests::stack, available_tests::stack_size,
 										  stack_test_objects::std,
@@ -119,33 +129,58 @@ namespace tester
 				i_base_test<ContainerFT> *ft_test_object
 		)
 		{
-			std::cout << "Testing " << test << std::endl;
+			std::cout << std::endl << write::color::fg::blue << "Testing " << test << write::color::fg::reset
+					  << std::endl;
 
+#ifdef BENCH
 			struct timespec std_start_time = { };
 			TIME(std_start_time);
+#endif
 
 			std::string std_log = _run_test_case(test + "_std.log", std_test_object);
 
+#ifdef BENCH
 			struct timespec std_end_time = { };
 			TIME(std_end_time);
 
 			struct timespec ft_start_time = { };
 			TIME(ft_start_time);
+#endif
 
 			std::string ft_log = _run_test_case(test + "_ft.log", ft_test_object);
 
+#ifdef BENCH
 			struct timespec ft_end_time = { };
 			TIME(ft_end_time);
+#endif
 
 			bool test_succeeded = compare_files(std_log, ft_log);
-			std::cout << test << ':' << (test_succeeded ? "Success" : "Failure") << std::endl;
+			std::cout << test << ": ";
+			test_succeeded ? (TEST_SUCCESS) : (TEST_FAILURE);
 
+			if (!test_succeeded)
+			{
+				std::string command = "diff -u " + std_log + ' ' + ft_log + " > " + "./diffs/" + test + ".diff";
+				system("mkdir -p ./diffs");
+				system(command.c_str());
+			}
+
+#ifdef BENCH
 			double std_duration = TIME_DIFF(std_start_time, std_end_time);
 			double ft_duration = TIME_DIFF(ft_start_time, ft_end_time);
 
-			std::cout << "STD Containers took: " << std_duration << "ms" << std::endl;
-			std::cout << "FT Containers took: " << ft_duration << "ms" << std::endl;
-			std::cout << "Benchmark: " << (ft_duration > std_duration * 20.0 ? "Fail" : "Success") << std::endl;
+			bool benchmark_succeeded = !(ft_duration > std_duration * 20.0);
+			std::cout << "Benchmark: ";
+			benchmark_succeeded ? (TEST_SUCCESS) : (TEST_FAILURE);
+			if (!benchmark_succeeded)
+			{
+				std::cout << write::color::bg::blue
+						  << "Benchmark Info:" << std::endl
+						  << "STD: " << std_duration << "ms" << std::endl
+						  << "FT: " << ft_duration << "ms"
+						  << write::color::bg::reset << std::endl;
+			}
+#endif
 		}
 
 		template < class TestObject >
