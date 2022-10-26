@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 19:38:13 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/10/26 19:58:10 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/10/26 20:13:12 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 #define TEST_SUCCESS (std::cout << write::color::fg::green << "Success" << write::color::fg::reset << write::color::fg::reset << std::endl)
 #define TEST_FAILURE (std::cout << write::color::fg::red << "Failure" << write::color::fg::reset << write::color::fg::reset << std::endl)
 
+/**
+ * @brief The brain of this tester
+ * @brief Runs tests specific to Containers and Test-Cases
+ */
 namespace tester
 {
 	static const std::string file_name_prefix = "./logs/";
@@ -49,6 +53,10 @@ namespace tester
 		typedef ft_namespace::namespace_chooser::stack ft_stack;
 
 	public:
+		/**
+		 * @brief Runs a 'test' for a 'container' (std & ft)
+		 * @details Runs STD and FT at the same time, checks for differences and so on...
+		 */
 		static void run(const std::string &container, const std::string &test)
 		{
 			std::string container_upper = container;
@@ -94,6 +102,19 @@ namespace tester
 	private:
 		static const size_t _invalid_test_case = -1;
 
+		/**
+		 * @brief Runs all or specific Test Cases for specific Container
+		 * 
+		 * @tparam ContainerSTD STD Container to run
+		 * @tparam ContainerFT FT Container to run
+		 * @param test Name of the test to run
+		 * @param container Name of the Container
+		 * @param available_tests Available Tests for the Container
+		 * @param available_tests_size Size of 'available_tests' array
+		 * @param std_test_objects Pointer to 'i_base_test<>' objects of Type STD
+		 * @param ft_test_objects Pointer to 'i_base_test<>' objects of Type FT
+		 * @details For more Information about 'i_base_test' class and why pointers to Objects are used, read the Documentation in 'tests/i_base_test.hpp' and 'tests/test_objects.hpp'
+		 */
 		template < class ContainerSTD, class ContainerFT >
 		static void _run(
 				const std::string &test, const std::string &container, const std::string available_tests[],
@@ -137,13 +158,22 @@ namespace tester
 			return index;
 		}
 
+		/**
+		 * @brief Runs a single Test for the STD and FT Containers
+		 * 
+		 * @param test Name of the test to run
+		 * @param std_test_object Pointer to 'i_base_test<>' object of Type STD
+		 * @param ft_test_object Pointer to 'i_base_test<>' object of Type FT
+		 */
 		template < class ContainerSTD, class ContainerFT >
 		static void _run_test_case(
 				const std::string &test, i_base_test<ContainerSTD> *std_test_object,
 				i_base_test<ContainerFT> *ft_test_object
 		)
 		{
+
 			{
+				/* Prints a message to STDOUT with the Container-Name and the Test-Name in a nicely formatted way */
 				std::string formatted_test = test;
 				std::replace(formatted_test.begin(), formatted_test.end(), '_', ' ');
 				formatted_test = formatted_test.substr(formatted_test.find(' ') + 1);
@@ -159,6 +189,7 @@ namespace tester
 			}
 
 #ifdef BENCH
+			/* Start Time of the STD Container */
 			struct timespec std_start_time = { };
 			TIME(std_start_time);
 #endif
@@ -166,9 +197,11 @@ namespace tester
 			std::string std_log = _run_test_case(test + "_std.log", std_test_object);
 
 #ifdef BENCH
+			/* End Time of the STD Container */
 			struct timespec std_end_time = { };
 			TIME(std_end_time);
 
+			/* Start Time of the FT Container */
 			struct timespec ft_start_time = { };
 			TIME(ft_start_time);
 #endif
@@ -176,16 +209,19 @@ namespace tester
 			std::string ft_log = _run_test_case(test + "_ft.log", ft_test_object);
 
 #ifdef BENCH
+			/* End Time of the FT Container */
 			struct timespec ft_end_time = { };
 			TIME(ft_end_time);
 #endif
 
+			/* Compares both Log files and determines if the Test was successful */
 			bool test_succeeded = compare_files(std_log, ft_log);
 			std::cout << test << ": ";
 			test_succeeded ? (TEST_SUCCESS) : (TEST_FAILURE);
 
 			if (!test_succeeded)
 			{
+				/* Prints Information if the Test was not successfully (log file path, diff file path)*/
 				std::string diff_path = "./diffs/" + test + ".diff";
 				std::string command = "diff -u " + std_log + ' ' + ft_log + " > " + diff_path;
 				system("mkdir -p ./diffs");
@@ -195,14 +231,15 @@ namespace tester
 				std::string ft_log_actual_path = realpath(ft_log.c_str(), NULL);
 				std::string diff_actual_path = realpath(diff_path.c_str(), NULL);
 				std::cout << write::color::fg::blue
-						  << "Test Info:"
-						  << write::color::fg::reset << std::endl
-						  << "STD Log: " << std_log_actual_path << std::endl
-						  << "FT Log: " << ft_log_actual_path << std::endl
-						  << "Diff: " << diff_actual_path << std::endl;
+						<< "Test Info:"
+						<< write::color::fg::reset << std::endl
+						<< "STD Log: " << std_log_actual_path << std::endl
+						<< "FT Log: " << ft_log_actual_path << std::endl
+						<< "Diff: " << diff_actual_path << std::endl;
 			}
 
 #ifdef BENCH
+			/* Compares both Durations of the Containers and determines if the Benchmark was successfully */
 			double std_duration = TIME_DIFF(std_start_time, std_end_time);
 			double ft_duration = TIME_DIFF(ft_start_time, ft_end_time);
 
@@ -220,6 +257,14 @@ namespace tester
 #endif
 		}
 
+		/**
+		 * @brief Actually runs the Test Case
+		 * 
+		 * @tparam TestObject 
+		 * @param test Name of the test to run
+		 * @param test_object Object of the Test Case to run the test
+		 * @return std::string Log-File-Name
+		 */
 		template < class TestObject >
 		static std::string _run_test_case(const std::string &test, TestObject test_object)
 		{
@@ -227,6 +272,8 @@ namespace tester
 			out_file_stream ofs(test_file_name, std::ofstream::out);
 			try
 			{
+				/* Uses the pointer to the Test Object to run the specific Test */
+				/* @details For more Information read the Documentation in 'tests/test_objects.hpp' */
 				test_object->test(&ofs);
 			}
 			catch (std::exception &e)
