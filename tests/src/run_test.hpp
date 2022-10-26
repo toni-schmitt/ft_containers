@@ -32,7 +32,7 @@ namespace tester
 			{
 				std::cout << "Testing Vector" << std::endl;
 				typedef vector::test_objects<std_vector, ft_vector> vector_test_objects;
-				_run<std_vector, ft_vector>(test, available_tests::vector, available_tests::vector_size,
+				_run<std_vector, ft_vector>(test, container, available_tests::vector, available_tests::vector_size,
 											vector_test_objects::std,
 											vector_test_objects::ft);
 				return;
@@ -41,7 +41,7 @@ namespace tester
 			{
 				std::cout << "Testing Map" << std::endl;
 				typedef map::test_objects<std_map, ft_map> map_test_objects;
-				_run<std_map, ft_map>(test, available_tests::map, available_tests::map_size,
+				_run<std_map, ft_map>(test, container, available_tests::map, available_tests::map_size,
 									  map_test_objects::std,
 									  map_test_objects::ft);
 				return;
@@ -50,7 +50,7 @@ namespace tester
 			{
 				std::cout << "Testing Set" << std::endl;
 				typedef set::test_objects<std_set, ft_set> set_test_objects;
-				_run<std_set, ft_set>(test, available_tests::set, available_tests::set_size,
+				_run<std_set, ft_set>(test, container, available_tests::set, available_tests::set_size,
 									  set_test_objects::std,
 									  set_test_objects::ft);
 				return;
@@ -59,7 +59,7 @@ namespace tester
 			{
 				std::cout << "Testing Stack" << std::endl;
 				typedef stack::test_objects<std_stack, ft_stack> stack_test_objects;
-				_run<std_stack, ft_stack>(test, available_tests::stack, available_tests::stack_size,
+				_run<std_stack, ft_stack>(test, container, available_tests::stack, available_tests::stack_size,
 										  stack_test_objects::std,
 										  stack_test_objects::ft);
 				return;
@@ -72,7 +72,8 @@ namespace tester
 
 		template < class ContainerSTD, class ContainerFT >
 		static void _run(
-				const std::string &test, const std::string available_tests[], const size_t &available_tests_size,
+				const std::string &test, const std::string &container, const std::string available_tests[],
+				const size_t &available_tests_size,
 				i_base_test<ContainerSTD> *std_test_objects[], i_base_test<ContainerFT> *ft_test_objects[]
 		)
 		{
@@ -81,7 +82,7 @@ namespace tester
 				for (size_t i = 0; i < available_tests_size; ++i)
 				{
 					_run_test_case<ContainerSTD, ContainerFT>(
-							available_tests[ i ], std_test_objects[ i ], ft_test_objects[ i ]
+							'_' + container + '_' + available_tests[ i ], std_test_objects[ i ], ft_test_objects[ i ]
 					);
 				}
 			}
@@ -91,7 +92,8 @@ namespace tester
 				if (index == _invalid_test_case)
 					throw std::logic_error(test + " is an invalid Test Case");
 				_run_test_case<ContainerSTD, ContainerFT>(
-						available_tests[ index ], std_test_objects[ index ], ft_test_objects[ index ]
+						'_' + container + '_' + available_tests[ index ], std_test_objects[ index ],
+						ft_test_objects[ index ]
 				);
 			}
 		}
@@ -179,7 +181,7 @@ namespace tester
 			static std::string vector[vector_size];
 			static const int map_size = 6;
 			static std::string map[map_size];
-			static const int set_size = 6;
+			static const int set_size = 5;
 			static std::string set[set_size];
 			static const int stack_size = 3;
 			static std::string stack[stack_size];
@@ -213,7 +215,6 @@ namespace tester
 			"generic_capacity",
 			"generic_iterator",
 			"modifiers",
-			"observers",
 			"operations"
 	};
 	/* Stack */
