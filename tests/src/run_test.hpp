@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 19:38:13 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/10/26 19:38:16 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:58:10 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "tests/test_objects.hpp"
 #include <exception>
 #include <cstdlib>
+#include "config.hpp"
 
 #define BENCH
 #ifdef NO_BENCH
@@ -248,50 +249,16 @@ namespace tester
 
 		struct available_tests
 		{
-			static const int vector_size = 6;
-			static std::string vector[vector_size];
-			static const int map_size = 6;
-			static std::string map[map_size];
-			static const int set_size = 5;
-			static std::string set[set_size];
-			static const int stack_size = 3;
-			static std::string stack[stack_size];
+			static const int vector_size;
+			static std::string vector[];
+			static const int map_size;
+			static std::string map[];
+			static const int set_size;
+			static std::string set[];
+			static const int stack_size;
+			static std::string stack[];
 		};
 	};
 
-	/* Static Member Initialization */
-
-	/* Available Tests */
-	/* Vector */
-	std::string test::available_tests::vector[] = {
-			"generic_construction",
-			"generic_capacity",
-			"generic_iterator",
-			"capacity",
-			"element_access",
-			"modifiers",
-	};
-	/* Map */
-	std::string test::available_tests::map[] = {
-			"generic_construction",
-			"generic_capacity",
-			"generic_iterator",
-			"element_access",
-			"modifiers",
-			"operations"
-	};
-	/* Set */
-	std::string test::available_tests::set[] = {
-			"generic_construction",
-			"generic_capacity",
-			"generic_iterator",
-			"modifiers",
-			"operations"
-	};
-	/* Stack */
-	std::string test::available_tests::stack[] = {
-			"capacity",
-			"element_access",
-			"modifiers"
-	};
+	AVAILABLE_TESTS
 }
