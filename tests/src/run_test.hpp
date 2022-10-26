@@ -6,6 +6,7 @@
 #include "tests/out_file_stream.hpp"
 #include "tests/test_objects.hpp"
 #include <exception>
+#include <cstdlib>
 
 #define BENCH
 #ifdef NO_BENCH
@@ -173,9 +174,20 @@ namespace tester
 
 			if (!test_succeeded)
 			{
-				std::string command = "diff -u " + std_log + ' ' + ft_log + " > " + "./diffs/" + test + ".diff";
+				std::string diff_path = "./diffs/" + test + ".diff";
+				std::string command = "diff -u " + std_log + ' ' + ft_log + " > " + diff_path;
 				system("mkdir -p ./diffs");
 				system(command.c_str());
+
+				std::string std_log_actual_path = realpath(std_log.c_str(), NULL);
+				std::string ft_log_actual_path = realpath(ft_log.c_str(), NULL);
+				std::string diff_actual_path = realpath(diff_path.c_str(), NULL);
+				std::cout << write::color::fg::blue
+						  << "Test Info:"
+						  << write::color::fg::reset << std::endl
+						  << "STD Log: " << std_log_actual_path << std::endl
+						  << "FT Log: " << ft_log_actual_path << std::endl
+						  << "Diff: " << diff_actual_path << std::endl;
 			}
 
 #ifdef BENCH
@@ -187,11 +199,11 @@ namespace tester
 			benchmark_succeeded ? (TEST_SUCCESS) : (TEST_FAILURE);
 			if (!benchmark_succeeded)
 			{
-				std::cout << write::color::bg::blue
+				std::cout << write::color::fg::blue
 						  << "Benchmark Info:" << std::endl
 						  << "STD: " << std_duration << "ms" << std::endl
 						  << "FT: " << ft_duration << "ms"
-						  << write::color::bg::reset << std::endl;
+						  << write::color::fg::reset << std::endl;
 			}
 #endif
 		}
