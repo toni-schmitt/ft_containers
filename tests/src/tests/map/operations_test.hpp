@@ -21,6 +21,7 @@ namespace map
 			this->print_test_start();
 
 			this->container = FILL_CONTAINER_WITH_TEST_CASE;
+			write::container::to_file(this->container, *this->ofs);
 
 			this->_test_find(this->container);
 			this->_test_count(this->container);
@@ -89,7 +90,7 @@ namespace map
 
 			value_type *test_case = GET_TEST_CASE;
 
-			for (size_t i = 0; i < 20 && i < container.size(); ++i)
+			for (size_t i = 0; i < 10 && i < container.size(); ++i)
 			{
 				TRY_CATCH_WRITE(
 						(*this->ofs) << *container.upper_bound(test_case[ i ].first) << ','
@@ -106,7 +107,7 @@ namespace map
 
 			value_type *test_case = GET_TEST_CASE;
 
-			for (size_t i = 0; i < 20 && i < container.size(); ++i)
+			for (size_t i = 0; i < 10 && i < container.size(); ++i)
 			{
 
 				TRY_CATCH_WRITE(
