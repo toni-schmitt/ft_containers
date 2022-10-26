@@ -181,7 +181,7 @@ namespace tester
 			static std::string map[map_size];
 			static const int set_size = 0;
 			static std::string set[set_size];
-			static const int stack_size = 0;
+			static const int stack_size = 3;
 			static std::string stack[stack_size];
 		};
 	};
@@ -210,5 +210,9 @@ namespace tester
 	/* Set */
 	std::string test::available_tests::set[] = { };
 	/* Stack */
-	std::string test::available_tests::stack[] = { };
+	std::string test::available_tests::stack[] = {
+			"capacity",
+			"element_access",
+			"modifiers"
+	};
 }

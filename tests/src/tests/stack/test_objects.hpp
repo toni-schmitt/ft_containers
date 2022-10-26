@@ -1,5 +1,8 @@
 #pragma once
 
+#include "capacity_test.hpp"
+#include "element_access_test.hpp"
+#include "modifiers_test.hpp"
 #include "../i_base_test.hpp"
 
 namespace stack
@@ -12,7 +15,17 @@ namespace stack
 	};
 
 	template < class ContainerSTD, class ContainerFT >
-	i_base_test<ContainerSTD> *test_objects<ContainerSTD, ContainerFT>::std[] = { NULL };
+	i_base_test<ContainerSTD> *test_objects<ContainerSTD, ContainerFT>::std[] = {
+			new stack::capacity_test<ContainerSTD>(false),
+			new stack::element_access_test<ContainerSTD>(false),
+			new stack::modifiers_test<ContainerSTD>(false),
+			NULL
+	};
 	template < class ContainerSTD, class ContainerFT >
-	i_base_test<ContainerFT> *test_objects<ContainerSTD, ContainerFT>::ft[] = { NULL };
+	i_base_test<ContainerFT> *test_objects<ContainerSTD, ContainerFT>::ft[] = {
+			new stack::capacity_test<ContainerFT>(false),
+			new stack::element_access_test<ContainerFT>(false),
+			new stack::modifiers_test<ContainerFT>(false),
+			NULL
+	};
 }
