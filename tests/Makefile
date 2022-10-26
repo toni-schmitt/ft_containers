@@ -6,7 +6,7 @@
 #    By: tschmitt <tschmitt@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/26 19:38:06 by tschmitt          #+#    #+#              #
-#    Updated: 2022/10/26 19:38:08 by tschmitt         ###   ########.fr        #
+#    Updated: 2022/10/26 19:55:40 by tschmitt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,26 +22,28 @@ CXXFLAGS = -std=c++98 -Wall -Werror -Wextra -g
 BIN = ./containers_tester
 
 SRC_DIR = ./src
-OBJ_DIR = ./obj
+BUILD_DIR = ./build
 
 SOURCES = $(shell find $(SRC_DIR) -type f -name '*.cpp')
-OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
+OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
+DEPENDS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.d, $(SOURCES))
 
 all: $(BIN)
 
+-include $(DEPENDS)
 
 $(BIN): TYPE=-DTYPE=int
 $(BIN): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $< -o $@
 
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) $(BENCH) $(TYPE) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -MMD -MP $(INCFLAGS) $(BENCH) $(TYPE) -c $< -o $@
 
 clean:
 	$(RM) $(OBJECTS)
-	$(RM) -r $(OBJ_DIR)
+	$(RM) -r $(BUILD_DIR)
 
 fclean: clean
 	$(RM) $(BIN)
