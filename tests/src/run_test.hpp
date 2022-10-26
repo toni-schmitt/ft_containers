@@ -15,7 +15,7 @@
 #define TIME(x) clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &(x));
 #define TIME_DIFF(start, end) (1000.0 * (end).tv_sec + 1e-6 * (end).tv_nsec - (1000.0 * (start).tv_sec + 1e-6 * (start).tv_nsec));
 
-#define TEST_HEADER(x) (std::cout << std::endl << write::color::fg::blue << (x) << write::color::fg::reset << std::endl);
+#define TEST_HEADER(x) (std::cout << std::endl << write::color::bg::blue << write::color::fg::black << (x) << write::color::bg::reset << write::color::fg::reset << std::endl);
 #define TEST_SUCCESS (std::cout << write::color::bg::green << write::color::fg::black << "Success" << write::color::bg::reset << write::color::fg::reset << std::endl)
 #define TEST_FAILURE (std::cout << write::color::bg::red << write::color::fg::black << "Failure" << write::color::bg::reset << write::color::fg::reset << std::endl)
 
@@ -37,9 +37,13 @@ namespace tester
 	public:
 		static void run(const std::string &container, const std::string &test)
 		{
+			std::string container_upper = container;
+			std::transform(container_upper.begin(), container_upper.end(), container_upper.begin(), ::toupper);
+			std::string spaces = std::string(container_upper.length(), ' ');
+
+			TEST_HEADER(spaces + container_upper + spaces)
 			if (container == "vector")
 			{
-				TEST_HEADER("VECTOR")
 				typedef vector::test_objects<std_vector, ft_vector> vector_test_objects;
 				_run<std_vector, ft_vector>(test, container, available_tests::vector, available_tests::vector_size,
 											vector_test_objects::std,
@@ -48,8 +52,6 @@ namespace tester
 			}
 			if (container == "map")
 			{
-				TEST_HEADER("MAP")
-				std::cout << "Testing Map" << std::endl;
 				typedef map::test_objects<std_map, ft_map> map_test_objects;
 				_run<std_map, ft_map>(test, container, available_tests::map, available_tests::map_size,
 									  map_test_objects::std,
@@ -58,7 +60,6 @@ namespace tester
 			}
 			if (container == "set")
 			{
-				TEST_HEADER("SET")
 				typedef set::test_objects<std_set, ft_set> set_test_objects;
 				_run<std_set, ft_set>(test, container, available_tests::set, available_tests::set_size,
 									  set_test_objects::std,
@@ -67,7 +68,6 @@ namespace tester
 			}
 			if (container == "stack")
 			{
-				TEST_HEADER("STACK")
 				typedef stack::test_objects<std_stack, ft_stack> stack_test_objects;
 				_run<std_stack, ft_stack>(test, container, available_tests::stack, available_tests::stack_size,
 										  stack_test_objects::std,
@@ -129,8 +129,21 @@ namespace tester
 				i_base_test<ContainerFT> *ft_test_object
 		)
 		{
-			std::cout << std::endl << write::color::fg::blue << "Testing " << test << write::color::fg::reset
-					  << std::endl;
+			{
+				std::string formatted_test = test;
+				std::replace(formatted_test.begin(), formatted_test.end(), '_', ' ');
+				formatted_test = formatted_test.substr(formatted_test.find(' ') + 1);
+				std::string container = formatted_test.substr(0, formatted_test.find(' '));
+				std::transform(container.begin(), container.end(), container.begin(), ::toupper);
+				formatted_test = formatted_test.substr(formatted_test.find(' ') + 1);
+				std::cout << std::endl
+						  << write::color::fg::blue
+						  << "Testing "
+						  << write::color::bg::blue << write::color::fg::black
+						  << container << ' ' << formatted_test
+						  << write::color::fg::reset << write::color::bg::reset
+						  << std::endl;
+			}
 
 #ifdef BENCH
 			struct timespec std_start_time = { };
