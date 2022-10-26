@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 19:38:17 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/10/26 19:38:18 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:42:03 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 			tester::test::run("set", "all");
 			tester::test::run("stack", "all");
 			break;
-		case 2: // Run single Container / Run single Test (for all Containers)
+		case 2: // Run single Container
 			tester::test::run(argv[ 1 ], "all");
 			break;
 		case 3: // Run single Test for Container
