@@ -20,7 +20,7 @@
  * 	 Simply add the Test (as a string) in the string array and change the size
  * @details The single Strings are checked against the command line arguments to know if the provided Test exists
  * @example './containers_tester "[Container]" "generic_construction"' would be a valid Test (for Vector, Map and Set)
- * 			'./containers_tester "stack" "operations"' would be an invalid Test
+ * @example './containers_tester "stack" "operations"' would be an invalid Test
  */
 #define AVAILABLE_TESTS \
     /* Static Member Initialization */ \

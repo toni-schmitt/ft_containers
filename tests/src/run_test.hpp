@@ -231,11 +231,11 @@ namespace tester
 				std::string ft_log_actual_path = realpath(ft_log.c_str(), NULL);
 				std::string diff_actual_path = realpath(diff_path.c_str(), NULL);
 				std::cout << write::color::fg::blue
-						<< "Test Info:"
-						<< write::color::fg::reset << std::endl
-						<< "STD Log: " << std_log_actual_path << std::endl
-						<< "FT Log: " << ft_log_actual_path << std::endl
-						<< "Diff: " << diff_actual_path << std::endl;
+						  << "Test Info:"
+						  << write::color::fg::reset << std::endl
+						  << "STD Log: " << std_log_actual_path << std::endl
+						  << "FT Log: " << ft_log_actual_path << std::endl
+						  << "Diff: " << diff_actual_path << std::endl;
 			}
 
 #ifdef BENCH
@@ -307,5 +307,6 @@ namespace tester
 		};
 	};
 
+	/* Defined in 'config.hpp' */
 	AVAILABLE_TESTS
 }

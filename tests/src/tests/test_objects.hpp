@@ -12,6 +12,12 @@
 
 #pragma once
 
+/**
+ * Includes all Test Objects of all Container-Tests
+ * @details Test Objects are used by tester::test::_run to access i_base_test's function 'test' which runs the Test Case
+ * @details Test Objects are used to make this Tester Modular and easily add or remove specific Test Cases
+ */
+
 #include "generic/test_objects.hpp"
 #include "vector/test_objects.hpp"
 #include "map/test_objects.hpp"

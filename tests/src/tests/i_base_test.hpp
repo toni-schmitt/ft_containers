@@ -14,10 +14,18 @@
 
 #include "out_file_stream.hpp"
 
+/**
+ * @brief Abstract Class 'i_base_test' that defines the basic Structure of every Test used in this Tester
+ * @tparam Container Container to use in the Test
+ */
 template < class Container >
 class i_base_test
 {
 public:
+	/**
+	 * @brief Runs the test
+	 * @param ofs out_file_stream (wrapper to std::ofstream) to write the output to
+	 */
 	virtual void test(out_file_stream *ofs) = 0;
 
 	virtual ~i_base_test() { delete this->ofs; }
