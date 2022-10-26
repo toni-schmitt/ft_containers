@@ -1,6 +1,23 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: tschmitt <tschmitt@student.42heilbronn.de> +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/10/26 19:38:06 by tschmitt          #+#    #+#              #
+#    Updated: 2022/10/26 19:38:08 by tschmitt         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+
+##################################################
+# Configure this to your ft_containers Directory #
+	INCFLAGS=-I../ft_containers/
+##################################################
+
 CXX = c++
 CXXFLAGS = -std=c++98 -Wall -Werror -Wextra -g
-INCFLAGS=-I../ft_containers/
 
 BIN = ./containers_tester
 
@@ -40,9 +57,10 @@ test: all
 
 help:
 	@printf "Usage:\n"
-	@printf "\t'make test':\t\t\tRun all Tests\n"
-	@printf "\t'make test C=[Container]':\tRun Test for specific Container\n"
-	@printf "\t'make no_bench':\t\tRun all Tests without Benchmark\n"
+	@printf "\t'make test':\t\t\t\tRun all Tests\n"
+	@printf "\t'make test C=[Container]':\t\tRun Test for specific Container\n"
+	@printf "\t'make test C=[Container] T=[Test]':\tRun specific Test for specific Container\n"
+	@printf "\t'make no_bench':\t\t\tRun all Tests without Benchmark\n"
 
 vector: C=vector
 vector: test

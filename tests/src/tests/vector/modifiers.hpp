@@ -1,7 +1,18 @@
-#include "../../utility/test_cases.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   modifiers.hpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tschmitt <tschmitt@student.42heilbronn.de> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/26 19:40:04 by tschmitt          #+#    #+#             */
+/*   Updated: 2022/10/26 19:40:05 by tschmitt         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #pragma once
 
+#include "../../utility/test_cases.hpp"
 #include "../i_base_test.hpp"
 #include "../../utility/write.hpp"
 
