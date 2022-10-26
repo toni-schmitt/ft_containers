@@ -6,7 +6,7 @@
 /*   By: tschmitt <tschmitt@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 19:38:29 by tschmitt          #+#    #+#             */
-/*   Updated: 2022/10/26 19:38:31 by tschmitt         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:54:06 by tschmitt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 #include <map>
 #include <set>
 #include <stack>
-#include "../../../ft_containers/vector.hpp"
-#include "../../../ft_containers/map.hpp"
-#include "../../../ft_containers/set.hpp"
-#include "../../../ft_containers/stack.hpp"
+#include "vector.hpp"
+#include "map.hpp"
+#include "set.hpp"
+#include "stack.hpp"
 
 
 template < class T1, class T2 >
