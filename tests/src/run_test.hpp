@@ -17,8 +17,8 @@
 #define TIME_DIFF(start, end) (1000.0 * (end).tv_sec + 1e-6 * (end).tv_nsec - (1000.0 * (start).tv_sec + 1e-6 * (start).tv_nsec));
 
 #define TEST_HEADER(x) (std::cout << std::endl << write::color::bg::blue << write::color::fg::black << (x) << write::color::bg::reset << write::color::fg::reset << std::endl);
-#define TEST_SUCCESS (std::cout << write::color::bg::green << write::color::fg::black << "Success" << write::color::bg::reset << write::color::fg::reset << std::endl)
-#define TEST_FAILURE (std::cout << write::color::bg::red << write::color::fg::black << "Failure" << write::color::bg::reset << write::color::fg::reset << std::endl)
+#define TEST_SUCCESS (std::cout << write::color::fg::green << "Success" << write::color::fg::reset << write::color::fg::reset << std::endl)
+#define TEST_FAILURE (std::cout << write::color::fg::red << "Failure" << write::color::fg::reset << write::color::fg::reset << std::endl)
 
 namespace tester
 {
@@ -140,9 +140,8 @@ namespace tester
 				std::cout << std::endl
 						  << write::color::fg::blue
 						  << "Testing "
-						  << write::color::bg::blue << write::color::fg::black
 						  << container << ' ' << formatted_test
-						  << write::color::fg::reset << write::color::bg::reset
+						  << write::color::fg::reset
 						  << std::endl;
 			}
 
