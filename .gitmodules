@@ -1,0 +1,3 @@
+[submodule "ft_containers-modular-tester"]
+	path = ft_containers-modular-tester
+	url = https://github.com/toni-schmitt/ft_containers-modular-tester.git
